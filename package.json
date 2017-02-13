@@ -1,7 +1,7 @@
 {
   "name": "Adagio",
   "version": "1.0.0",
-  "description": "Full-stack music streaming service web application as the final project for App Academy Winter 2016 NYC.",
+  "description": "Full-stack music streaming web application, built with Ruby on Rails and React/Redux as the final project for App Academy Winter 2016 NYC.",
   "main": "adagio.jsx",
   "directories": {
     "test": "test",
@@ -11,6 +11,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Christopher Pineda <pineda.chrisopher@gmail.com>",
+  "author": "Christopher Pineda <pineda.christopher@gmail.com>",
   "license": "ISC"
 }
