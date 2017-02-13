@@ -64,4 +64,4 @@ playlist_id|integer|presence, foreign key
 user_id|integer|presence, foreign key
 
 
-* All foreign keys should be indexed
+**All foreign keys should be indexed**
