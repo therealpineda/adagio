@@ -16,8 +16,8 @@ Adagio is a music streaming web application inspired by Spotify, and built with 
 - [ ] Feature 2: Playlist sharing
 - [ ] Feature 3: Continuous play while navigating site
 - [ ] Feature 4: Following/Friending
-- [ ] (Bonus) Feature 5: Radio (shuffle play)
-- [ ] (Bonus) Feature 6: Explore Page
+- [ ] Bonus Feature: Radio (shuffle play)
+- [ ] Bonus Feature: Explore Page
 
 ##### Requirements for all Features:
 - Adequate styling
@@ -31,11 +31,11 @@ Adagio is a music streaming web application inspired by Spotify, and built with 
 * [Database schema][schema]
 * [Sample state][sample-state]
 
-[wireframes]: docs/wireframes
-[components]: docs/component-hierarchy.md
-[sample-state]: docs/sample-state.md
-[api-endpoints]: docs/api-endpoints.md
-[schema]: docs/schema.md
+[wireframes]: ./wireframes
+[components]: ./component-hierarchy.md
+[sample-state]: ./sample-state.md
+[api-endpoints]: ./api-endpoints.md
+[schema]: ./schema.md
 
 #### Development Timeline
 ##### Phase 1: Backend setup and user authentication (2 days)
