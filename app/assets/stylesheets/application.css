@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+
+.comp {
+  border: 1px solid black;
+  margin: 3px;
+  padding: 3px;
+}
+
+.comp h6 {
+  font-size: 12px;
+  color: blue;
+}
