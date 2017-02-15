@@ -12,16 +12,21 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+.DS_Store
 
 # Ignore Byebug command history file.
 .byebug_history
+
+npm-debug.log
 
 node_modules/
 bundle.js
 bundle.js.map
 
-.DS_Store
 
-npm-debug.log
 
+# Ignore application configuration
+/config/application.yml
+
+# Dev notes
 scratch.txt

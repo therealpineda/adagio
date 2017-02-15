@@ -25,23 +25,22 @@ class LogIn extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.login(this.state).then( () => {
-      this.props.router.push('/browse');
+      this.props.router.push('/');
     });
   }
 
   guestLogIn(e) {
     e.preventDefault();
     this.props.login({username: 'test_user', password: 'password'}).then( () => {
-      this.props.router.push('/browse');
+      this.props.router.push('/');
     });
   }
 
   render() {
     return (
-      <div id='login' className='comp'>
-        <h6>LogIn</h6>
+      <div id='login' className='comp-d'>
           <div className='welcome-logo-sm'>
-          <img src="http://localhost:3000/assets/logo-60cd3bce04d4fdf3237d6aeff76527366ec71368dc71cad1a867f157213f551a.png" />
+          <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
           <h4>Adagio</h4>
           </div>
         <LogInErrors errors={this.props.errors} />
@@ -63,7 +62,7 @@ class LogIn extends React.Component {
             Password
           </label>
             <br /><input
-              type="text"
+              type="password"
               placeholder="Password"
               onChange={ this.update('password') }
               value={this.state.password} />

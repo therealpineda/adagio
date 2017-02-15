@@ -14,8 +14,11 @@
  *= require_self
  */
 
-#root {
- height: 100vh;
+body {
+  background-color: #1c1c1f;
+  font-family: 'Montserrat', 'Helvetica', sans-serif;
+  font-weight: 300;
+  color: #FFFFFF;
 }
 
 .comp {
@@ -37,6 +40,7 @@ button {
   letter-spacing: .03em;
   color: white;
   text-transform: uppercase;
+  margin: 8px auto;
 }
 
 .green-big-btn {

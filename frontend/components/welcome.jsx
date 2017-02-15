@@ -27,7 +27,7 @@ class Welcome extends React.Component {
     let sideForm = (
       <div id='welcome-buttons'>
         <div id='welcome-logo'>
-        <img src="http://localhost:3000/assets/logo-60cd3bce04d4fdf3237d6aeff76527366ec71368dc71cad1a867f157213f551a.png" />
+        <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
         <p>Adagio</p>
         </div>
         <button className="green-big-btn" onClick={ this._logIn }>Log In</button>
@@ -47,7 +47,7 @@ class Welcome extends React.Component {
       sideLink = <p>Already have an account? <a onClick={this._logIn}>Log in here</a>.</p>
     }
     return (
-      <div id='welcome-background' className="comp">
+      <div id='welcome-background' className="comp-d">
       <div id='welcome'>
         <div id='side-form'>
             { sideForm }

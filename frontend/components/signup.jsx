@@ -2,7 +2,7 @@ import React from 'react';
 import { signup } from '../actions/session_actions';
 import { connect } from 'react-redux';
 import SignUpErrors from './signup_errors';
-import { Link } from 'react-router';
+import { Link, withRouter } from 'react-router';
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -26,15 +26,16 @@ class SignUp extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.signup(this.state);
+    this.props.signup(this.state).then( () => {
+      this.props.router.push('/');
+    });
   }
 
   render() {
     return (
-      <div id='login' className='comp'>
-        <h6>SignUp</h6>
+      <div id='signup' className='comp-d'>
           <div className='welcome-logo-sm'>
-          <img src="http://localhost:3000/assets/logo-60cd3bce04d4fdf3237d6aeff76527366ec71368dc71cad1a867f157213f551a.png" />
+          <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
           <h4>Adagio</h4>
           </div>
         <h3>Create your free Adagio account</h3>
@@ -84,7 +85,7 @@ class SignUp extends React.Component {
             Password:
           </label>
             <br /><input
-              type="text"
+              type="password"
               placeholder="Choose a password"
               onChange={ this.update('password') }
               value={this.state.password} />
@@ -108,4 +109,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignUp));

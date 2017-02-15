@@ -15,13 +15,13 @@ class Root extends React.Component {
 
   _redirectIfLoggedIn() {
     if (this.props.store.getState().session.currentUser.username) {
-      hashHistory.replace('/main');
+      hashHistory.replace('/');
     }
   }
 
   _redirectUnlessLoggedIn() {
     if (!this.props.store.getState().session.currentUser.username) {
-      hashHistory.replace('/');
+      hashHistory.replace('/welcome');
     }
   }
 
@@ -30,10 +30,10 @@ class Root extends React.Component {
       <Provider store={this.props.store}>
         <Router history={hashHistory}>
           <Route path="/" component={App} >
-            <IndexRoute component={Welcome} onEnter={this._redirectIfLoggedIn}/>
-            <Route path="main" component={Main} onEnter={this._redirectUnlessLoggedIn}>
+            <Route path="welcome" component={Welcome} onEnter={this._redirectIfLoggedIn}/>
+            <IndexRoute component={Main} onEnter={this._redirectUnlessLoggedIn}>
               <Route path="browse" component={Browse} />
-            </Route>
+            </IndexRoute>
           </Route>
         </Router>
       </Provider>

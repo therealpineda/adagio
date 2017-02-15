@@ -11,7 +11,7 @@ class CurrentUser extends React.Component {
 
   _logOut() {
     this.props.logout().then( () => {
-      this.props.router.replace('/');
+      this.props.router.replace('/welcome');
     })
   }
 
@@ -19,7 +19,7 @@ class CurrentUser extends React.Component {
   let userInfo = <p>Not logged in.</p>;
   if (this.props.currentUser.username) {
     userInfo = (
-      <p>{this.props.currentUser.first_name} {this.props.currentUser.last_name} 
+      <p>{this.props.currentUser.first_name} {this.props.currentUser.last_name}
       <button
         className="log-out-btn"
         onClick={this._logOut}>Log Out</button></p>
