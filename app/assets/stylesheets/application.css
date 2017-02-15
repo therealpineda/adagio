@@ -14,8 +14,12 @@
  *= require_self
  */
 
+#root {
+ height: 100vh;
+}
+
 .comp {
-  border: 1px solid black;
+  border: 1px solid blue;
   margin: 3px;
   padding: 3px;
 }
@@ -23,4 +27,42 @@
 .comp h6 {
   font-size: 12px;
   color: blue;
+}
+
+button {
+  width: 320px;
+  height: 41px;
+  border-radius: 256px;
+  font-size: 13px;
+  letter-spacing: .03em;
+  color: white;
+  text-transform: uppercase;
+}
+
+.green-big-btn {
+  background-color: #07d159;
+  border-color: #07d159;
+}
+
+.clear-big-btn {
+  border: 1.5px solid white;
+  background: transparent;
+
+}
+
+.log-out-btn {
+  width: 100px;
+}
+
+#main {
+  display: flex;
+  justify-content: space-around;
+}
+
+#nav {
+  width: 90px;
+}
+
+#now-playing {
+  width: 250px;
 }

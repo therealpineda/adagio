@@ -9,7 +9,7 @@ class Api::SessionsController < ApplicationController
       log_in!(@user)
       render 'api/users/show'
     else
-      render json: { source: 'Invalid username or password.' }, status: 422
+      render json: { Invalid: ['username or password.'] }, status: 422
     end
   end
 
@@ -18,7 +18,7 @@ class Api::SessionsController < ApplicationController
       log_out!
       render json: {}
     else
-      render json: { source: 'Not logged in.' }, status: 404
+      render json: { source: ['Not logged in.'] }, status: 404
     end
   end
 end

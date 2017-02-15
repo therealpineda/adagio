@@ -1,0 +1,158 @@
+#welcome {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 900px;
+  height: 900vh;
+  margin: 20px auto;
+  padding: 5px;
+
+  font-family: 'Montserrat', 'Helvetica', sans-serif;
+  font-size: 14px;
+  color: #FFFFFF;
+
+}
+
+#side-form {
+  width: 400px;
+  text-align: center;
+  border-right: 1.5px solid white;
+}
+
+#side-form h3 {
+  font-size: 23px;
+}
+
+
+#side-form p {
+  font-size: .8em;
+}
+
+#welcome-logo {
+  height: 70px;
+  margin-top: 140px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+#welcome-logo img {
+  width: 70px;
+  margin-right: 5px;
+}
+
+#welcome-logo p {
+  font-size: 3.3em;
+  font-weight: 500;
+  line-height: 73px;
+}
+
+#welcome-buttons button {
+  margin-bottom: 8px;
+}
+
+#landing-page {
+  width: 540px;
+  padding-left: 30px;
+}
+
+#landing-page h1 {
+  margin-top: 140px;
+  color: #07d159;
+  font-weight: 400;
+  font-size: 49px;
+}
+
+#landing-page h2 {
+  margin-top: 25px;
+  font-weight: 100;
+  font-size: 28px;
+}
+
+#landing-list {
+  font-size: 1.25em;
+  margin-top: 30px;
+}
+
+.landing-list-item {
+  display: flex;
+}
+
+.landing-list-item i {
+  color: #07d159;
+  font-size: 1.3em;
+  font-weight: 100;
+}
+
+.landing-list-check {
+  margin-right: 10px;
+}
+
+.welcome-logo-sm {
+  height: 35px;
+  margin-bottom: 10px;
+  margin-left: -5px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.welcome-logo-sm img {
+  width: 35px;
+  margin-right: 5px;
+}
+
+.welcome-logo-sm h4 {
+  font-size: 1.6em;
+  font-weight: 500;
+  line-height: 37px;
+}
+
+#login-errors li {
+  color: red;
+  font-size: .8em;
+}
+
+#signup-errors li {
+  color: red;
+  font-size: .8em;
+}
+
+.inputs-labels {
+  width: 90%;
+  text-align: left;
+  margin: 15px auto;
+}
+
+.inputs-labels label {
+  color: #a0a0a0;
+  font-size: .95em;
+  margin-top: 15px;
+}
+
+.inputs-labels input {
+  width: 100%;
+  border-bottom: 1px solid #fff;
+  margin: 10px 0;
+  padding-bottom: 8px;
+  background-color: transparent;
+  color: #FFFFFF;
+  font-weight: 400;
+}
+
+.inputs-labels input:focus {
+    color: #FFFFFF;
+}
+
+::-webkit-input-placeholder {
+  color: #FFFFFF;
+}
+
+#welcome-background {
+  /*background-color: black;*/
+  height: 100vh;
+
+  background: url() no-repeat center center fixed;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),  url('http://localhost:3000/assets/welcome_bg-d04bde75bcdf2716c2219dbfbb11effcac14205ff59aea6b2846e8a5c2872e5f.jpg');
+}

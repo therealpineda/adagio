@@ -1,27 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../actions/session_actions';
-import { Link } from 'react-router';
+import { Link, withRouter } from 'react-router';
 
 class CurrentUser extends React.Component {
+  constructor() {
+    super();
+    this._logOut = this._logOut.bind(this);
+  }
+
+  _logOut() {
+    this.props.logout().then( () => {
+      this.props.router.replace('/');
+    })
+  }
+
   render() {
-    if (this.props.currentUser) {
-      return (
-        <div id='user-box' className="comp">
-          <h6>CurrentUser</h6>
-          <p>Welcome {this.props.currentUser}</p>
-          <button onClick={this.props.logout}>Log Out</button>
-        </div>
-      );
-    } else {
-      return (
-        <div id='user-box' className="comp">
-          <h6>CurrentUser</h6>
-          <p>Not logged in.</p>
-          <p><Link to='/login'>Log In</Link> | <Link to='/signup'>Sign Up</Link></p>
-        </div>
-      );
-    }
+  let userInfo = <p>Not logged in.</p>;
+  if (this.props.currentUser.username) {
+    userInfo = (
+      <p>{this.props.currentUser.first_name} {this.props.currentUser.last_name} 
+      <button
+        className="log-out-btn"
+        onClick={this._logOut}>Log Out</button></p>
+    )
+  }
+    return (
+      <div id='user-box' className="comp">
+        <h6>CurrentUser</h6>
+        { userInfo }
+      </div>
+    );
   }
 };
 
@@ -37,4 +46,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CurrentUser);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CurrentUser));

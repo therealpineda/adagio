@@ -1,10 +1,17 @@
-html, body, h1, h2, h3, h4, h5, h6, div, p, ul, li, a {
+html, body, h1, h2, h3, h4, h5, h6, div, p, ul, li, a, label, input {
   margin: 0;
   padding: 0;
   border: 0;
 
   font: inherit;
 
+  outline: none;
+
   list-style: none;
   box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+  height: auto;
 }

@@ -3,7 +3,7 @@ TODO: [Heroku link][heroku]
 
 [Trello link][trello]
 
-[heroku]: http://www.heroku.com/
+[heroku]: https://adagio-aa.herokuapp.com/
 [trello]: https://trello.com/b/d6rAbkUK/adagio
 
 #### Minimum Viable Product

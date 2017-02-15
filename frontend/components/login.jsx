@@ -2,6 +2,7 @@ import React from 'react';
 import { login } from '../actions/session_actions';
 import { connect } from 'react-redux';
 import LogInErrors from './login_errors';
+import { withRouter } from 'react-router';
 
 class LogIn extends React.Component {
   constructor(props) {
@@ -23,40 +24,51 @@ class LogIn extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.login(this.state);
+    this.props.login(this.state).then( () => {
+      this.props.router.push('/browse');
+    });
   }
 
   guestLogIn(e) {
     e.preventDefault();
-    this.props.login({username: 'test_user', password: 'password'});
-    this.props.router
+    this.props.login({username: 'test_user', password: 'password'}).then( () => {
+      this.props.router.push('/browse');
+    });
   }
 
   render() {
     return (
       <div id='login' className='comp'>
         <h6>LogIn</h6>
-        <p>[LOGO]</p>
+          <div className='welcome-logo-sm'>
+          <img src="http://localhost:3000/assets/logo-60cd3bce04d4fdf3237d6aeff76527366ec71368dc71cad1a867f157213f551a.png" />
+          <h4>Adagio</h4>
+          </div>
         <LogInErrors errors={this.props.errors} />
-        <button onClick={ this.guestLogIn }>Guest Log In</button>
+        <button
+          className="green-big-btn"
+          onClick={ this.guestLogIn }>Guest Log In</button>
         <form onSubmit={ this.handleSubmit }>
+          <div className='inputs-labels'>
           <label htmlFor="username">
             Username
+          </label>
             <br /><input
+              className="input-field"
               type="text"
               placeholder="Adagio username"
               onChange={ this.update('username') }
               value={this.state.username} />
-          </label>
           <br /><label htmlFor="password">
             Password
+          </label>
             <br /><input
               type="text"
               placeholder="Password"
               onChange={ this.update('password') }
               value={this.state.password} />
-          </label>
-          <br/><button>Log In</button>
+          </div>
+          <br/><button className="clear-big-btn">Log In</button>
         </form>
       </div>
     );
@@ -75,4 +87,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogIn);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LogIn));

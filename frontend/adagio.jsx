@@ -8,11 +8,17 @@ import * as Actions from './actions/session_actions';
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const store = configureStore();
+  let store;
+  if (window.currentUser) {
+    const preloadedState = { session: { currentUser: window.currentUser, errors: [] } }
+    store = configureStore(preloadedState);
+  } else {
+    store = configureStore();
+  }
   const root = document.getElementById('root');
 
   //testing
-  window.store = store
+  window.store = store;
 
 
   render(<Root store={store} />, root)
