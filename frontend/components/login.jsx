@@ -31,7 +31,7 @@ class LogIn extends React.Component {
 
   guestLogIn(e) {
     e.preventDefault();
-    this.props.login({username: 'test_user', password: 'password'}).then( () => {
+    this.props.login({username: 'johndoe', password: 'password'}).then( () => {
       this.props.router.push('/');
     });
   }

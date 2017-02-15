@@ -1,0 +1,51 @@
+#app {
+  display: flex;
+  justify-content: space-between;
+}
+
+#app {
+  height: 100vh;
+}
+#nav {
+  width: 90px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #323438;
+  padding: 10px;
+}
+
+#nav-logo {
+  text-align: center;
+}
+
+#nav-logo img {
+  width: 45px;
+  height: 45px;
+}
+
+#user-box {
+  text-align: center;
+}
+
+#user-box p {
+  font-size: .8em;
+}
+
+#user-box button {
+  background-color: #1c1c1f;
+  border: none;
+  height: 20px;
+  width: 60px;
+  font-size: .5em;
+}
+
+#now-playing {
+  width: 250px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #323438;
+}

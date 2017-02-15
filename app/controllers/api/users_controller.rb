@@ -10,7 +10,7 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.includes(playlists: [songs: [:artist]]).find(params[:id])
     render :show
   end
 

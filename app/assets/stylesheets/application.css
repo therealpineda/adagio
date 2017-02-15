@@ -28,7 +28,7 @@ body {
 }
 
 .comp h6 {
-  font-size: 12px;
+  font-size: 10px;
   color: blue;
 }
 
@@ -52,21 +52,4 @@ button {
   border: 1.5px solid white;
   background: transparent;
 
-}
-
-.log-out-btn {
-  width: 100px;
-}
-
-#main {
-  display: flex;
-  justify-content: space-around;
-}
-
-#nav {
-  width: 90px;
-}
-
-#now-playing {
-  width: 250px;
 }

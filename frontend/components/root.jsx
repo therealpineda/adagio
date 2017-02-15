@@ -1,9 +1,8 @@
 import React from 'react';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, IndexRedirect, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import App from './app';
 import Welcome from './welcome';
-import Main from './main';
 import Browse from './browse';
 
 class Root extends React.Component {
@@ -29,11 +28,10 @@ class Root extends React.Component {
     return (
       <Provider store={this.props.store}>
         <Router history={hashHistory}>
-          <Route path="/" component={App} >
-            <Route path="welcome" component={Welcome} onEnter={this._redirectIfLoggedIn}/>
-            <IndexRoute component={Main} onEnter={this._redirectUnlessLoggedIn}>
-              <Route path="browse" component={Browse} />
-            </IndexRoute>
+          <Route path="/welcome" component={Welcome} onEnter={this._redirectIfLoggedIn}/>
+          <Route path="/" component={App} onEnter={this._redirectUnlessLoggedIn} >
+            <IndexRedirect to="browse" />
+            <Route path="browse" component={Browse} />
           </Route>
         </Router>
       </Provider>
