@@ -1,9 +1,8 @@
 import React from 'react';
 import SignUp from './signup';
 import LogIn from './login';
-import LandingForm from './landing_form';
 import { connect } from 'react-redux';
-import { receiveErrors } from "../actions/session_actions";
+import { receiveErrors } from "../../actions/session_actions";
 
 class Welcome extends React.Component {
   constructor() {
@@ -88,9 +87,7 @@ class Welcome extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-
-  };
+  return {};
 };
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { signup } from '../actions/session_actions';
+import { signup } from '../../actions/session_actions';
 import { connect } from 'react-redux';
 import SignUpErrors from './signup_errors';
 import { Link, withRouter } from 'react-router';

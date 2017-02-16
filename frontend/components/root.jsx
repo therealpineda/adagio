@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Route, IndexRedirect, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import App from './app';
-import Welcome from './welcome';
+import Welcome from './welcome/welcome';
 import Browse from './browse';
 import MyMusic from './my_music';
 
