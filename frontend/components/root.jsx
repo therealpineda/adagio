@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import App from './app';
 import Welcome from './welcome';
 import Browse from './browse';
+import MyMusic from './my_music';
 
 class Root extends React.Component {
   constructor(props) {
@@ -30,8 +31,11 @@ class Root extends React.Component {
         <Router history={hashHistory}>
           <Route path="/welcome" component={Welcome} onEnter={this._redirectIfLoggedIn}/>
           <Route path="/" component={App} onEnter={this._redirectUnlessLoggedIn} >
-            <IndexRedirect to="browse" />
+            <IndexRedirect to="my-music" />
             <Route path="browse" component={Browse} />
+            <Route path="my-music" component={MyMusic} >
+              <Route path="playlist/:playlistId" />
+            </Route>
           </Route>
         </Router>
       </Provider>

@@ -30,7 +30,7 @@ Path | Component
 
 **App**
 * NavContainer
-    * Nav {currentUser}
+    * Nav {userFullName} {logout}
 * NowPlayingContainer
     * NowPlaying {currentSong, songHistory, playQueue} {prevSong, pauseSong, playSong, nextSong, shuffleSongs, repeatOn, repeatOff, addSongToPlaylist}
 * MainWindow

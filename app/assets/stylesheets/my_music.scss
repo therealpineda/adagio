@@ -1,0 +1,97 @@
+#main-window {
+  width: 100%;
+  height: 100%;
+  min-width: 600px;
+}
+
+#my-music {
+  height: 100%;
+}
+
+#my-music nav ul {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid red;
+}
+
+#my-music nav li {
+  padding: 8px;
+  margin-right: 10px;
+}
+
+#playlist-index {
+  display: flex;
+  justify-content: flex-start;
+}
+
+#playlist-index-sidebar {
+  height: 100%;
+  width: 25%;
+  min-width: 250px;
+}
+
+#playlist-index-main {
+  width: 100%;
+  // min-width: 425px;
+}
+
+.playlist-index-item {
+  display: flex;
+  justify-content: flex-start;
+  margin: 8px 0 8px 5px;
+}
+
+/**** HELP ****/
+/* what HTML is <LINK> */
+
+.playlist-index-item p {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.playlist-index-img {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}
+
+.playlist-index-title {
+  line-height: 30px;
+  font-size: .8em;
+}
+
+/* Playlist Detail */
+
+#playlist-detail-header {
+  display: flex;
+}
+
+#playlist-detail-playlist {
+  color: #88898c;
+  font-size: 12px;
+}
+
+#playlist-detail-title {
+  line-height: 50px;
+  font-size: 48px;
+  font-weight: 100;
+}
+
+.playlist-detail-img {
+  margin-right: 10px;
+}
+
+.playlist-detail-img img {
+  height: 210px;
+  width: 210px;
+}
+
+#playlist-detail-user {
+  color: #88898c;
+  font-size: .7em;
+  padding: 5px;
+}
+
+.playlist-user-link {
+  color: white;
+}
