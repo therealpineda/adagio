@@ -67,7 +67,7 @@ class LogIn extends React.Component {
               onChange={ this.update('password') }
               value={this.state.password} />
           </div>
-          <br/><button className="clear-big-btn">Log In</button>
+          <br/><button className="clear-btn big-btn">Log In</button>
         </form>
       </div>
     );

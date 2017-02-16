@@ -90,7 +90,7 @@ class SignUp extends React.Component {
               onChange={ this.update('password') }
               value={this.state.password} />
         </div>
-          <br/><button className="clear-big-btn">Sign Up</button>
+          <br/><button className="clear-btn big-btn">Sign Up</button>
         </form>
       </div>
     );

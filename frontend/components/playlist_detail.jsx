@@ -16,12 +16,18 @@ class PlaylistDetail extends React.Component {
             <div className='playlist-detail-img'>
               <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
             </div>
-            <div id='playlist-detail-header-text'>
-              <div id='playlist-detail-playlist'>
-                <p>PLAYLIST</p>
+            <div id='playlist-detail-right'>
+              <div id='playlist-detail-text'>
+                <div id='playlist-detail-playlist'>
+                  <p>PLAYLIST</p>
+                </div>
+                <div id='playlist-detail-title'>
+                  <p>{this.props.playlist.name}</p>
+                </div>
               </div>
-              <div id='playlist-detail-title'>
-                <p>{this.props.playlist.name}</p>
+              <div id="playlist-detail-buttons">
+                <button id="playlist-detail-play-btn">Play</button>
+                <button id="playlist-detail-delete-btn">Delete</button>
               </div>
             </div>
           </div>

@@ -29,14 +29,14 @@ export const logout = () => {
   };
 };
 
-const receiveCurrentUser = (user) => {
+export const receiveCurrentUser = (user) => {
   return {
     type: RECEIVE_CURRENT_USER,
     user: user
   };
 }
 
-const receiveErrors = (errors) => {
+export const receiveErrors = (errors) => {
   return {
       type: RECEIVE_ERRORS,
       errors: errors

@@ -5,6 +5,7 @@ import { playlistsArray } from '../reducers/selectors';
 import { fetchPlaylists } from '../actions/playlist_actions';
 import PlaylistIndexItem from './playlist_index_item';
 import PlaylistDetail from './playlist_detail';
+import AddPlaylistForm from './add_playlist_form';
 
 class PlaylistIndex extends React.Component {
   constructor() {
@@ -12,16 +13,15 @@ class PlaylistIndex extends React.Component {
     this.state = {
       selectedPlaylist: null
     }
-    this._selectPlaylist = this._selectPlaylist.bind(this);
+    this._toggleAddPlaylist = this._toggleAddPlaylist.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchPlaylists(this.props.userId);
   }
 
-  _selectPlaylist(e) {
+  _toggleAddPlaylist(e) {
     e.preventDefault();
-    debugger
   }
 
   render() {
@@ -37,6 +37,18 @@ class PlaylistIndex extends React.Component {
       <div id='playlist-index' className='comp'>
           <div id='playlist-index-sidebar'>
             <ul>
+              <li
+                className='playlist-index-item add-playlist'>
+                <div className='playlist-index-new-playlist-plus'>
+                  <p>[+]</p>
+                </div>
+                <div className='playlist-index-title'>
+                  <p>New Playlist</p>
+                </div>
+                <div className="playlist-form-dropdown">
+                  <AddPlaylistForm />
+                </div>
+              </li>
               { playlistIndexItems }
             </ul>
           </div>

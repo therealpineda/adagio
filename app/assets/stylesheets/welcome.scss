@@ -1,14 +1,18 @@
+#welcome-background {
+  background: url() no-repeat center center fixed;
+  background-size: cover;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),  url('http://localhost:3000/assets/welcome_bg-d04bde75bcdf2716c2219dbfbb11effcac14205ff59aea6b2846e8a5c2872e5f.jpg');
+}
+
 #welcome {
   display: flex;
   flex-direction: row;
   justify-content: center;
   width: 900px;
   height: 900vh;
-  margin: 20px auto;
-  padding: 5px;
-
+  margin: 0 auto;
+  padding-top: 60px;
   font-size: 14px;
-
 }
 
 #side-form {
@@ -22,8 +26,14 @@
 }
 
 #side-form p {
-  font-size: .8em;
+  margin-top: 8px;
+  font-size: .85em;
 }
+
+#side-form p:hover {
+  text-decoration: underline;
+}
+
 
 #welcome-logo {
   height: 70px;
@@ -42,11 +52,18 @@
 #welcome-logo p {
   font-size: 3.3em;
   font-weight: 500;
-  line-height: 73px;
+  line-height: 53px;
+}
+
+#welcome-logo p:hover {
+  text-decoration: none;
 }
 
 #welcome-buttons button {
   margin-bottom: 8px;
+  width: 320px;
+  height: 41px;
+  color: #FFFFFF;
 }
 
 #landing-page {
@@ -90,7 +107,7 @@
 }
 
 #login {
-  margin-top: 110px;
+  margin-top: 80px;
 }
 
 .welcome-logo-sm {
@@ -118,17 +135,26 @@
   height: 20px;
   color: red;
   font-size: .8em;
-  margin: 0px auto 5px auto;
+  margin: 8px auto 5px auto;
 }
 
 #login .green-big-btn {
   margin: 10px auto;
+  width: 320px;
+  height: 41px;
+  color: #FFFFFF;
 }
 
 #signup-errors li {
   color: red;
   font-size: .8em;
+  margin: 3px auto;
 }
+
+#signup-errors li:first-of-type {
+  margin-top: 8px;
+}
+
 
 .inputs-labels {
   width: 90%;
@@ -158,10 +184,4 @@
 
 ::-webkit-input-placeholder {
   color: #FFFFFF;
-}
-
-#welcome-background {
-  background: url() no-repeat center center fixed;
-  background-size: cover;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),  url('http://localhost:3000/assets/welcome_bg-d04bde75bcdf2716c2219dbfbb11effcac14205ff59aea6b2846e8a5c2872e5f.jpg');
 }

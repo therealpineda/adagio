@@ -7,14 +7,20 @@ class SongIndexItem extends React.Component {
 
   render() {
     return (
-      <div id='song-index-item' className='comp'>
-        <h6>SongIndexItem</h6>
-        <p>{this.props.song.title}</p>
-        <p>{this.props.song.artist}</p>
-        <p>{this.props.song.album}</p>
-        <p>{this.props.song.duration}</p>
-      </div>
-
+      <tr className='song-index-item' >
+        <td>
+          <p>{this.props.song.title}</p>
+        </td>
+        <td>
+          <p>{this.props.song.artist}</p>
+        </td>
+        <td>
+          <p>{this.props.song.album}</p>
+        </td>
+        <td>
+          <p>{this.props.song.duration}</p>
+        </td>
+      </tr>
     );
   }
 }

@@ -12,17 +12,19 @@ const SessionReducer = (oldState = defaultState, action) => {
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
       newState["currentUser"] = action.user;
+      newState.errors = [];
       return  newState;
     case RECEIVE_ERRORS:
       newState.errors = [];
+      if (!Array.isArray(action.errors)) {
       const errors = JSON.parse(action.errors.responseText);
       const errorFields = Object.keys(errors);
       errorFields.forEach( (errorField) => {
         errors[errorField].forEach((error) => {
-          let message = errorField + ' ' + error;
-          newState.errors.push(message);
+          newState.errors.push(error);
         });
       });
+      }
       return newState;
     default:
       return oldState;

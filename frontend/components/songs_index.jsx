@@ -9,14 +9,27 @@ class SongsIndex extends React.Component {
   render() {
     const songIndexItems = this.props.songs.map( (song) => {
       return (
-        <SongIndexItem song={song} />
+        <SongIndexItem
+          key={song.id}
+          song={song} />
       );
     });
     return (
         <div id='songs-index' className="comp">
           <h6>SongsIndex</h6>
-          <p>Song Artist Album [C]</p>
-            { songIndexItems }
+          <table>
+            <thead className='songs-index-labels'>
+              <tr>
+                <th>Song</th>
+                <th>Artist</th>
+                <th>Album</th>
+                <th>[C]</th>
+              </tr>
+            </thead>
+            <tbody>
+              { songIndexItems }
+            </tbody>
+          </table>
         </div>
     );
   }

@@ -55,6 +55,12 @@
   margin-right: 10px;
 }
 
+.playlist-index-new-playlist-plus {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}
+
 .playlist-index-title {
   line-height: 30px;
   font-size: .8em;
@@ -70,6 +76,30 @@
   color: #88898c;
   font-size: 12px;
 }
+
+#playlist-detail-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#playlist-detail-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+#playlist-detail-buttons button {
+  height: 28px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+}
+
+#playlist-detail-play-btn {
+  background-color: #84bd00;
+}
+
 
 #playlist-detail-title {
   line-height: 50px;
@@ -94,4 +124,66 @@
 
 .playlist-user-link {
   color: white;
+}
+
+#songs-index table {
+  width: 100%;
+  border: 1px solid red;
+}
+
+.songs-index-labels th {
+  color: #88898c;
+  text-transform: uppercase;
+  font-weight: 200;
+  text-align: left;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.song-index-item {
+  font-size: 14px;
+  text-align: left;
+}
+
+.playlist-form-dropdown {
+  display: none;
+
+}
+
+.add-playlist {
+  position: relative;
+}
+
+.add-playlist:hover .playlist-form-dropdown {
+  display: block;
+  position: absolute;
+  top: -10px;
+  left: 0px;
+}
+
+.add-playlist:hover .playlist-index-title {
+  content: "";
+}
+
+#add-playlist-input {
+  height: 22px;
+  width: 130px;
+  margin-top: 5px;
+  margin-right: 5px;
+  padding: 5px;
+  font-size: 12px;
+}
+
+#add-playlist-input::-webkit-input-placeholder {
+  color: #000000;
+  padding: 5px;
+}
+
+#create-playlist-btn {
+  background-color: #84bd00;
+  width: 100px;
+  height: 28px;
+  font-size: 13px;
+  font-weight: 500;
+
 }

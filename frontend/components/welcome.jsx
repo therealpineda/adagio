@@ -1,7 +1,9 @@
 import React from 'react';
 import SignUp from './signup';
 import LogIn from './login';
-import LandingForm from './landing_form'
+import LandingForm from './landing_form';
+import { connect } from 'react-redux';
+import { receiveErrors } from "../actions/session_actions";
 
 class Welcome extends React.Component {
   constructor() {
@@ -15,11 +17,13 @@ class Welcome extends React.Component {
 
   _logIn(e) {
     e.preventDefault();
+    this.props.clearErrors();
     this.setState( { formType: 'login' } );
   }
 
   _signUp(e) {
     e.preventDefault();
+    this.props.clearErrors();
     this.setState ( {formType: 'signup' });
   }
 
@@ -27,11 +31,11 @@ class Welcome extends React.Component {
     let sideForm = (
       <div id='welcome-buttons'>
         <div id='welcome-logo'>
-        <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
-        <p>Adagio</p>
+          <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
+          <p id="logo-text">Adagio</p>
         </div>
         <button className="green-big-btn" onClick={ this._logIn }>Log In</button>
-        <button className="clear-big-btn" onClick={ this._signUp }>Sign Up</button>
+        <button className="clear-btn" onClick={ this._signUp }>Sign Up</button>
       </div>
     )
 
@@ -44,7 +48,7 @@ class Welcome extends React.Component {
     if (this.state.formType === 'login') {
       sideLink = <p>Don't have an account? <a onClick={this._signUp}>Sign up here</a>!</p>
     } else if (this.state.formType === 'signup'){
-      sideLink = <p>Already have an account? <a onClick={this._logIn}>Log in here</a>.</p>
+      sideLink = <p><a onClick={this._logIn}>Already have an account? Log in here</a>.</p>
     }
     return (
       <div id='welcome-background' className="comp-d">
@@ -83,4 +87,16 @@ class Welcome extends React.Component {
   }
 }
 
-export default Welcome;
+const mapStateToProps = (state) => {
+  return {
+
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearErrors: () => { return dispatch(receiveErrors([])); }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Welcome);

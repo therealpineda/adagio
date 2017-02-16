@@ -33,12 +33,9 @@ body {
 }
 
 button {
-  width: 320px;
-  height: 41px;
   border-radius: 256px;
   font-size: 13px;
   letter-spacing: .03em;
-  color: white;
   text-transform: uppercase;
   margin: 8px auto;
 }
@@ -48,8 +45,13 @@ button {
   border-color: #07d159;
 }
 
-.clear-big-btn {
-  border: 1.5px solid white;
+.clear-btn {
+  border: 1.5px solid #FFFFFF;
   background: transparent;
+}
 
+.big-btn {
+  width: 320px;
+  height: 41px;
+  color: #FFFFFF;
 }
