@@ -40,7 +40,7 @@ class PlaylistIndex extends React.Component {
               <li
                 className='playlist-index-item add-playlist'>
                 <div className='playlist-index-new-playlist-plus'>
-                  <p>[+]</p>
+                  <i className="fa fa-plus" aria-hidden="true"></i>
                 </div>
                 <div className='playlist-index-title'>
                   <p>New Playlist</p>

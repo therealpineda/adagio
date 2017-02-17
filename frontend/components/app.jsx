@@ -4,7 +4,7 @@ import NowPlaying from './now_playing';
 
 const App = ({children}) => {
   return (
-    <div id='app' className="comp">
+    <div id='app' className="comp-d">
       <div id='nav-sidebar'>
         <Nav />
       </div>

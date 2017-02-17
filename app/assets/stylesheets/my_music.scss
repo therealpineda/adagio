@@ -65,14 +65,19 @@
   padding: 5px 0 5px 2px;
 }
 
-/**** HELP ****/
-/* what HTML is <LINK> */
 .playlist-index-item-container {
+  height: 70px;
+  border-top: 1px solid #0F1010;
+  border-bottom: 1px solid #0F1010;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .playlist-index-item-container a {
   color: #ffffff;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .playlist-index-item-container:hover {
@@ -80,9 +85,14 @@
 }
 
 .playlist-index-new-playlist-plus {
-  height: 30px;
-  width: 30px;
+  height: 50px;
+  width: 50px;
+  padding-left: 9px;
   margin-right: 10px;
+  color: #88898c;
+  font-size: 36px;
+  text-align: center;
+  line-height: 54px;
 }
 
 .playlist-form-dropdown {
@@ -99,15 +109,28 @@
   left: 2px;
 }
 
-.playlist-index-img {
-  height: 30px;
-  width: 30px;
+.playlist-index-item-img {
+  height: 60px;
+  width: 60px;
   margin-right: 10px;
+}
+.playlist-index-item-img img {
+  height: 60px;
+  width: 60px;
 }
 
 .playlist-index-title {
-  line-height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 5px;
   font-size: .8em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-title-text {
 }
 
 
@@ -138,7 +161,7 @@
 }
 
 #playlist-detail-title p {
-  font-size: 48px;
+  font-size: 42px;
   font-weight: 100;
 }
 

@@ -17,17 +17,56 @@ class Nav extends React.Component {
 
   render() {
     return (
-      <div id='nav' className="comp">
+      <div id='nav' className="comp-d">
         <div id="nav-links">
         <div id="nav-logo">
           <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
         </div>
-          <Link to="">Search</Link>
-          <br /><Link to="">Browse</Link>
-          <br /><Link to="">Your Music</Link>
-          <br /><Link to="">Explore Playlists</Link>
+          <Link to="">
+            <div className="nav-link">
+            <div className="nav-icon">
+              <i className="fa fa-search" aria-hidden="true"></i>
+            </div>
+            <div className='nav-icon-text'>
+              <p>Search</p>
+            </div>
+            </div>
+          </Link>
+
+          <Link to="">
+            <div className="nav-link testing3">
+            <div className="nav-icon">
+              <i className="fa fa-qrcode" aria-hidden="true"></i>
+            </div>
+            <div className='nav-icon-text'>
+              <p>Browse</p>
+            </div>
+            </div>
+          </Link>
+
+          <Link to="">
+            <div className="nav-link active-link">
+            <div className="nav-icon">
+              <i className="fa fa-podcast" aria-hidden="true"></i>
+            </div>
+            <div className='nav-icon-text'>
+              <p>Your Music</p>
+            </div>
+            </div>
+          </Link>
+          <Link to="">
+            <div className="nav-link">
+            <div className="nav-icon">
+              <i className="fa fa-users" aria-hidden="true"></i>
+            </div>
+            <div className='nav-icon-text'>
+              <p>Explore Playlists</p>
+            </div>
+            </div>
+          </Link>
         </div>
         <div id='user-box'>
+          <i className="fa fa-user-circle-o" aria-hidden="true"></i>
           <p>{this.props.userFullName}</p>
           <button
             onClick={this._logOut}>Log Out</button>

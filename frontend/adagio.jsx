@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   render(<Root store={store} />, root)
+
 });
 
 
