@@ -15,5 +15,6 @@ json.songs do
     json.album song.album.title
     json.image song.album.image_url
     json.duration Time.at(song.duration).utc.strftime("%-M:%S")
+    json.url song.audio_url
   end
 end

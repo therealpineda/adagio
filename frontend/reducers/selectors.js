@@ -7,3 +7,7 @@ export const playlistsArray = (playlists) => {
   });
   return array;
 }
+
+export const currentSong = (playQueue) => {
+  return playQueue[0];
+}

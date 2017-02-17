@@ -1,11 +1,9 @@
 import React from 'react';
-import arrayFindIndex from 'array-find-index';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { currentSong } from '../reducers/selectors';
 import { nextSong } from '../actions/play_queue_actions';
 
-/* converts given number of seconds to standard time display format */
 function convertToTime (number) {
   const mins = Math.floor(number / 60);
   const secs = (number % 60).toFixed();
@@ -15,34 +13,14 @@ function convertToTime (number) {
 class AudioPlayer extends React.Component {
   constructor (props) {
     super(props);
-    /* true if the user is currently dragging the mouse
-     * to seek a new track position
-     */
     this.seekInProgress = false;
-    // index matching requested track (whether track has loaded or not)
-    this.currentTrackIndex = 0;
-
     this.state = {
-      /* activeTrackIndex will change to match
-       * this.currentTrackIndex once metadata has loaded
-       */
-      // indicates whether audio player should be paused
+      autoplay: false,
       paused: true,
-      /* elapsed time for current track, in seconds -
-       * DISPLAY ONLY! the actual elapsed time may
-       * not match up if we're currently seeking, since
-       * the new time is visually previewed before the
-       * audio seeks.
-       */
       displayedTime: 0
     };
-
-    // html audio element used for playback
     this.audio = null;
     this.audioProgressContainer = null;
-    /* bounding rectangle used for calculating seek
-     * position from mouse/touch coordinates
-     */
     this.audioProgressBoundingRect = null;
 
     // event listeners to add on mount and remove on unmount
@@ -57,9 +35,8 @@ class AudioPlayer extends React.Component {
     };
     this.audioStallListener = () => this.togglePause(true);
     this.audioTimeUpdateListener = () => this.handleTimeUpdate();
-    this.audioMetadataLoadedListener = () => this.setState({
-      activeTrackIndex: this.currentTrackIndex
-    });
+    this.audioMetadataLoadedListener = () => {
+    };
   }
 
   componentDidMount () {
@@ -79,19 +56,14 @@ class AudioPlayer extends React.Component {
     audio.addEventListener('stalled', this.audioStallListener);
     audio.addEventListener('timeupdate', this.audioTimeUpdateListener);
     audio.addEventListener('loadedmetadata', this.audioMetadataLoadedListener);
-    this.addMediaEventListeners(this.props.onMediaEvent);
 
     if (this.props.currentSong) {
-      this.updateSource();
+      this.updateSource(this.props.currentSong.url);
       if (this.props.autoplay) {
         const delay = this.props.autoplayDelayInSeconds || 0;
         clearTimeout(this.delayTimeout);
         this.delayTimeout = setTimeout(() => this.togglePause(false), delay * 1000);
       }
-    }
-
-    if (this.props.audioElementRef) {
-      this.props.audioElementRef(audio);
     }
   }
 
@@ -108,90 +80,38 @@ class AudioPlayer extends React.Component {
     this.audio.removeEventListener('stalled', this.audioStallListener);
     this.audio.removeEventListener('timeupdate', this.audioTimeUpdateListener);
     this.audio.removeEventListener('loadedmetadata', this.audioMetadataLoadedListener);
-    this.removeMediaEventListeners(this.props.onMediaEvent);
+
     clearTimeout(this.gapLengthTimeout);
     clearTimeout(this.delayTimeout);
 
     // pause the audio element before we unmount
     this.audio.pause();
-
-    if (this.props.audioElementRef) {
-      this.props.audioElementRef(this.audio);
-    }
   }
 
   componentWillReceiveProps (nextProps) {
-    // Update media event listeners that may have changed
-    this.removeMediaEventListeners(this.props.onMediaEvent);
-    this.addMediaEventListeners(nextProps.onMediaEvent);
-
-    const newSong = nextProps.currentSong;
-    if (!newSong) {
-      if (this.audio) {
-        this.audio.src = '';
-      }
-      return this.setState(this.defaultState);
+    if (nextProps.currentSong) {
+      this.audio.src = nextProps.currentSong.url
     }
-
-    this.updateSource();
-
-
-  }
-
-  addMediaEventListeners (mediaEvents) {
-    if (!mediaEvents) {
-      return;
-    }
-    Object.keys(mediaEvents).forEach((type) => {
-      if (typeof mediaEvents[type] !== 'function') {
-        return;
-      }
-      this.audio.addEventListener(type, mediaEvents[type]);
-    });
-  }
-
-  removeMediaEventListeners (mediaEvents) {
-    if (!mediaEvents) {
-      return;
-    }
-    Object.keys(mediaEvents).forEach((type) => {
-      if (typeof mediaEvents[type] !== 'function') {
-        return;
-      }
-      this.audio.removeEventListener(type, mediaEvents[type]);
-    });
-  }
-
-  componentDidUpdate () {
-    /* if we loaded a new playlist and reset the current track marker, we
-     * should load up the first one.
-     */
-    if (this.audio && this.currentTrackIndex === -1) {
-      this.skipToNextTrack(false);
-    }
-
-  }
-
-  togglePause (value) {
-    if (!this.audio) {
-      return;
-    }
-    const pause = typeof value === 'boolean' ? value : !this.state.paused;
-    if (pause) {
-      return this.audio.pause();
-    }
-    if (!this.props.playlist || !this.props.playlist.length) {
-      return;
-    }
-    try {
+    if (this.state.autoplay) {
       this.audio.play();
-    } catch (error) {
-      logError(error);
-      const warningMessage =
-        'Audio playback failed at ' +
-        new Date().toLocaleTimeString() +
-        '! (Perhaps autoplay is disabled in this browser.)';
-      logWarning(warningMessage);
+      this.togglePause(false);
+    };
+  }
+
+
+  togglePause (pause) {
+    if (typeof pause !== 'boolean') {
+      pause = !this.state.paused
+    } else {
+      if (this.audio.src) {
+        if (pause) {
+          this.setState({paused: true});
+          this.audio.pause();
+        } else {
+          this.setState({paused: false});
+          this.audio.play();
+        }
+      }
     }
   }
 
@@ -200,48 +120,28 @@ class AudioPlayer extends React.Component {
       return;
     }
     this.audio.pause();
-    if (!this.props.playlist || !this.props.playlist.length) {
+    if (!this.props.currentSong) {
       return;
     }
-    let i = this.currentTrackIndex + 1;
-    if (i >= this.props.playlist.length) {
-      i = 0;
-    }
-    this.currentTrackIndex = i;
     this.setState({
-      activeTrackIndex: -1,
-      displayedTime: 0
-    }, () => {
-      this.updateSource();
-      const shouldPauseOnCycle = (!this.props.cycle && i === 0);
-      const shouldPause = shouldPauseOnCycle || (typeof shouldPlay === 'boolean' ? !shouldPlay : false);
-      this.togglePause(shouldPause);
+      displayedTime: 0,
+      autoplay: true
     });
 
+    this.props.nextSong(this.props.currentSong)
   }
 
   backSkip () {
-    if (!this.props.playlist || !this.props.playlist.length) {
+    if (!this.audio) {
       return;
     }
     const audio = this.audio;
-    let stayOnBackSkipThreshold = this.props.stayOnBackSkipThreshold;
-    if (isNaN(stayOnBackSkipThreshold)) {
-      stayOnBackSkipThreshold = 5;
-    }
-    if (audio.currentTime >= stayOnBackSkipThreshold) {
-      return audio.currentTime = 0;
-    }
-    let i = this.currentTrackIndex - 1;
-    if (i < 0) {
-      i = this.props.playlist.length - 1;
-    }
-    this.currentTrackIndex = i - 1;
-    this.skipToNextTrack();
+    audio.currentTime = 0;
+    this.setState({displayedTime: 0});
   }
 
-  updateSource () {
-    this.audio.src = this.props.currentSong.url;
+  updateSource (newSource) {
+    this.audio.src = newSource;
   }
 
   fetchAudioProgressBoundingRect () {
@@ -257,7 +157,7 @@ class AudioPlayer extends React.Component {
   }
 
   adjustDisplayedTime (event) {
-    if (!this.props.playlist || !this.props.playlist.length || this.props.disableSeek) {
+    if (!this.props.currentSong) {
       return;
     }
     // make sure we don't select stuff in the background while seeking
@@ -304,16 +204,10 @@ class AudioPlayer extends React.Component {
   }
 
   render () {
-    const activeIndex = this.state.activeTrackIndex;
-    const songTitle = this.props.playlist ? (
-      activeIndex < 0 ? null : this.props.playlist[activeIndex].title
-    ) : 'Please load a playlist';
-    const songArtist = this.props.playlist ? (
-      activeIndex < 0 ? null : this.props.playlist[activeIndex].artist
-    ) : 'Please load a playlist';
-    const songImage = this.props.playlist ? (
-      activeIndex < 0 ? null : this.props.playlist[activeIndex].image
-    ) : 'Please load a playlist';
+    const currentSong = this.props.currentSong;
+    const songTitle = currentSong ? currentSong.title : null;
+    const songArtist = currentSong ? currentSong.artist : null;
+    const songImage = currentSong ? currentSong.image : null;
 
     const displayedTime = this.state.displayedTime;
     const duration = this.audio && this.audio.duration || 0;
@@ -324,6 +218,8 @@ class AudioPlayer extends React.Component {
     const progressBarWidth = `${ (displayedTime / duration) * 100 }%`;
 
     const adjustDisplayedTime = e => this.adjustDisplayedTime(e);
+
+
 
     return (
       <div
@@ -337,9 +233,7 @@ class AudioPlayer extends React.Component {
         <div className="audio_controls">
           <div
             id="skip_button"
-            className={classNames('skip_button back audio_button', {
-              'hidden': this.props.hideBackSkip
-            })}
+            className='skip_button back audio_button'
             onClick={() => this.backSkip()}
           >
             <div className="skip_button_inner">
@@ -363,9 +257,7 @@ class AudioPlayer extends React.Component {
           </div>
           <div
             id="skip_button"
-            className={classNames('skip_button audio_button', {
-              'hidden': this.props.hideForwardSkip
-            })}
+            className='skip_button audio_button'
             onClick={() => this.skipToNextTrack()}
           >
             <div className="skip_button_inner">
@@ -407,31 +299,12 @@ class AudioPlayer extends React.Component {
       </div>
     );
   }
-
 }
 
-AudioPlayer.propTypes = {
-  playlist: React.PropTypes.array,
-  autoplay: React.PropTypes.bool,
-  autoplayDelayInSeconds: React.PropTypes.number,
-  gapLengthInSeconds: React.PropTypes.number,
-  hideBackSkip: React.PropTypes.bool,
-  hideForwardSkip: React.PropTypes.bool,
-  cycle: React.PropTypes.bool,
-  disableSeek: React.PropTypes.bool,
-  stayOnBackSkipThreshold: React.PropTypes.number,
-  style: React.PropTypes.object,
-  onMediaEvent: React.PropTypes.object,
-  audioElementRef: React.PropTypes.func
-};
-
-AudioPlayer.defaultProps = {
-  cycle: true
-};
 
 const mapStateToProps = (state) => {
   return {
-    currentSong: currentSong(state.playQueue.songs)
+    currentSong: currentSong(state.playQueue)
   };
 };
 
@@ -442,51 +315,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AudioPlayer);
-
-
-/*
- * AudioPlayer
- *
- * Accepts 'playlist' prop of the form:
- *
- * [{ "url": "./path/to/file.mp3",
- *    "displayText": "ArtistA - Track 1" },
- *  { "url": "https://domain.com/track2.ogg",
- *    "displayText": "ArtistB - Track 2" }]
- *
- * Accepts 'autoplay' prop (true/[false]).
- *
- * Accepts 'autoplayDelayInSeconds' prop (default 0).
- *
- * Accepts 'gapLengthInSeconds' prop (default 0).
- * Specifies gap at end of one track before next
- * track begins (ignored for manual skip).
- *
- * Accepts 'hideBackSkip' prop (default false,
- * hides back skip button if true).
- *
- * Accepts 'hideForwardSkip' prop (default false,
- * hides forward skip button if true).
- *
- * Accepts 'disableSeek' prop (default false,
- * disables seeking through the audio if true).
- *
- * Accepts 'cycle' prop (default true,
- * starts playing at the beginning of the playlist
- * when finished if true).
- *
- * Accepts 'stayOnBackSkipThreshold' prop, default 5,
- * is number of seconds to progress until pressing back skip
- * restarts the current track.
- *
- * Accepts 'style' prop, object, is applied to
- * outermost div (React styles).
- *
- * Accepts 'onMediaEvent' prop, an object used for
- * listening to media events on the underlying audio element.
- *
- * Accepts 'audioElementRef' prop, a function called after
- * the component mounts and before it unmounts with the
- * internally-referenced HTML audio element as its only parameter.
- * Similar to: https://facebook.github.io/react/docs/refs-and-the-dom.html
- */
