@@ -18,6 +18,21 @@ class Api::PlaylistsController < ApplicationController
     render :index
   end
 
+  def update
+    @playlist = Playlist.find(params[:id])
+    if @playlist.update_attributes(playlist_params)
+      render :show
+    else
+      render json: { Name: ['can\'t be blank.'] }, status: 422
+    end
+  end
+
+  def destroy
+    @playlist = Playlist.find(params[:id])
+    @playlist.destroy
+    render :show
+  end
+
   private
 
   def playlist_params

@@ -16,6 +16,22 @@ export const addPlaylist = (playlist) => {
   };
 };
 
+export const deletePlaylist = (id) => {
+  return (dispatch) => {
+    return PlaylistApiUtil.deletePlaylist(id).then ( (playlist) => {
+        return dispatch(removePlaylist(playlist))
+    });
+  }
+};
+
+export const updatePlaylist = (playlist) => {
+  return (dispatch) => {
+    return PlaylistApiUtil.updatePlaylist(playlist).then( (playlist) => {
+      return dispatch(receivePlaylist(playlist));
+    });
+  };
+}
+
 export const RECEIVE_PLAYLISTS = 'RECEIVE_PLAYLISTS';
 
 export const receivePlaylists = (playlists) => {
@@ -30,6 +46,15 @@ export const RECEIVE_PLAYLIST = 'RECEIVE_PLAYLIST';
 export const receivePlaylist = (playlist) => {
   return {
     type: RECEIVE_PLAYLIST,
+    playlist: playlist
+  };
+}
+
+export const REMOVE_PLAYLIST = 'REMOVE_PLAYLIST';
+
+export const removePlaylist = (playlist) => {
+  return {
+    type: REMOVE_PLAYLIST,
     playlist: playlist
   };
 }

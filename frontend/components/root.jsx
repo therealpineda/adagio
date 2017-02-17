@@ -34,7 +34,7 @@ class Root extends React.Component {
             <IndexRedirect to="my-music" />
             <Route path="browse" component={Browse} />
             <Route path="my-music" component={MyMusic} >
-              <Route path="playlist/:playlistId" />
+              <Route path="playlists/:playlistId" />
             </Route>
           </Route>
         </Router>

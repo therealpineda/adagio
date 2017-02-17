@@ -6,20 +6,33 @@
 
 #my-music {
   height: 100%;
+  color: #dfe0e6;
+}
+
+#my-music main {
+  height: 100%;
 }
 
 #my-music nav ul {
   display: flex;
   flex-direction: row;
-  border: 1px solid red;
 }
 
 #my-music nav li {
   padding: 8px;
-  margin-right: 10px;
+  margin-right: 15px;
+  text-transform: uppercase;
+  color: #88898c;
+  font-size: 14px;
+  letter-spacing: 1.1px;
+}
+
+#playlist-index-container {
+  height: 100%;
 }
 
 #playlist-index {
+  height: 100%;
   display: flex;
   justify-content: flex-start;
 }
@@ -28,6 +41,7 @@
   height: 100%;
   width: 25%;
   min-width: 250px;
+  background-color: #151617;
 }
 
 #playlist-index-main {
@@ -35,27 +49,57 @@
   // min-width: 425px;
 }
 
+
+#playlist-index button {
+  height: 28px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 0;
+}
+
 .playlist-index-item {
   display: flex;
   justify-content: flex-start;
   margin: 8px 0 8px 5px;
+  padding: 5px 0 5px 2px;
 }
 
 /**** HELP ****/
 /* what HTML is <LINK> */
+.playlist-index-item-container {
+}
 
-.playlist-index-item p {
+.playlist-index-item-container a {
   color: #ffffff;
   text-decoration: none;
 }
 
-.playlist-index-img {
+.playlist-index-item-container:hover {
+  background-color: #1a1a1c;
+}
+
+.playlist-index-new-playlist-plus {
   height: 30px;
   width: 30px;
   margin-right: 10px;
 }
 
-.playlist-index-new-playlist-plus {
+.playlist-form-dropdown {
+  display: none;
+}
+
+.add-playlist {
+  position: relative;
+}
+
+.add-playlist:hover .playlist-form-dropdown {
+  display: block;
+  position: absolute;
+  left: 2px;
+}
+
+.playlist-index-img {
   height: 30px;
   width: 30px;
   margin-right: 10px;
@@ -65,6 +109,7 @@
   line-height: 30px;
   font-size: .8em;
 }
+
 
 /* Playlist Detail */
 
@@ -77,36 +122,6 @@
   font-size: 12px;
 }
 
-#playlist-detail-right {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-#playlist-detail-buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
-#playlist-detail-buttons button {
-  height: 28px;
-  font-size: 13px;
-  font-weight: 500;
-  text-align: center;
-}
-
-#playlist-detail-play-btn {
-  background-color: #84bd00;
-}
-
-
-#playlist-detail-title {
-  line-height: 50px;
-  font-size: 48px;
-  font-weight: 100;
-}
-
 .playlist-detail-img {
   margin-right: 10px;
 }
@@ -114,6 +129,43 @@
 .playlist-detail-img img {
   height: 210px;
   width: 210px;
+}
+
+#playlist-detail-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#playlist-detail-title p {
+  font-size: 48px;
+  font-weight: 100;
+}
+
+#playlist-detail-rename-btn {
+  width: 80px;
+  font-size: 13px;
+  background-color: transparent;
+  border: 1px solid #88898c;
+  color: #88898c;
+}
+
+#playlist-detail-buttons {
+  display: flex;
+}
+
+#playlist-detail-play-btn {
+  width: 180px;
+  margin-right: 10px;
+  background-color: #84bd00;
+  color: #FFFFFF;
+}
+
+#playlist-detail-delete-btn {
+  width: 150px;
+  border: 1px solid #88898c;
+  background-color: transparent;
+  color: #88898c;
 }
 
 #playlist-detail-user {
@@ -128,7 +180,6 @@
 
 #songs-index table {
   width: 100%;
-  border: 1px solid red;
 }
 
 .songs-index-labels th {
@@ -145,25 +196,16 @@
   text-align: left;
 }
 
-.playlist-form-dropdown {
+/* */
+.playlist-rename-dropdown {
   display: none;
-
 }
 
-.add-playlist {
-  position: relative;
-}
-
-.add-playlist:hover .playlist-form-dropdown {
+#rename-action:hover .playlist-rename-dropdown {
   display: block;
-  position: absolute;
-  top: -10px;
-  left: 0px;
 }
+/* */
 
-.add-playlist:hover .playlist-index-title {
-  content: "";
-}
 
 #add-playlist-input {
   height: 22px;
@@ -182,8 +224,27 @@
 #create-playlist-btn {
   background-color: #84bd00;
   width: 100px;
-  height: 28px;
-  font-size: 13px;
-  font-weight: 500;
+}
 
+#playlist-edit-form {
+  width: 400px;
+}
+
+#rename-playlist-input {
+  height: 22px;
+  width: 250px;
+  margin-top: 5px;
+  margin-right: 5px;
+  padding: 5px;
+  font-size: 12px;
+}
+
+#rename-playlist-input::-webkit-input-placeholder {
+  color: #000000;
+  padding: 5px;
+}
+
+#rename-playlist-btn {
+  background-color: #84bd00;
+  width: 100px;
 }

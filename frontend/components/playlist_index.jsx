@@ -62,7 +62,7 @@ class PlaylistIndex extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   let playlistId = null;
-  let selectedPlaylist = {};
+  let selectedPlaylist = null;
   if (ownProps.params.playlistId) {
     playlistId = ownProps.params.playlistId;
     selectedPlaylist = state.playlists[playlistId];

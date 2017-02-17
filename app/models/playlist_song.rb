@@ -11,7 +11,7 @@
 #
 
 class PlaylistSong < ApplicationRecord
-  validates :playlist_id, :song_ig, :order, presence: true
+  validates :playlist_id, :song_id, :order, presence: true
 
   belongs_to :playlist
 

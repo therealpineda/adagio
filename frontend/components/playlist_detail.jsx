@@ -1,10 +1,22 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import SongsIndex from './songs_index';
+import PlaylistEditForm from './playlist_edit_form';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import { deletePlaylist } from '../actions/playlist_actions';
+
 
 class PlaylistDetail extends React.Component {
   constructor({props}) {
     super();
+    this.deletePlaylist = this.deletePlaylist.bind(this);
+  }
+
+  deletePlaylist(e) {
+    e.preventDefault();
+    this.props.deletePlaylist(this.props.playlist.id).then( () => {
+      this.props.router.push('/my-music');
+    });
   }
 
   render() {
@@ -23,11 +35,18 @@ class PlaylistDetail extends React.Component {
                 </div>
                 <div id='playlist-detail-title'>
                   <p>{this.props.playlist.name}</p>
+                  <div id='rename-action'><button id='playlist-detail-rename-btn'>Rename</button>
+                  <div className='playlist-rename-dropdown'>
+                    <PlaylistEditForm playlist={this.props.playlist} />
+                  </div>
+                </div>
                 </div>
               </div>
               <div id="playlist-detail-buttons">
                 <button id="playlist-detail-play-btn">Play</button>
-                <button id="playlist-detail-delete-btn">Delete</button>
+                <button
+                  id="playlist-detail-delete-btn"
+                  onClick={this.deletePlaylist}>Delete</button>
               </div>
             </div>
           </div>
@@ -47,11 +66,21 @@ class PlaylistDetail extends React.Component {
       return (
         <div id='playlist-detail' className='comp'>
           <h6>PlaylistDetail</h6>
-          <p>Loading...</p>
+          <p>Choose a playlist...</p>
         </div>
       );
     }
   }
 }
 
-export default PlaylistDetail;
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deletePlaylist: (id) => { return dispatch(deletePlaylist(id)); }
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PlaylistDetail));
