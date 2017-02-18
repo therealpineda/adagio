@@ -4,12 +4,14 @@ import PlaylistEditForm from './playlist_edit_form';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { deletePlaylist } from '../actions/playlist_actions';
+import { playSongs } from '../actions/play_queue_actions';
 
 
 class PlaylistDetail extends React.Component {
   constructor({props}) {
     super();
     this.deletePlaylist = this.deletePlaylist.bind(this);
+    this.playPlaylist = this.playPlaylist.bind(this);
   }
 
   deletePlaylist(e) {
@@ -17,6 +19,11 @@ class PlaylistDetail extends React.Component {
     this.props.deletePlaylist(this.props.playlist.id).then( () => {
       this.props.router.push('/my-music');
     });
+  }
+
+  playPlaylist(e) {
+    e.preventDefault();
+    this.props.playSongs(this.props.playlist.songs);
   }
 
   render() {
@@ -43,8 +50,12 @@ class PlaylistDetail extends React.Component {
                 </div>
               </div>
               <div id="playlist-detail-buttons">
-                <button id="playlist-detail-play-btn"> <i className="fa fa-caret-right" aria-hidden="true"></i> &nbsp;
- Play</button>
+                <button
+                  id="playlist-detail-play-btn"
+                  onClick={this.playPlaylist}>
+                  <i className="fa fa-caret-right" aria-hidden="true"></i>
+                   &nbsp; Play
+               </button>
                 <button
                   id="playlist-detail-delete-btn"
                   onClick={this.deletePlaylist}>Delete</button>
@@ -80,7 +91,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    deletePlaylist: (id) => { return dispatch(deletePlaylist(id)); }
+    deletePlaylist: (id) => { return dispatch(deletePlaylist(id)); },
+    playSongs: (songs) => { return dispatch(playSongs(songs)); }
   };
 };
 

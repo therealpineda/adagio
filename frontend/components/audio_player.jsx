@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { currentSong } from '../reducers/selectors';
-import { nextSong } from '../actions/playlist_actions';
+import { nextSong, jumpQueue } from '../actions/play_queue_actions';
 
 class AudioPlayer extends React.Component {
   constructor() {
@@ -11,6 +11,8 @@ class AudioPlayer extends React.Component {
       displayDuration: "0:00"
     };
     this.playButton = this.playButton.bind(this);
+    this.backButton = this.backButton.bind(this);
+    this.nextButton = this.nextButton.bind(this);
     this.timeUpdate = this.timeUpdate.bind(this);
     this.clickPercent = this.clickPercent.bind(this);
     this.moveplayhead = this.moveplayhead.bind(this);
@@ -72,6 +74,12 @@ class AudioPlayer extends React.Component {
     this.playhead.style.width = newWidth;
   }
 
+  backButton() {
+    this.music.currentTime = 0;
+    this.playhead.style.width = 3;
+    this.timeUpdate();
+  }
+
   playButton() {
     if (this.music.paused) {
       this.music.play();
@@ -82,6 +90,14 @@ class AudioPlayer extends React.Component {
       this.pButton.className = "";
       this.pButton.className = "play";
     }
+  }
+
+  nextButton() {
+    this.props.nextSong(this.props.currentSong);
+  }
+
+  jumpQueue(amount) {
+    this.props.jumpQueue(amount);
   }
 
   _convertToTime (number) {
@@ -110,11 +126,29 @@ class AudioPlayer extends React.Component {
     let title = "-";
     let artist = "-";
     let image = "";
+    let playQueue = ""
+    let queued = this.props.queue.map((song, idx) => {
+      return (
+        <li
+          key={idx}
+          className="player-queued-song">
+          {song.title}
+        </li>
+      );
+    });
     const song = this.props.currentSong
     if (song) {
       title = song.title;
       artist = song.artist;
       image = song.image;
+      playQueue = (
+        <div id="player-queue">
+          <p id="player-queue-title">Play Queue:</p>
+          <ul>
+            {queued}
+          </ul>
+        </div>
+      );
     }
     return (
       <div id='audio-player' className='comp-d'>
@@ -141,10 +175,21 @@ class AudioPlayer extends React.Component {
           </div>
 
           <div id="player-controls">
-            <i className="fa fa-step-backward" aria-hidden="true"></i>
-            <button id="pButton" className="play" onClick={this.playButton}></button>
-              <i className="fa fa-step-forward" aria-hidden="true"></i>
+            <i
+              className="fa fa-step-backward"
+              aria-hidden="true"
+              onClick={this.backButton}></i>
+            <button
+              id="pButton"
+              className="play"
+              onClick={this.playButton}>
+            </button>
+              <i
+                className="fa fa-step-forward"
+                aria-hidden="true"
+                onClick={this.nextButton}></i>
           </div>
+          {playQueue}
       </div>
     );
   }
@@ -152,13 +197,15 @@ class AudioPlayer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentSong: currentSong(state.playQueue)
+    currentSong: currentSong(state.playQueue),
+    queue: state.playQueue
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    nextSong: (song) => { return dispatch(nextSong(song)); }
+    nextSong: (song) => { return dispatch(nextSong(song)); },
+    jumpQueue: (amount) => { return dispatch(jumpQueue(amount)); }
   };
 };
 
