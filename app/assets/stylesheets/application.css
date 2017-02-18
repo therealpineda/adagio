@@ -23,8 +23,8 @@ body {
 
 .comp {
   border: 1px solid blue;
-  margin: 3px;
-  padding: 3px;
+  margin: 2px;
+  padding: 2px;
 }
 
 .comp h6 {
@@ -34,7 +34,7 @@ body {
 
 button {
   border-radius: 256px;
-  font-size: 13px;
+  
   letter-spacing: .03em;
   text-transform: uppercase;
 }

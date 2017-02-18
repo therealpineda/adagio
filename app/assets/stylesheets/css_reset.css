@@ -4,6 +4,7 @@ html, body, h1, h2, h3, h4, h5, h6, div, p, ul, li, a, label, input, button {
   border: 0;
 
   font: inherit;
+  text-overflow: ellipsis;
 
   outline: none;
 

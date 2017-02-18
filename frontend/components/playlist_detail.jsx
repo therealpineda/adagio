@@ -22,8 +22,7 @@ class PlaylistDetail extends React.Component {
   render() {
     if (this.props.playlist) {
       return (
-        <div id='playlist-detail' className='comp'>
-          <h6>PlaylistDetail</h6>
+        <div id='playlist-detail' className='comp-d'>
           <div id='playlist-detail-header'>
             <div className='playlist-detail-img'>
               <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
@@ -35,7 +34,8 @@ class PlaylistDetail extends React.Component {
                 </div>
                 <div id='playlist-detail-title'>
                   <p>{this.props.playlist.name}</p>
-                  <div id='rename-action'><button id='playlist-detail-rename-btn'>Rename</button>
+                  <div id='rename-action'>
+                    <button id='playlist-detail-rename-btn'>Rename</button>
                   <div className='playlist-rename-dropdown'>
                     <PlaylistEditForm playlist={this.props.playlist} />
                   </div>
@@ -43,7 +43,7 @@ class PlaylistDetail extends React.Component {
                 </div>
               </div>
               <div id="playlist-detail-buttons">
-                <button id="playlist-detail-play-btn"> <i className="fa fa-caret-right" aria-hidden="true"></i>
+                <button id="playlist-detail-play-btn"> <i className="fa fa-caret-right" aria-hidden="true"></i> &nbsp;
  Play</button>
                 <button
                   id="playlist-detail-delete-btn"

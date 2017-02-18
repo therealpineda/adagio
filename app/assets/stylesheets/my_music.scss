@@ -11,10 +11,11 @@
 }
 
 #my-music main {
-  height: 100%;
+  height: calc( 100% - 44px );
 }
 
 #my-music nav ul {
+  height: 32px;
   display: flex;
   flex-direction: row;
 }
@@ -42,8 +43,6 @@
      -moz-box-shadow: 0 2px 0 0 #80AB27;
 }
 
-
-
 #playlist-index-container {
   height: 100%;
 }
@@ -63,6 +62,7 @@
 
 #playlist-index-main {
   width: 100%;
+  height: 100%;
   // min-width: 425px;
 }
 
@@ -89,16 +89,22 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-right: 6px;
+}
+
+.playlist-index-item-container:hover {
+  background-color: #1a1a1c;
+}
+
+.selected-playlist {
+  background-color: #1a1a1c;
+  border-right: 2px solid #80AB27;
 }
 
 .playlist-index-item-container a {
   color: #ffffff;
   text-decoration: none;
   cursor: pointer;
-}
-
-.playlist-index-item-container:hover {
-  background-color: #1a1a1c;
 }
 
 .playlist-index-new-playlist-plus {
@@ -144,22 +150,24 @@
   font-size: .8em;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-.playlist-title-text {
+.playlist-index-title-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
 /* Playlist Detail */
 
-#playlist-detail-header {
-  display: flex;
+#playlist-detail {
+  margin: 0 5px;
+  height: 100%;
 }
 
-#playlist-detail-playlist {
-  color: #88898c;
-  font-size: 12px;
+#playlist-detail-header {
+  display: flex;
 }
 
 .playlist-detail-img {
@@ -177,14 +185,20 @@
   justify-content: space-between;
 }
 
+#playlist-detail-playlist {
+  margin: 15px 0 8px 0;
+  color: #88898c;
+  font-size: 10px;
+}
+
 #playlist-detail-title p {
-  font-size: 42px;
+  font-size: 40px;
   font-weight: 100;
 }
 
 #playlist-detail-rename-btn {
-  width: 80px;
-  font-size: 13px;
+  width: 70px;
+  font-size: 8px;
   background-color: transparent;
   border: 1px solid #88898c;
   color: #88898c;
@@ -195,50 +209,79 @@
 }
 
 #playlist-detail-play-btn {
-  width: 180px;
+  width: 100px;
   margin-right: 10px;
   background-color: #84bd00;
   color: #FFFFFF;
 }
 
 #playlist-detail-delete-btn {
-  width: 150px;
+  width: 80px;
   border: 1px solid #88898c;
   background-color: transparent;
   color: #88898c;
 }
 
 #playlist-detail-user {
+  border-top: 1px solid #1a1a1c;
+  border-bottom: 1px solid #1a1a1c;
+  margin: 10px 0 20px 0;
+  padding: 11px 5px;
   color: #88898c;
   font-size: .7em;
-  padding: 5px;
 }
 
 .playlist-user-link {
   color: white;
 }
 
+.playlist-user-link:hover {
+  cursor: pointer;
+  border-bottom: 1px solid #FFFFFF;
+}
+
 #songs-index table {
   width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .songs-index-labels th {
   color: #88898c;
   text-transform: uppercase;
-  font-weight: 200;
+  font-weight: 300;
   text-align: left;
-  font-size: 14px;
+  font-size: 12px;
   letter-spacing: 1px;
+  padding-bottom: 8px;
 }
 
 .songs-index-labels th:last-of-type {
-  text-align: center;
-  font-size: 15px;
+  text-align: left;
+  font-size: 14px;
 }
 
 .song-index-item {
-  font-size: 14px;
+  font-size: 13px;
   text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.song-index-item td {
+  border-top: 1px solid #1a1a1c;
+  border-bottom: 1px solid #1a1a1c;
+  padding: 11px 0;
+}
+
+.song-index-item td:last-of-type {
+  color: #88898c;
+}
+
+.song-index-item:hover {
+  background-color: #1a1a1c;
 }
 
 /* */

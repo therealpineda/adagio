@@ -8,9 +8,9 @@ class AudioPlayer extends React.Component {
     super();
     this.state = {
       displayTime: "0:00",
-      displayDuration: ""
+      displayDuration: "0:00"
     };
-    this.playAudio = this.playAudio.bind(this);
+    this.playButton = this.playButton.bind(this);
     this.timeUpdate = this.timeUpdate.bind(this);
     this.clickPercent = this.clickPercent.bind(this);
     this.moveplayhead = this.moveplayhead.bind(this);
@@ -25,22 +25,26 @@ class AudioPlayer extends React.Component {
     this.music.src = nextProps.currentSong.url;
     this.pButton = document.getElementById('pButton')
     this.playhead = document.getElementById('playhead');
-    this.playhead.style.width = 3;
     this.timeline = document.getElementById('timeline');
-    this.timelineWidth = this.timeline.offsetWidth - this.playhead.offsetWidth;
+    this.timelineWidth = this.timeline.offsetWidth;
     this.music.addEventListener("canplaythrough", () => {
       this.duration = this.music.duration;
       this.setState({
         displayDuration: this._convertToTime(this.duration)
       });
+
+      this.timeline.addEventListener("click", (event) => {
+        this.moveplayhead(event);
+        this.music.currentTime = this.duration * this.clickPercent(event);
+      }, false);
+      this.music.addEventListener("timeupdate", this.timeUpdate, false);
+      this.playhead.addEventListener('mousedown', this.mouseDown, false);
+      window.addEventListener('mouseup', this.mouseUp, false);
     }, false);
-    this.music.addEventListener("timeupdate", this.timeUpdate, false);
-    this.timeline.addEventListener("click", (event) => {
-    	this.moveplayhead(event);
-    	this.music.currentTime = this.duration * this.clickPercent(event);
-    }, false);
-    this.playhead.addEventListener('mousedown', this.mouseDown, false);
-    window.addEventListener('mouseup', this.mouseUp, false);
+
+    this.pButton.className = "";
+    this.pButton.className = "pause";
+    this.music.play();
   }
 
   clickPercent(event) {
@@ -68,7 +72,7 @@ class AudioPlayer extends React.Component {
     this.playhead.style.width = newWidth;
   }
 
-  playAudio() {
+  playButton() {
     if (this.music.paused) {
       this.music.play();
       this.pButton.className = "";
@@ -103,9 +107,14 @@ class AudioPlayer extends React.Component {
   }
 
   render() {
-    let title = "Song Title";
-    if (this.props.currentSong) {
-      title = this.props.currentSong.title;
+    let title = "-";
+    let artist = "-";
+    let image = "";
+    const song = this.props.currentSong
+    if (song) {
+      title = song.title;
+      artist = song.artist;
+      image = song.image;
     }
     return (
       <div id='audio-player' className='comp-d'>
@@ -114,12 +123,12 @@ class AudioPlayer extends React.Component {
           </audio>
 
           <div id="audio-player-image">
-            <img src="https://s3.amazonaws.com/adagio-prod/images/default/album_img.jpg" />
+            <img src={image} />
           </div>
 
           <div id="player-song-information">
             <a href="#">{title}</a>
-            <a href="#">Artist Name</a>
+            <a href="#">{artist}</a>
           </div>
 
           <div id="timeline">
@@ -133,7 +142,7 @@ class AudioPlayer extends React.Component {
 
           <div id="player-controls">
             <i className="fa fa-step-backward" aria-hidden="true"></i>
-            <button id="pButton" className="play" onClick={this.playAudio}></button>
+            <button id="pButton" className="play" onClick={this.playButton}></button>
               <i className="fa fa-step-forward" aria-hidden="true"></i>
           </div>
       </div>

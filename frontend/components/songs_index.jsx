@@ -15,9 +15,8 @@ class SongsIndex extends React.Component {
       );
     });
     return (
-        <div id='songs-index' className="comp">
-          <h6>SongsIndex</h6>
-          <table>
+        <div id='songs-index' className="comp-d">
+          <table cellSpacing="0">
             <thead className='songs-index-labels'>
               <tr>
                 <th>Song</th>

@@ -95,7 +95,9 @@
 
 #now-playing {
   width: 250px;
-  height: 700px;
+  height: 100%;
+  margin-left: 5px;
+  padding-top: 30px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

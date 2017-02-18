@@ -30,7 +30,8 @@ class PlaylistIndex extends React.Component {
         <PlaylistIndexItem
           key={playlist.id}
           playlist={playlist}
-          onClick={this._selectPlaylist} />
+          onClick={this._selectPlaylist}
+          selectedPlaylistId={this.props.playlistId} />
       );
     });
     return (

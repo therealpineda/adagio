@@ -7,8 +7,7 @@ class NowPlaying extends React.Component {
   render() {
 
     return (
-      <div id='now-playing' className="comp">
-        <h6>Now Playing</h6>
+      <div id='now-playing' className="comp-d">
           <div id='audio-player-container'>
             <AudioPlayer />
           </div>
