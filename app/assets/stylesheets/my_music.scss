@@ -2,6 +2,7 @@
   width: 100%;
   height: 100%;
   min-width: 600px;
+  margin-left: 5px;
 }
 
 #my-music {
@@ -19,13 +20,29 @@
 }
 
 #my-music nav li {
-  padding: 8px;
+  padding: 8px 0;
   margin-right: 15px;
   text-transform: uppercase;
   color: #88898c;
   font-size: 14px;
   letter-spacing: 1.1px;
+  transition: color 0.4s;
 }
+
+#my-music nav li:hover {
+  color: #D7D9DF;
+  cursor: pointer;
+}
+
+#my-music nav li:first-of-type {
+  color: #D7D9DF;
+  cursor: pointer;
+  box-shadow: 0px 2px 0 0 #80AB27;
+  -webkit-box-shadow: 0 2px 0 0 #80AB27;
+     -moz-box-shadow: 0 2px 0 0 #80AB27;
+}
+
+
 
 #playlist-index-container {
   height: 100%;
@@ -110,13 +127,13 @@
 }
 
 .playlist-index-item-img {
-  height: 60px;
-  width: 60px;
-  margin-right: 10px;
+  height: 50px;
+  width: 50px;
+  margin-right: 8px;
 }
 .playlist-index-item-img img {
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
 }
 
 .playlist-index-title {
@@ -150,8 +167,8 @@
 }
 
 .playlist-detail-img img {
-  height: 210px;
-  width: 210px;
+  height: 200px;
+  width: 200px;
 }
 
 #playlist-detail-right {
@@ -212,6 +229,11 @@
   text-align: left;
   font-size: 14px;
   letter-spacing: 1px;
+}
+
+.songs-index-labels th:last-of-type {
+  text-align: center;
+  font-size: 15px;
 }
 
 .song-index-item {

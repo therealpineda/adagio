@@ -5,6 +5,7 @@ import App from './app';
 import Welcome from './welcome/welcome';
 import Browse from './browse';
 import MyMusic from './my_music';
+import Blank from './blank';
 
 class Root extends React.Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class Root extends React.Component {
             <Route path="my-music" component={MyMusic} >
               <Route path="playlists/:playlistId" />
             </Route>
+            <Route path="blank" component={Blank} />
           </Route>
         </Router>
       </Provider>

@@ -1,437 +1,149 @@
 import React from 'react';
-import arrayFindIndex from 'array-find-index';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { currentSong } from '../reducers/selectors';
-import { nextSong } from '../actions/play_queue_actions';
-
-/* converts given number of seconds to standard time display format */
-function convertToTime (number) {
-  const mins = Math.floor(number / 60);
-  const secs = (number % 60).toFixed();
-  return `${ mins }:${ secs < 10 ? '0' : '' }${ secs }`;
-}
+import { nextSong } from '../actions/playlist_actions';
 
 class AudioPlayer extends React.Component {
-  constructor (props) {
-    super(props);
-    /* true if the user is currently dragging the mouse
-     * to seek a new track position
-     */
-    this.seekInProgress = false;
-    // index matching requested track (whether track has loaded or not)
-    this.currentTrackIndex = 0;
-
+  constructor() {
+    super();
     this.state = {
-      /* activeTrackIndex will change to match
-       * this.currentTrackIndex once metadata has loaded
-       */
-      // indicates whether audio player should be paused
-      paused: true,
-      /* elapsed time for current track, in seconds -
-       * DISPLAY ONLY! the actual elapsed time may
-       * not match up if we're currently seeking, since
-       * the new time is visually previewed before the
-       * audio seeks.
-       */
-      displayedTime: 0
+      displayTime: "0:00",
+      displayDuration: ""
     };
-
-    // html audio element used for playback
-    this.audio = null;
-    this.audioProgressContainer = null;
-    /* bounding rectangle used for calculating seek
-     * position from mouse/touch coordinates
-     */
-    this.audioProgressBoundingRect = null;
-
-    // event listeners to add on mount and remove on unmount
-    this.seekReleaseListener = e => this.seek(e);
-    this.resizeListener = () => this.fetchAudioProgressBoundingRect();
-    this.audioPlayListener = () => this.setState({ paused: false });
-    this.audioPauseListener = () => this.setState({ paused: true });
-    this.audioEndListener = () => {
-      const gapLengthInSeconds = this.props.gapLengthInSeconds || 0;
-      clearTimeout(this.gapLengthTimeout);
-      this.gapLengthTimeout = setTimeout(() => this.skipToNextTrack(), gapLengthInSeconds * 1000);
-    };
-    this.audioStallListener = () => this.togglePause(true);
-    this.audioTimeUpdateListener = () => this.handleTimeUpdate();
-    this.audioMetadataLoadedListener = () => this.setState({
-      activeTrackIndex: this.currentTrackIndex
-    });
+    this.playAudio = this.playAudio.bind(this);
+    this.timeUpdate = this.timeUpdate.bind(this);
+    this.clickPercent = this.clickPercent.bind(this);
+    this.moveplayhead = this.moveplayhead.bind(this);
+    this.mouseDown = this.mouseDown.bind(this);
+    this.mouseUp = this.mouseUp.bind(this);
+    this._convertToTime = this._convertToTime.bind(this);
+    this.onplayhead = false;
   }
 
-  componentDidMount () {
-    // add event listeners bound outside the scope of our component
-    window.addEventListener('mouseup', this.seekReleaseListener);
-    document.addEventListener('touchend', this.seekReleaseListener);
-    window.addEventListener('resize', this.resizeListener);
-    this.resizeListener();
-
-    const audio = this.audio = document.createElement('audio');
-
-    // add event listeners on the audio element
-    audio.preload = 'metadata';
-    audio.addEventListener('play', this.audioPlayListener);
-    audio.addEventListener('pause', this.audioPauseListener);
-    audio.addEventListener('ended', this.audioEndListener);
-    audio.addEventListener('stalled', this.audioStallListener);
-    audio.addEventListener('timeupdate', this.audioTimeUpdateListener);
-    audio.addEventListener('loadedmetadata', this.audioMetadataLoadedListener);
-    this.addMediaEventListeners(this.props.onMediaEvent);
-
-    if (this.props.currentSong) {
-      this.updateSource();
-      if (this.props.autoplay) {
-        const delay = this.props.autoplayDelayInSeconds || 0;
-        clearTimeout(this.delayTimeout);
-        this.delayTimeout = setTimeout(() => this.togglePause(false), delay * 1000);
-      }
-    }
-
-    if (this.props.audioElementRef) {
-      this.props.audioElementRef(audio);
-    }
-  }
-
-  componentWillUnmount () {
-    // remove event listeners bound outside the scope of our component
-    window.removeEventListener('mouseup', this.seekReleaseListener);
-    document.removeEventListener('touchend', this.seekReleaseListener);
-    window.removeEventListener('resize', this.resizeListener);
-
-    // remove event listeners on the audio element
-    this.audio.removeEventListener('play', this.audioPlayListener);
-    this.audio.removeEventListener('pause', this.audioPauseListener);
-    this.audio.removeEventListener('ended', this.audioEndListener);
-    this.audio.removeEventListener('stalled', this.audioStallListener);
-    this.audio.removeEventListener('timeupdate', this.audioTimeUpdateListener);
-    this.audio.removeEventListener('loadedmetadata', this.audioMetadataLoadedListener);
-    this.removeMediaEventListeners(this.props.onMediaEvent);
-    clearTimeout(this.gapLengthTimeout);
-    clearTimeout(this.delayTimeout);
-
-    // pause the audio element before we unmount
-    this.audio.pause();
-
-    if (this.props.audioElementRef) {
-      this.props.audioElementRef(this.audio);
-    }
-  }
-
-  componentWillReceiveProps (nextProps) {
-    // Update media event listeners that may have changed
-    this.removeMediaEventListeners(this.props.onMediaEvent);
-    this.addMediaEventListeners(nextProps.onMediaEvent);
-
-    const newSong = nextProps.currentSong;
-    if (!newSong) {
-      if (this.audio) {
-        this.audio.src = '';
-      }
-      return this.setState(this.defaultState);
-    }
-
-    this.updateSource();
-
-
-  }
-
-  addMediaEventListeners (mediaEvents) {
-    if (!mediaEvents) {
-      return;
-    }
-    Object.keys(mediaEvents).forEach((type) => {
-      if (typeof mediaEvents[type] !== 'function') {
-        return;
-      }
-      this.audio.addEventListener(type, mediaEvents[type]);
-    });
-  }
-
-  removeMediaEventListeners (mediaEvents) {
-    if (!mediaEvents) {
-      return;
-    }
-    Object.keys(mediaEvents).forEach((type) => {
-      if (typeof mediaEvents[type] !== 'function') {
-        return;
-      }
-      this.audio.removeEventListener(type, mediaEvents[type]);
-    });
-  }
-
-  componentDidUpdate () {
-    /* if we loaded a new playlist and reset the current track marker, we
-     * should load up the first one.
-     */
-    if (this.audio && this.currentTrackIndex === -1) {
-      this.skipToNextTrack(false);
-    }
-
-  }
-
-  togglePause (value) {
-    if (!this.audio) {
-      return;
-    }
-    const pause = typeof value === 'boolean' ? value : !this.state.paused;
-    if (pause) {
-      return this.audio.pause();
-    }
-    if (!this.props.playlist || !this.props.playlist.length) {
-      return;
-    }
-    try {
-      this.audio.play();
-    } catch (error) {
-      logError(error);
-      const warningMessage =
-        'Audio playback failed at ' +
-        new Date().toLocaleTimeString() +
-        '! (Perhaps autoplay is disabled in this browser.)';
-      logWarning(warningMessage);
-    }
-  }
-
-  skipToNextTrack (shouldPlay) {
-    if (!this.audio) {
-      return;
-    }
-    this.audio.pause();
-    if (!this.props.playlist || !this.props.playlist.length) {
-      return;
-    }
-    let i = this.currentTrackIndex + 1;
-    if (i >= this.props.playlist.length) {
-      i = 0;
-    }
-    this.currentTrackIndex = i;
-    this.setState({
-      activeTrackIndex: -1,
-      displayedTime: 0
-    }, () => {
-      this.updateSource();
-      const shouldPauseOnCycle = (!this.props.cycle && i === 0);
-      const shouldPause = shouldPauseOnCycle || (typeof shouldPlay === 'boolean' ? !shouldPlay : false);
-      this.togglePause(shouldPause);
-    });
-
-  }
-
-  backSkip () {
-    if (!this.props.playlist || !this.props.playlist.length) {
-      return;
-    }
-    const audio = this.audio;
-    let stayOnBackSkipThreshold = this.props.stayOnBackSkipThreshold;
-    if (isNaN(stayOnBackSkipThreshold)) {
-      stayOnBackSkipThreshold = 5;
-    }
-    if (audio.currentTime >= stayOnBackSkipThreshold) {
-      return audio.currentTime = 0;
-    }
-    let i = this.currentTrackIndex - 1;
-    if (i < 0) {
-      i = this.props.playlist.length - 1;
-    }
-    this.currentTrackIndex = i - 1;
-    this.skipToNextTrack();
-  }
-
-  updateSource () {
-    this.audio.src = this.props.currentSong.url;
-  }
-
-  fetchAudioProgressBoundingRect () {
-    this.audioProgressBoundingRect = this.audioProgressContainer.getBoundingClientRect();
-  }
-
-  handleTimeUpdate () {
-    if (!this.seekInProgress && this.audio) {
+  componentWillReceiveProps(nextProps) {
+    this.music = document.getElementById('music');
+    this.music.src = nextProps.currentSong.url;
+    this.pButton = document.getElementById('pButton')
+    this.playhead = document.getElementById('playhead');
+    this.playhead.style.width = 3;
+    this.timeline = document.getElementById('timeline');
+    this.timelineWidth = this.timeline.offsetWidth - this.playhead.offsetWidth;
+    this.music.addEventListener("canplaythrough", () => {
+      this.duration = this.music.duration;
       this.setState({
-        displayedTime: this.audio.currentTime
+        displayDuration: this._convertToTime(this.duration)
       });
+    }, false);
+    this.music.addEventListener("timeupdate", this.timeUpdate, false);
+    this.timeline.addEventListener("click", (event) => {
+    	this.moveplayhead(event);
+    	this.music.currentTime = this.duration * this.clickPercent(event);
+    }, false);
+    this.playhead.addEventListener('mousedown', this.mouseDown, false);
+    window.addEventListener('mouseup', this.mouseUp, false);
+  }
+
+  clickPercent(event) {
+    return (event.clientX - this.getPosition(this.timeline)) / this.timelineWidth;
+  }
+
+  mouseDown() {
+    this.onplayhead = true;
+    window.addEventListener('mousemove', this.moveplayhead, true);
+    this.music.removeEventListener('timeupdate', this.timeUpdate, false);
+  }
+
+  mouseUp(event) {
+    if (this.onplayhead == true) {
+        this.moveplayhead(event);
+        window.removeEventListener('mousemove', this.moveplayhead, true);
+        this.music.currentTime = this.duration * this.clickPercent(event);
+        this.music.addEventListener('timeupdate', this.timeUpdate, false);
+    }
+    this.onplayhead = false;
+  }
+
+  moveplayhead(event) {
+    const newWidth =  event.clientX - this.getPosition(this.timeline);
+    this.playhead.style.width = newWidth;
+  }
+
+  playAudio() {
+    if (this.music.paused) {
+      this.music.play();
+      this.pButton.className = "";
+      this.pButton.className = "pause";
+    } else {
+      this.music.pause();
+      this.pButton.className = "";
+      this.pButton.className = "play";
     }
   }
 
-  adjustDisplayedTime (event) {
-    if (!this.props.playlist || !this.props.playlist.length || this.props.disableSeek) {
-      return;
-    }
-    // make sure we don't select stuff in the background while seeking
-    if (event.type === 'mousedown' || event.type === 'touchstart') {
-      this.seekInProgress = true;
-      document.body.classList.add('noselect');
-    } else if (!this.seekInProgress) {
-      return;
-    }
-    /* we don't want mouse handlers to receive the event
-     * after touch handlers if we're seeking.
-     */
-    event.preventDefault();
-    const boundingRect = this.audioProgressBoundingRect;
-    const isTouch = event.type.slice(0, 5) === 'touch';
-    const pageX = isTouch ? event.targetTouches.item(0).pageX : event.pageX;
-    const position = pageX - boundingRect.left - document.body.scrollLeft;
-    const containerWidth = boundingRect.width;
-    const progressPercentage = position / containerWidth;
+  _convertToTime (number) {
+    const mins = Math.floor(number / 60);
+    const secs = (number % 60).toFixed();
+    return `${ mins }:${ secs < 10 ? '0' : '' }${ secs }`;
+  }
+
+  timeUpdate() {
     this.setState({
-      displayedTime: progressPercentage * this.audio.duration
+      displayTime: this._convertToTime(this.music.currentTime)
     });
+    const playPercent = this.timelineWidth * (this.music.currentTime / this.duration);
+    this.playhead.style.width = playPercent + "px";
+    if (this.music.currentTime == this.duration) {
+        this.pButton.className = "";
+        this.pButton.className = "play";
+    }
   }
 
-  seek (event) {
-    /* this function is activated when the user lets
-     * go of the mouse, so if .noselect was applied
-     * to the document body, get rid of it.
-     */
-    document.body.classList.remove('noselect');
-    if (!this.seekInProgress) {
-      return;
-    }
-    /* we don't want mouse handlers to receive the event
-     * after touch handlers if we're seeking.
-     */
-    event.preventDefault();
-    this.seekInProgress = false;
-    const displayedTime = this.state.displayedTime;
-    if (isNaN(displayedTime)) {
-      return;
-    }
-    this.audio.currentTime = displayedTime;
+  getPosition(el) {
+    return el.getBoundingClientRect().left;
   }
 
-  render () {
-    const activeIndex = this.state.activeTrackIndex;
-    const songTitle = this.props.playlist ? (
-      activeIndex < 0 ? null : this.props.playlist[activeIndex].title
-    ) : 'Please load a playlist';
-    const songArtist = this.props.playlist ? (
-      activeIndex < 0 ? null : this.props.playlist[activeIndex].artist
-    ) : 'Please load a playlist';
-    const songImage = this.props.playlist ? (
-      activeIndex < 0 ? null : this.props.playlist[activeIndex].image
-    ) : 'Please load a playlist';
-
-    const displayedTime = this.state.displayedTime;
-    const duration = this.audio && this.audio.duration || 0;
-
-    const elapsedTime = convertToTime(displayedTime);
-    const fullTime = convertToTime(duration);
-
-    const progressBarWidth = `${ (displayedTime / duration) * 100 }%`;
-
-    const adjustDisplayedTime = e => this.adjustDisplayedTime(e);
-
+  render() {
+    let title = "Song Title";
+    if (this.props.currentSong) {
+      title = this.props.currentSong.title;
+    }
     return (
-      <div
-        id="audio_player"
-        className="audio_player"
-        title={songTitle}
-      >
-      <div className='audio_player_image'>
-        <img src={songImage}/>
-      </div>
-        <div className="audio_controls">
-          <div
-            id="skip_button"
-            className={classNames('skip_button back audio_button', {
-              'hidden': this.props.hideBackSkip
-            })}
-            onClick={() => this.backSkip()}
-          >
-            <div className="skip_button_inner">
-              <div className="right_facing_triangle"></div>
-              <div className="right_facing_triangle"></div>
-            </div>
-          </div>
-          <div
-            id="play_pause_button"
-            className={classNames('play_pause_button', 'audio_button', {
-              'paused': this.state.paused
-            })}
-            onClick={() => this.togglePause()}
-          >
-            <div className="play_pause_inner">
-              <div className="left"></div>
-              <div className="right"></div>
-              <div className="triangle_1"></div>
-              <div className="triangle_2"></div>
-            </div>
-          </div>
-          <div
-            id="skip_button"
-            className={classNames('skip_button audio_button', {
-              'hidden': this.props.hideForwardSkip
-            })}
-            onClick={() => this.skipToNextTrack()}
-          >
-            <div className="skip_button_inner">
-              <div className="right_facing_triangle"></div>
-              <div className="right_facing_triangle"></div>
-            </div>
-          </div>
-        </div>
+      <div id='audio-player' className='comp-d'>
+          <audio id="music" controls="controls">
+            <source src="" type="audio/mpeg" />
+          </audio>
 
-        <div
-          id="audio_progress_container"
-          className="audio_progress_container"
-          ref={(ref) => this.audioProgressContainer = ref}
-          onMouseDown={adjustDisplayedTime}
-          onMouseMove={adjustDisplayedTime}
-          onTouchStart={adjustDisplayedTime}
-          onTouchMove={adjustDisplayedTime}
-        >
-          <div
-            id="audio_progress"
-            className="audio_progress"
-            style={{ width: progressBarWidth }}></div>
-          <div id="audio_progress_overlay" className="audio_progress_overlay">
-            <div className="audio_info_marquee">
-              <div id="audio_info" className="audio_info noselect" draggable="false">
-                <p>{songTitle}</p>
-                <p>{songArtist}</p>
-              </div>
-            </div>
-            <div
-              id="audio_time_progress"
-              className="audio_time_progress noselect"
-              draggable="false">
-                <p>{elapsedTime}</p>
-                <p>{fullTime}</p>
-            </div>
+          <div id="audio-player-image">
+            <img src="https://s3.amazonaws.com/adagio-prod/images/default/album_img.jpg" />
           </div>
-        </div>
+
+          <div id="player-song-information">
+            <a href="#">{title}</a>
+            <a href="#">Artist Name</a>
+          </div>
+
+          <div id="timeline">
+            <div id="playhead"></div>
+          </div>
+
+          <div id="timestamps">
+            <p>{ this.state.displayTime }</p>
+            <p>{ this.state.displayDuration }</p>
+          </div>
+
+          <div id="player-controls">
+            <i className="fa fa-step-backward" aria-hidden="true"></i>
+            <button id="pButton" className="play" onClick={this.playAudio}></button>
+              <i className="fa fa-step-forward" aria-hidden="true"></i>
+          </div>
       </div>
     );
   }
-
 }
-
-AudioPlayer.propTypes = {
-  playlist: React.PropTypes.array,
-  autoplay: React.PropTypes.bool,
-  autoplayDelayInSeconds: React.PropTypes.number,
-  gapLengthInSeconds: React.PropTypes.number,
-  hideBackSkip: React.PropTypes.bool,
-  hideForwardSkip: React.PropTypes.bool,
-  cycle: React.PropTypes.bool,
-  disableSeek: React.PropTypes.bool,
-  stayOnBackSkipThreshold: React.PropTypes.number,
-  style: React.PropTypes.object,
-  onMediaEvent: React.PropTypes.object,
-  audioElementRef: React.PropTypes.func
-};
-
-AudioPlayer.defaultProps = {
-  cycle: true
-};
 
 const mapStateToProps = (state) => {
   return {
-    currentSong: currentSong(state.playQueue.songs)
+    currentSong: currentSong(state.playQueue)
   };
 };
 
@@ -442,51 +154,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AudioPlayer);
-
-
-/*
- * AudioPlayer
- *
- * Accepts 'playlist' prop of the form:
- *
- * [{ "url": "./path/to/file.mp3",
- *    "displayText": "ArtistA - Track 1" },
- *  { "url": "https://domain.com/track2.ogg",
- *    "displayText": "ArtistB - Track 2" }]
- *
- * Accepts 'autoplay' prop (true/[false]).
- *
- * Accepts 'autoplayDelayInSeconds' prop (default 0).
- *
- * Accepts 'gapLengthInSeconds' prop (default 0).
- * Specifies gap at end of one track before next
- * track begins (ignored for manual skip).
- *
- * Accepts 'hideBackSkip' prop (default false,
- * hides back skip button if true).
- *
- * Accepts 'hideForwardSkip' prop (default false,
- * hides forward skip button if true).
- *
- * Accepts 'disableSeek' prop (default false,
- * disables seeking through the audio if true).
- *
- * Accepts 'cycle' prop (default true,
- * starts playing at the beginning of the playlist
- * when finished if true).
- *
- * Accepts 'stayOnBackSkipThreshold' prop, default 5,
- * is number of seconds to progress until pressing back skip
- * restarts the current track.
- *
- * Accepts 'style' prop, object, is applied to
- * outermost div (React styles).
- *
- * Accepts 'onMediaEvent' prop, an object used for
- * listening to media events on the underlying audio element.
- *
- * Accepts 'audioElementRef' prop, a function called after
- * the component mounts and before it unmounts with the
- * internally-referenced HTML audio element as its only parameter.
- * Similar to: https://facebook.github.io/react/docs/refs-and-the-dom.html
- */

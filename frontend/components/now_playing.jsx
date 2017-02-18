@@ -1,5 +1,5 @@
 import React from 'react';
-import AudioPlayer from './audio_player_33';
+import AudioPlayer from './audio_player';
 import {connect} from 'react-redux';
 
 

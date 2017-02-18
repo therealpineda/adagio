@@ -23,7 +23,8 @@ class SongsIndex extends React.Component {
                 <th>Song</th>
                 <th>Artist</th>
                 <th>Album</th>
-                <th>[C]</th>
+                <th><i className="fa fa-clock-o" aria-hidden="true"></i>
+</th>
               </tr>
             </thead>
             <tbody>
