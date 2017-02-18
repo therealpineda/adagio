@@ -52,26 +52,23 @@
 
 .active-link {
   color: #D7D9DF;
-  -webkit-box-shadow: -3px 0 0 0 #80AB27;
-     -moz-box-shadow: -3px 0 0 0 #80AB27;
-          box-shadow: -3px 0 0 0 #80AB27;
+  box-shadow: -3px 0 0 0 #80AB27;
 }
 
 #user-box {
   border-top: 1px solid #000000;
   text-align: center;
-  padding-top: 5px;
 }
 
 #user-box i {
   width: 100%;
   border-top: 1px solid #1a1a1c;
-  padding: 5px 0 0px 0;
+  padding: 10px 0 0px 0;
   font-size: 36px;
 }
 
 #user-box p {
-  font-size: .8em;
+  font-size: .7em;
   margin: 5px 0 12px 0;
 }
 
@@ -93,7 +90,7 @@
   color: #FFFFFF;
 }
 
-#now-playing {
+.now-playing {
   width: 250px;
   height: 100%;
   margin-left: 5px;
@@ -102,5 +99,8 @@
   flex-direction: column;
   justify-content: flex-start;
   background-color: #151617;
-  // display: none;
+}
+
+.hidden {
+  display: none;
 }

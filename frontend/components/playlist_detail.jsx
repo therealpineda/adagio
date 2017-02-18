@@ -53,8 +53,8 @@ class PlaylistDetail extends React.Component {
                 <button
                   id="playlist-detail-play-btn"
                   onClick={this.playPlaylist}>
-                  <i className="fa fa-caret-right" aria-hidden="true"></i>
-                   &nbsp; Play
+                  <i id="playlist-detail-play-btn-icon" className="fa fa-caret-right" aria-hidden="true"></i>
+                   <p>Play</p>
                </button>
                 <button
                   id="playlist-detail-delete-btn"

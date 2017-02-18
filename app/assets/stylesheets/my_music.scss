@@ -69,8 +69,8 @@
 
 #playlist-index button {
   height: 28px;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 400;
   text-align: center;
   line-height: 0;
 }
@@ -211,8 +211,22 @@
 #playlist-detail-play-btn {
   width: 100px;
   margin-right: 10px;
-  background-color: #84bd00;
+  background-color: #5b791c;
   color: #FFFFFF;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25px;
+}
+
+#playlist-detail-play-btn-icon {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+#playlist-detail-play-btn:hover {
+  background-color: #80AB27;
 }
 
 #playlist-detail-delete-btn {
@@ -220,6 +234,9 @@
   border: 1px solid #88898c;
   background-color: transparent;
   color: #88898c;
+}
+#playlist-detail-delete-btn:hover {
+  color: #FFFFFF;
 }
 
 #playlist-detail-user {
