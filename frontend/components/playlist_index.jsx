@@ -13,15 +13,10 @@ class PlaylistIndex extends React.Component {
     this.state = {
       selectedPlaylist: null
     }
-    this._toggleAddPlaylist = this._toggleAddPlaylist.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchPlaylists(this.props.userId);
-  }
-
-  _toggleAddPlaylist(e) {
-    e.preventDefault();
   }
 
   render() {
@@ -35,7 +30,7 @@ class PlaylistIndex extends React.Component {
       );
     });
     return (
-      <div id='playlist-index' className='comp'>
+      <div id='playlist-index' className='comp-d'>
           <div id='playlist-index-sidebar'>
             <ul>
               <li

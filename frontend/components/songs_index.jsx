@@ -1,8 +1,11 @@
 import React from 'react';
 import SongIndexItem from './song_index_item';
 import Modal from 'react-modal';
+import RCPlaylistIndex from './rc_playlist_index';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { playSong, addSong } from '../actions/play_queue_actions';
+import { removeSongFromPlaylist } from '../actions/playlist_actions';
 
 class SongsIndex extends React.Component {
   constructor(props) {
@@ -45,6 +48,7 @@ class SongsIndex extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.playClickedSong = this.playClickedSong.bind(this);
     this.addClickedSongToQueue = this.addClickedSongToQueue.bind(this);
+    this.removeFromPlaylist = this.removeFromPlaylist.bind(this);
   }
 
   componentWillMount() {
@@ -86,11 +90,18 @@ class SongsIndex extends React.Component {
     this.closeModal();
   }
 
+  removeFromPlaylist() {
+    const songId = this.state.clickedSong.playlist_song_id;
+    const playlistId = parseInt(this.props.params.playlistId);
+    this.props.removeSongFromPlaylist(songId, playlistId);
+    this.closeModal();
+  }
+
   render() {
-    const songIndexItems = this.props.songs.map( (song, idx) => {
+    const songIndexItems = this.props.songs.map( (song) => {
       return (
         <SongIndexItem
-          key={idx}
+          key={song.playlist_song_id}
           song={song} />
       );
     });
@@ -135,12 +146,18 @@ class SongsIndex extends React.Component {
                 onClick={this.playClickedSong}>
                 <p>Play</p>
               </div>
-              <div className='rc-modal-item'>
-                <p>Add to Playlist...</p>
-              </div>
               <div className='rc-modal-item'
                 onClick={this.addClickedSongToQueue}>
                 <p>Add to Play Queue</p>
+              </div>
+              <div className='rc-modal-item'
+                onClick={this.removeFromPlaylist}>
+                <p>Remove from Playlist</p>
+              </div>
+              <div className='rc-modal-item'>
+                <p>Add to Playlist:</p>
+                <RCPlaylistIndex
+                  clickedSong={this.state.clickedSong} />
               </div>
             </div>
           </Modal>
@@ -153,8 +170,9 @@ class SongsIndex extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     playSong: (song) => { return dispatch( playSong(song) ); },
-    addSong: (song) => { return dispatch( addSong(song) ); }
+    addSong: (song) => { return dispatch( addSong(song) ); },
+    removeSongFromPlaylist: (songId, playlistId) => { return dispatch(removeSongFromPlaylist(songId, playlistId)); }
   };
 };
 
-export default connect(null, mapDispatchToProps)(SongsIndex);
+export default withRouter(connect(null, mapDispatchToProps)(SongsIndex));

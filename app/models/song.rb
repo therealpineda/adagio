@@ -16,7 +16,7 @@
 #
 
 class Song < ApplicationRecord
-  validates :title, :duration, :album_id, :order, :audio_url, presence: true
+  validates :title, :duration, :album_id, :album_order, :audio_url, presence: true
 
   belongs_to :album
 

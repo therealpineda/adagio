@@ -139,7 +139,7 @@
 }
 
 #playlist-detail-playlist {
-  margin: 15px 0 8px 0;
+  margin-top: 10px;
   color: #88898c;
   font-size: 10px;
 }
@@ -147,6 +147,7 @@
 #playlist-detail-title p {
   font-size: 40px;
   font-weight: 100;
+  color: #DFE0E5;
 }
 
 #playlist-detail-rename-btn {
@@ -189,7 +190,7 @@
   color: #88898c;
 }
 #playlist-detail-delete-btn:hover {
-  color: #FFFFFF;
+  border-color: #FFFFFF;
 }
 
 #playlist-detail-user {

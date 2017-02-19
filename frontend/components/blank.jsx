@@ -56,7 +56,7 @@ class Blank extends React.Component {
 
   render() {
     return (
-      <div id="blank" className="comp">
+      <div id="blank" className="comp-d">
         <h6>Blank</h6>
           <div>
             <button onClick={this.openModal}>Open Modal</button>

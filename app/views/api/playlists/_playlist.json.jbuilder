@@ -9,7 +9,9 @@ json.length
 json.author "#{playlist.user.first_name} #{playlist.user.last_name}"
 json.created_at Time.at(playlist.created_at).utc.strftime("%B %-d, %Y")
 json.songs do
-  json.array! playlist.songs do |song|
+  json.array! playlist.playlist_songs do |playlist_song|
+    json.playlist_song_id playlist_song.id
+    song = playlist_song.song
     json.extract! song, :id, :title
     json.artist song.artist.name
     json.album song.album.title

@@ -14,8 +14,13 @@
   height: calc( 100% - 44px );
 }
 
+#my-music nav {
+  border-bottom: 1px solid #222326;
+  // margin-bottom: 4px;
+  margin: 10px 0;
+}
+
 #my-music nav ul {
-  height: 32px;
   display: flex;
   flex-direction: row;
 }

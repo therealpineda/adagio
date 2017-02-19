@@ -27,3 +27,18 @@ export const updatePlaylist = (playlist) => {
     data: { playlist: playlist }
   });
 };
+
+export const addSongToPlaylist = (songId, playlistId) => {
+  return $.ajax({
+    method: 'post',
+    url: `/api/playlists/${playlistId}/songs`,
+    data: { songId: songId }
+  });
+};
+
+export const removeSongFromPlaylist = (songId, playlistId) => {
+  return $.ajax({
+    method: 'delete',
+    url: `/api/playlists/${playlistId}/songs/${songId}`
+  });
+};

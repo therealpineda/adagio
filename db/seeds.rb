@@ -24,15 +24,15 @@ Album.create(title: "Dance Audit Hour", artist_id: artist_id, image_url: "https:
 
 Song.destroy_all
 album_id = Album.find_by(title: "Traveller's Guide").id
-Song.create(title: "Siesta", duration: 139, album_id: album_id, order: 5, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/Jahzzar_-_05_-_Siesta.mp3")
+Song.create(title: "Siesta", duration: 139, album_id: album_id, album_order: 5, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/Jahzzar_-_05_-_Siesta.mp3")
 album_id = Album.find_by(title: "Wake Up").id
-Song.create(title: "Hachiko(The Faithful Dog)", duration: 185, album_id: album_id, order: 9, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/The_Kyoto_Connection_-_09_-_Hachiko_The_Faithtful_Dog.mp3")
+Song.create(title: "Hachiko(The Faithful Dog)", duration: 185, album_id: album_id, album_order: 9, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/The_Kyoto_Connection_-_09_-_Hachiko_The_Faithtful_Dog.mp3")
 album_id = Album.find_by(title: "Mystery Club").id
-Song.create(title: "Favorite Secrets", duration: 75, album_id: album_id, order: 2, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/02_-_Favorite_Secrets.mp3")
+Song.create(title: "Favorite Secrets", duration: 75, album_id: album_id, album_order: 2, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/02_-_Favorite_Secrets.mp3")
 album_id = Album.find_by(title: "Antique Instrumentals").id
-Song.create(title: "Holiday(instrumental)", duration: 274, album_id: album_id, order: 1, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/Silence_Is_Sexy_-_01_-_Holiday_instrumental.mp3")
+Song.create(title: "Holiday(instrumental)", duration: 274, album_id: album_id, album_order: 1, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/Silence_Is_Sexy_-_01_-_Holiday_instrumental.mp3")
 album_id = Album.find_by(title: "Dance Audit Hour").id
-Song.create(title: "Chantiers Navals 412", duration: 209, album_id: album_id, order: 1, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/music%252Fno_curator%252FLJ_Kruzer%252FDance_Audit_Hour%252FLJ_Kruzer_-_01_-_Chantiers_Navals_412.mp3")
+Song.create(title: "Chantiers Navals 412", duration: 209, album_id: album_id, album_order: 1, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/music%252Fno_curator%252FLJ_Kruzer%252FDance_Audit_Hour%252FLJ_Kruzer_-_01_-_Chantiers_Navals_412.mp3")
 
 
 

@@ -32,6 +32,22 @@ export const updatePlaylist = (playlist) => {
   };
 }
 
+export const addSongToPlaylist = (songId, playlistId) => {
+  return (dispatch) => {
+    return PlaylistApiUtil.addSongToPlaylist(songId, playlistId).then( (playlist) => {
+      return dispatch(receivePlaylist(playlist));
+    });
+  }
+};
+
+export const removeSongFromPlaylist = (songId, playlistId) => {
+  return (dispatch) => {
+    return PlaylistApiUtil.removeSongFromPlaylist(songId, playlistId).then( (playlist) => {
+      return dispatch(receivePlaylist(playlist));
+    });
+  }
+};
+
 export const RECEIVE_PLAYLISTS = 'RECEIVE_PLAYLISTS';
 
 export const receivePlaylists = (playlists) => {

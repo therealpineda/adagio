@@ -76,7 +76,7 @@ class PlaylistDetail extends React.Component {
       );
     } else {
       return (
-        <div id='playlist-detail' className='comp'>
+        <div id='playlist-detail' className='comp-d'>
           <h6>PlaylistDetail</h6>
           <p>Choose a playlist...</p>
         </div>
