@@ -8,9 +8,8 @@ const PlayQueueReducer = (oldState = defaultState, action) => {
   let newState;
   switch (action.type) {
     case RECEIVE_SONGS:
-
     case RECEIVE_SONG:
-      return oldState.concat([aciton.song]);
+      return oldState.concat([action.song]);
     case PLAY_SONGS:
       newState = merge([], oldState);
       const newSongs = merge([], action.songs);

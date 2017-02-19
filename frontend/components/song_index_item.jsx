@@ -1,4 +1,5 @@
 import React from 'react';
+import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { playSong } from '../actions/play_queue_actions';
 
@@ -17,7 +18,7 @@ class SongIndexItem extends React.Component {
     return (
       <tr
         className='song-index-item'
-        onDoubleClick={ this._playSong } >
+        onDoubleClick={ this._playSong }>
         <td>
           <p>{this.props.song.title}</p>
         </td>

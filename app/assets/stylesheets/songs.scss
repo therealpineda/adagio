@@ -1,0 +1,79 @@
+#songs-index table {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.songs-index-labels th {
+  color: #88898c;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: left;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding-bottom: 8px;
+}
+
+.songs-index-labels th:last-of-type {
+  text-align: left;
+  font-size: 14px;
+}
+
+.song-index-item {
+  font-size: 13px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.song-index-item td {
+  border-top: 1px solid #1a1a1c;
+  border-bottom: 1px solid #1a1a1c;
+  padding: 11px 0;
+}
+
+.song-index-item td:last-of-type {
+  color: #88898c;
+}
+.song-index-item td p {
+  width: 100%;
+  height: 100%;
+}
+
+.song-index-item:hover {
+  background-color: #1a1a1c;
+  cursor: default;
+}
+
+.rc-modal {
+  background-color: #2f2f31;
+  font-size: 12px;
+  color: #88898c;
+}
+
+.rc-modal-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 25px;
+  padding: 5px 0 5px 5px;
+  border-top: 1px solid #0F1010;
+}
+
+.rc-modal-item:first-of-type {
+  font-size: .85em;
+  color: #D7D9DF;
+}
+
+.rc-modal-item:hover {
+  cursor: pointer;
+  background-color: #1a1a1c;
+  color: #D7D9DF;
+}
+
+.rc-modal-item:first-of-type:hover {
+  cursor: default;
+  background-color: #2f2f31;
+}

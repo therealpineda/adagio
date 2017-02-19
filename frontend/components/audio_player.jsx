@@ -93,6 +93,7 @@ class AudioPlayer extends React.Component {
   }
 
   nextButton() {
+    this.music.pause();
     this.props.nextSong(this.props.currentSong);
   }
 
@@ -113,8 +114,7 @@ class AudioPlayer extends React.Component {
     const playPercent = this.timelineWidth * (this.music.currentTime / this.duration);
     this.playhead.style.width = playPercent + "px";
     if (this.music.currentTime == this.duration) {
-        this.pButton.className = "";
-        this.pButton.className = "play";
+        this.nextButton();
     }
   }
 

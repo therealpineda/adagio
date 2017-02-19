@@ -17,6 +17,7 @@ class NowPlaying extends React.Component {
       <div className={classStyle}>
           <div id='audio-player-container'>
             <AudioPlayer />
+            <MiniPlayQueue />
           </div>
       </div>
     );
