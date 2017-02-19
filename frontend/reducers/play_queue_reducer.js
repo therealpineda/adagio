@@ -35,7 +35,7 @@ const PlayQueueReducer = (oldState = defaultState, action) => {
       newState.shift();
       return newState;
     case JUMP_QUEUE:
-      newState = oldState.slice(action.amount);
+      newState = oldState.slice(action.amount + 1);
       return newState;
     case SHUFFLE_SONGS:
     default:

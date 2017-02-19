@@ -106,24 +106,3 @@
   background: url('https://s3.amazonaws.com/adagio-prod/images/pause.png') no-repeat;
   background-size: 50% 50%;
 }
-
-#player-queue {
-  margin: 20px 0 0 10px;
-  text-align: left;
-  font-size: 12px;
-}
-
-#player-queue-title {
-  color: #88898c;
-  text-transform: uppercase;
-  font-weight: 300;
-  letter-spacing: 1px;
-}
-
-.player-queued-song {
-  margin: 5px 0;
-}
-
-.player-queued-song:first-of-type {
-  color: #84bd00;
-}

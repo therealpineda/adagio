@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { currentSong } from '../reducers/selectors';
-import { nextSong, jumpQueue } from '../actions/play_queue_actions';
+import { nextSong } from '../actions/play_queue_actions';
 
 class AudioPlayer extends React.Component {
   constructor() {
@@ -97,10 +97,6 @@ class AudioPlayer extends React.Component {
     this.props.nextSong(this.props.currentSong);
   }
 
-  jumpQueue(amount) {
-    this.props.jumpQueue(amount);
-  }
-
   _convertToTime (number) {
     const mins = Math.floor(number / 60);
     const secs = (number % 60).toFixed();
@@ -126,29 +122,11 @@ class AudioPlayer extends React.Component {
     let title = "-";
     let artist = "-";
     let image = "";
-    let playQueue = ""
-    let queued = this.props.queue.map((song, idx) => {
-      return (
-        <li
-          key={idx}
-          className="player-queued-song">
-          {song.title}
-        </li>
-      );
-    });
     const song = this.props.currentSong
     if (song) {
       title = song.title;
       artist = song.artist;
       image = song.image;
-      playQueue = (
-        <div id="player-queue">
-          <p id="player-queue-title">Play Queue:</p>
-          <ul>
-            {queued}
-          </ul>
-        </div>
-      );
     }
     return (
       <div id='audio-player' className='comp-d'>
@@ -189,7 +167,6 @@ class AudioPlayer extends React.Component {
                 aria-hidden="true"
                 onClick={this.nextButton}></i>
           </div>
-          {playQueue}
       </div>
     );
   }
@@ -197,15 +174,13 @@ class AudioPlayer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentSong: currentSong(state.playQueue),
-    queue: state.playQueue
+    currentSong: currentSong(state.playQueue)
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     nextSong: (song) => { return dispatch(nextSong(song)); },
-    jumpQueue: (amount) => { return dispatch(jumpQueue(amount)); }
   };
 };
 

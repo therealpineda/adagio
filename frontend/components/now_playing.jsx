@@ -1,8 +1,9 @@
 import React from 'react';
-import AudioPlayer from './audio_player';
 import { connect } from 'react-redux';
 import { currentSong } from '../reducers/selectors';
 import classNames from 'classnames';
+import AudioPlayer from './audio_player';
+import MiniPlayQueue from './mini_play_queue';
 
 class NowPlaying extends React.Component {
 

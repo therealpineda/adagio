@@ -1,0 +1,25 @@
+#mini-play-queue {
+  margin: 20px 10px 0 10px;
+  text-align: left;
+  font-size: 12px;
+}
+
+#mini-play-queue-title {
+  color: #88898c;
+  text-transform: uppercase;
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-bottom: 11px;
+}
+
+.mini-play-queued-song {
+  padding: 5px 0 5px 3px;
+  border-top: 1px solid #0F1010;
+
+}
+
+.mini-play-queued-song:hover {
+  // background-color: #1a1a1c;
+  cursor: pointer;
+  color: #84bd00;
+}
