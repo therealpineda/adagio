@@ -1,7 +1,7 @@
 import React from 'react';
 import RCPlaylistIndexItem from './rc_playlist_index_item';
-import { playlistsArray } from '../reducers/selectors';
-import { fetchPlaylists } from '../actions/playlist_actions';
+import { playlistsArray } from '../../../reducers/selectors';
+import { fetchPlaylists } from '../../../actions/playlist_actions';
 import { connect } from 'react-redux';
 
 

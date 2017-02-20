@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
-import { playSong } from '../actions/play_queue_actions';
+import { playSong } from '../../actions/play_queue_actions';
 
 class SongIndexItem extends React.Component {
   constructor() {

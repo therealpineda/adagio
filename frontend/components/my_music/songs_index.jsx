@@ -1,11 +1,11 @@
 import React from 'react';
 import SongIndexItem from './song_index_item';
 import Modal from 'react-modal';
-import RCPlaylistIndex from './rc_playlist_index';
+import RCPlaylistIndex from './playlists/rc_playlist_index';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { playSong, addSong } from '../actions/play_queue_actions';
-import { removeSongFromPlaylist } from '../actions/playlist_actions';
+import { playSong, addSong } from '../../actions/play_queue_actions';
+import { removeSongFromPlaylist } from '../../actions/playlist_actions';
 
 class SongsIndex extends React.Component {
   constructor(props) {
@@ -36,8 +36,7 @@ class SongsIndex extends React.Component {
           borderRadius               : '0',
           outline                    : 'none',
           padding                    : '0',
-          width : "180px"
-
+          width : "150px"
         }
       },
       clickedSong: ""

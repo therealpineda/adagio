@@ -1,10 +1,10 @@
 import React from 'react';
-import SongsIndex from './songs_index';
+import SongsIndex from '../songs_index';
 import PlaylistEditForm from './playlist_edit_form';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { deletePlaylist } from '../actions/playlist_actions';
-import { playSongs } from '../actions/play_queue_actions';
+import { deletePlaylist } from '../../../actions/playlist_actions';
+import { playSongs } from '../../../actions/play_queue_actions';
 
 
 class PlaylistDetail extends React.Component {

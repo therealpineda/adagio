@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addSongToPlaylist } from '../actions/playlist_actions';
+import { addSongToPlaylist } from '../../../actions/playlist_actions';
 
 // name
 // key

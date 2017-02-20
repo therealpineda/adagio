@@ -11,3 +11,13 @@ export const playlistsArray = (playlists) => {
 export const currentSong = (playQueue) => {
   return playQueue[0];
 }
+
+export const usersArray = (users) => {
+  let array = []
+  array = Object.keys(users).map( (id) => {
+    return (
+      users[id]
+    );
+  });
+  return array;
+}

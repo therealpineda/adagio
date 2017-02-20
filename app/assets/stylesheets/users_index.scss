@@ -1,0 +1,256 @@
+#explore-playlists {
+  height: 100%;
+}
+
+#explore-playlists-users-header {
+
+}
+
+#explore-playlists-users-header h2 {
+  margin: 19px 0 9px 0;
+  color: #dfe0e6;
+  font-size: 48px;
+  font-weight: 100;
+}
+
+#ep-main {
+  width: 100%;
+  height: 100%;
+}
+
+/* Users Index */
+
+#users-index {
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+#users-index-sidebar {
+  height: 100%;
+  width: 25%;
+  min-width: 250px;
+  background-color: #151617;
+  color: #dfe0e6;
+}
+
+#users-index-detail {
+  width: 100%;
+}
+
+#users-index button {
+  height: 28px;
+  font-size: 11px;
+  font-weight: 400;
+  text-align: center;
+  line-height: 0;
+}
+
+.user-index-item-container {
+  height: 60px;
+  border-top: 1px solid #0F1010;
+  border-bottom: 1px solid #0F1010;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 6px;
+}
+
+.user-index-item-container:hover {
+  background-color: #1a1a1c;
+  color: #FFF;
+}
+
+.selected-user {
+  background-color: #1a1a1c;
+  border-right: 2px solid #80AB27;
+}
+
+.user-index-item-container a {
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.user-index-item {
+  display: flex;
+  justify-content: flex-start;
+  margin: 8px 0 8px 5px;
+  padding: 5px 0 5px 2px;
+}
+
+.user-index-item-img {
+  height: 40px;
+  width: 40px;
+  margin-right: 5px;
+
+}
+
+.user-index-item-img i {
+  font-size: 36px;
+}
+
+.playlist-index-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 5px;
+  font-size: .8em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.playlist-index-title-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Playlist Detail */
+
+#playlist-detail {
+  margin: 0 5px;
+  height: 100%;
+}
+
+#playlist-detail-header {
+  display: flex;
+}
+
+.playlist-detail-img {
+  margin-right: 10px;
+}
+
+.playlist-detail-img img {
+  height: 200px;
+  width: 200px;
+}
+
+#playlist-detail-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#playlist-detail-playlist {
+  margin-top: 10px;
+  color: #88898c;
+  font-size: 10px;
+}
+
+#playlist-detail-title p {
+  font-size: 40px;
+  font-weight: 100;
+  color: #DFE0E5;
+}
+
+#playlist-detail-rename-btn {
+  width: 70px;
+  font-size: 8px;
+  background-color: transparent;
+  border: 1px solid #88898c;
+  color: #88898c;
+}
+
+#playlist-detail-buttons {
+  display: flex;
+}
+
+#playlist-detail-play-btn {
+  width: 100px;
+  margin-right: 10px;
+  background-color: #5b791c;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25px;
+}
+
+#playlist-detail-play-btn-icon {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+#playlist-detail-play-btn:hover {
+  background-color: #80AB27;
+}
+
+#playlist-detail-delete-btn {
+  width: 80px;
+  border: 1px solid #88898c;
+  background-color: transparent;
+  color: #88898c;
+}
+#playlist-detail-delete-btn:hover {
+  border-color: #FFFFFF;
+}
+
+#playlist-detail-user {
+  border-top: 1px solid #1a1a1c;
+  border-bottom: 1px solid #1a1a1c;
+  margin: 10px 0 20px 0;
+  padding: 11px 5px;
+  color: #88898c;
+  font-size: .7em;
+}
+
+.playlist-user-link {
+  color: white;
+}
+
+.playlist-user-link:hover {
+  cursor: pointer;
+  border-bottom: 1px solid #FFFFFF;
+}
+
+.playlist-rename-dropdown {
+  display: none;
+}
+
+#rename-action:hover .playlist-rename-dropdown {
+  display: block;
+}
+
+#add-playlist-input {
+  height: 22px;
+  width: 130px;
+  margin-top: 5px;
+  margin-right: 5px;
+  padding: 5px;
+  font-size: 12px;
+}
+
+#add-playlist-input::-webkit-input-placeholder {
+  color: #000000;
+  padding: 5px;
+}
+
+#create-playlist-btn {
+  background-color: #84bd00;
+  width: 100px;
+}
+
+#playlist-edit-form {
+  width: 400px;
+}
+
+#rename-playlist-input {
+  height: 22px;
+  width: 250px;
+  margin-top: 5px;
+  margin-right: 5px;
+  padding: 5px;
+  font-size: 12px;
+}
+
+#rename-playlist-input::-webkit-input-placeholder {
+  color: #000000;
+  padding: 5px;
+}
+
+#rename-playlist-btn {
+  background-color: #84bd00;
+  width: 100px;
+}

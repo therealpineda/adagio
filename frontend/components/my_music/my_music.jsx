@@ -1,6 +1,6 @@
 import React from 'react';
-import PlaylistIndex from './playlist_index';
-import PlaylistDetail from './playlist_detail';
+import PlaylistIndex from './playlists/playlist_index';
+import PlaylistDetail from './playlists/playlist_detail';
 
 class MyMusic extends React.Component {
   render() {

@@ -5,7 +5,6 @@ if playlist_length > 3600
 else
   json.duration "#{playlist_length / 60} min"
 end
-json.length
 json.author "#{playlist.user.first_name} #{playlist.user.last_name}"
 json.created_at Time.at(playlist.created_at).utc.strftime("%B %-d, %Y")
 json.songs do

@@ -1,5 +1,5 @@
 import React from 'react';
-import { updatePlaylist } from '../actions/playlist_actions';
+import { updatePlaylist } from '../../../actions/playlist_actions';
 import { connect } from 'react-redux';
 import { merge } from 'lodash';
 

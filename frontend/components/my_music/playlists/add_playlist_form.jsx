@@ -1,7 +1,7 @@
 import React from 'react';
 import { merge } from 'lodash';
 import { connect } from 'react-redux';
-import { addPlaylist } from '../actions/playlist_actions';
+import { addPlaylist } from '../../../actions/playlist_actions';
 
 class AddPlaylistForm extends React.Component {
   constructor() {

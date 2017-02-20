@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { playlistsArray } from '../reducers/selectors';
-import { fetchPlaylists } from '../actions/playlist_actions';
+import { playlistsArray } from '../../../reducers/selectors';
+import { fetchPlaylists } from '../../../actions/playlist_actions';
 import PlaylistIndexItem from './playlist_index_item';
 import PlaylistDetail from './playlist_detail';
 import AddPlaylistForm from './add_playlist_form';
