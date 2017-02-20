@@ -8,7 +8,7 @@ class ExplorePlaylists extends React.Component {
 
   render() {
     return (
-      <div id='explore-playlists' className="comp">
+      <div id='explore-playlists' className="comp-d">
         <div id='explore-playlists-users-header'>
           <h2>Users</h2>
         </div>

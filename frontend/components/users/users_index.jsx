@@ -24,7 +24,7 @@ class UsersIndex extends React.Component {
       );
     });
     return (
-      <div id='users-index' className="comp">
+      <div id='users-index' className="comp-d">
         <div id='users-index-sidebar'>
           <ul>
             { userIndexItems }

@@ -12,7 +12,7 @@ class UserDetail extends React.Component {
   render() {
     if (this.props.user) {
       return (
-        <div id='user-detail' className='comp'>
+        <div id='user-detail' className='comp-d'>
           <div id='user-detail-header'>
             <div id='user-detail-header-top'>
               <div className='user-detail-img'>
@@ -38,18 +38,23 @@ class UserDetail extends React.Component {
           <div id="playlist-detail-user">
                <p>{this.props.user.playlists.length} playlists &#8226; 0 followers</p>
           </div>
+          <div className="user-detail-sub-header">
+            <p>Public Playlists</p>
+          </div>
           <div id='user-playlists-index-container'>
             <UserPlaylistIndex playlists={this.props.user.playlists} />
           </div>
+          <div className="user-detail-sub-header">
+            <p>Following</p>
+          </div>
           <div id='user-following-index-container'>
-            <br />[FOLLOWING USERS...]
+    
           </div>
         </div>
       );
     } else {
       return (
         <div id='playlist-detail' className='comp-d'>
-          <h6>UserDetail</h6>
           <p>Choose a user...</p>
         </div>
       );

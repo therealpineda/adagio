@@ -1,9 +1,11 @@
 #explore-playlists {
   height: 100%;
+  width: 100%;
 }
 
 #explore-playlists-users-header {
-
+  border-bottom: 1px solid #222326;
+  margin-bottom: 5px;
 }
 
 #explore-playlists-users-header h2 {
@@ -22,6 +24,7 @@
 
 #users-index {
   height: 100%;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
 }
@@ -35,7 +38,7 @@
 }
 
 #users-index-detail {
-  width: 100%;
+  width: calc(79%);
 }
 
 #users-index button {
@@ -123,6 +126,7 @@
 #user-detail {
   margin: 0 5px;
   height: 100%;
+  width: 100%;
 }
 
 #user-detail-header {
@@ -157,14 +161,6 @@
   color: #DFE0E5;
 }
 
-#user-detail-rename-btn {
-  width: 70px;
-  font-size: 8px;
-  background-color: transparent;
-  border: 1px solid #88898c;
-  color: #88898c;
-}
-
 #user-detail-buttons {
   display: flex;
 }
@@ -182,7 +178,6 @@
 }
 
 #playlist-detail-user {
-  border-top: 1px solid #1a1a1c;
   border-bottom: 1px solid #1a1a1c;
   margin: 10px 0 20px 0;
   padding: 11px 5px;
@@ -197,4 +192,71 @@
 .playlist-user-link:hover {
   cursor: pointer;
   border-bottom: 1px solid #FFFFFF;
+}
+
+
+.user-detail-sub-header {
+  margin-top: 20px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  color: #88898c;
+  border-bottom: 1px solid #1a1a1c;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 1.1px;
+
+}
+
+
+#user-playlists-index-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+#user-playlists-index-list {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+}
+
+/* Playlist Index */
+
+.user-playlist-index-item {
+  width: 20%;
+  min-width: 200px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  background-color: #1a1a1c;
+
+}
+.user-playlist-index-item-img {
+  width: 100%;
+}
+
+.user-playlist-index-item-details {
+  padding: 10px 5px;
+}
+
+.user-playlist-index-name {
+  color: #dfe0e6;
+  font-size: 13px;
+}
+
+.user-playlist-index-name:hover {
+  cursor: pointer;
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+.user-playlist-index-followers {
+  color: #dfe0e6;
+  font-size: 12px;
+}
+
+.user-playlist-index-songs {
+  margin: 5px 0 8px 0;
+  color: #88898c;
+  font-size: .8em;
 }
