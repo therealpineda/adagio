@@ -3,6 +3,10 @@ User.create(username: 'johndoe', password: 'password', first_name: 'John', last_
 User.create(username: 'janedoe', password: 'password', first_name: 'Jane', last_name: 'Doe', email: 'janedoe@email.com')
 User.create(username: 'jimmydoe', password: 'password', first_name: 'Jimmy', last_name: 'Doe', email: 'jimmydoe@email.com')
 
+UserFollow.destroy_all
+user_id = User.find_by(username: "johndoe").id
+follower_id = User.find_by(username: "janedoe").id
+UserFollow.create(user_id: user_id, follower_id: follower_id)
 
 Artist.destroy_all
 Artist.create(name: "Jahzzar", image_url: "https://s3.amazonaws.com/adagio-prod/images/default/artist_img.jpg")

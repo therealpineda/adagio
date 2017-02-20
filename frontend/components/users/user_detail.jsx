@@ -1,5 +1,6 @@
 import React from 'react';
-import UserPlaylistIndex from './user_playlist_index'
+import UserPlaylistIndex from './user_playlist_index';
+import UserFollowingIndex from './user_following_index';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { playSongs } from '../../actions/play_queue_actions';
@@ -45,7 +46,7 @@ class UserDetail extends React.Component {
             </div>
         </div>
           <div id="playlist-detail-user">
-               <p>{this.props.user.playlists.length} playlists &#8226; 0 followers</p>
+               <p>{this.props.user.playlists.length} playlists &#8226; {this.props.user.followers_count}</p>
           </div>
           <div className="user-detail-sub-header">
             <p>Public Playlists</p>
@@ -57,7 +58,7 @@ class UserDetail extends React.Component {
             <p>Following</p>
           </div>
           <div id='user-following-index-container'>
-
+            <UserFollowingIndex followings={this.props.user.followings} />
           </div>
         </div>
       );

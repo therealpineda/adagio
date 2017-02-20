@@ -13,3 +13,13 @@ json.playlists do
     json.num_songs playlist.songs.count
   end
 end
+
+json.followers_count pluralize(user.followers.count, 'follower')
+
+json.followings do
+  json.array! user.followings do |userf|
+    json.id userf.id
+    json.name "#{userf.first_name} #{userf.last_name}"
+    json.followers_count pluralize(userf.followers.count, 'follower')
+  end
+end
