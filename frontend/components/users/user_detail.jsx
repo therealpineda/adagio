@@ -11,6 +11,17 @@ class UserDetail extends React.Component {
 
   render() {
     if (this.props.user) {
+      let followButton = (
+        <button
+          id="user-detail-follow-btn"
+          onClick={console.log()}>Follow</button>
+      )
+      if (this.props.user.id === this.props.currentUser.id) {
+        followButton = (
+          <button
+            id="user-detail-follow-btn-you">You</button>
+        )
+      }
       return (
         <div id='user-detail' className='comp-d'>
           <div id='user-detail-header'>
@@ -30,9 +41,7 @@ class UserDetail extends React.Component {
               </div>
             </div>
             <div id="user-detail-buttons">
-              <button
-                id="user-detail-follow-btn"
-                onClick={console.log()}>Follow</button>
+              { followButton }
             </div>
         </div>
           <div id="playlist-detail-user">
@@ -48,7 +57,7 @@ class UserDetail extends React.Component {
             <p>Following</p>
           </div>
           <div id='user-following-index-container'>
-    
+
           </div>
         </div>
       );
@@ -63,7 +72,9 @@ class UserDetail extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    currentUser: state.session.currentUser
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

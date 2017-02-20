@@ -62,11 +62,23 @@
   border-top: 1px solid #1a1a1c;
   padding: 10px 0 0px 0;
   font-size: 36px;
+  color: #D7D9DF;
 }
 
 #user-box p {
   font-size: .7em;
   margin: 5px 0 12px 0;
+  color: #D7D9DF;
+}
+
+#user-box-user:hover i {
+  color: #fff;
+  // border-radius: 50%;
+  // border: 1px solid #80AB27;
+}
+
+#user-box-user:hover p {
+  color: #fff;
 }
 
 #user-box button {

@@ -69,8 +69,12 @@ class Nav extends React.Component {
 
           </div>
         <div id='user-box'>
-          <i className="fa fa-user-circle-o" aria-hidden="true"></i>
-          <p>{this.props.userFullName}</p>
+          <div id='user-box-user'>
+            <Link to={`/explore-playlists/users/${this.props.userId}`}>
+            <i className="fa fa-user-circle-o" aria-hidden="true"></i>
+            <p>{this.props.userFullName}</p>
+            </Link>
+          </div>
           <button
             onClick={this._logOut}>Log Out</button>
         </div>
@@ -83,7 +87,8 @@ const mapStateToProps = (state) => {
   const userFullName = (
     state.session.currentUser.first_name + " " + state.session.currentUser.last_name )
   return {
-    userFullName: userFullName
+    userFullName: userFullName,
+    userId: state.session.currentUser.id
   };
 };
 
