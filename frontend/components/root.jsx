@@ -37,7 +37,9 @@ class Root extends React.Component {
             <Route path="my-music" component={MyMusic} >
               <Route path="playlists/:playlistId" />
             </Route>
-            <Route path="explore-playlists" component={ExplorePlaylists} />
+            <Route path="explore-playlists" component={ExplorePlaylists}>
+              <Route path="users/:userId" />
+            </Route>
           </Route>
         </Router>
       </Provider>

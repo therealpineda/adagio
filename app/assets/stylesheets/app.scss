@@ -23,12 +23,24 @@
   height: 55px;
 }
 
-#nav a {
-  color: #88898c;
-  text-align: center;
+.nav-link {
+  width: 100%;
+  margin: 20px 0;
+  padding: 5px;
   display: flex;
   flex-direction: column;
-  margin: 20px 0;
+  text-align: center;
+  color: #88898c;
+}
+
+.nav-link:hover {
+  cursor: pointer;
+  color: #D7D9DF;
+}
+
+.active-link {
+  color: #D7D9DF;
+  box-shadow: -3px 0 0 0 #80AB27;
 }
 
 .nav-icon i {
@@ -38,21 +50,6 @@
 .nav-icon-text p {
   margin: 3px 0;
   font-size: 11px;
-}
-
-.nav-link {
-  padding: 5px;
-  width: 100%;
-}
-
-.nav-link:hover {
-  color: #D7D9DF;
-  cursor: pointer;
-}
-
-.active-link {
-  color: #D7D9DF;
-  box-shadow: -3px 0 0 0 #80AB27;
 }
 
 #user-box {

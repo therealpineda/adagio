@@ -1,5 +1,7 @@
 import React from 'react';
 import UserIndexItem from './user_index_item';
+import UserDetail from './user_detail';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { usersArray } from '../../reducers/selectors';
 import { fetchUsers } from '../../actions/users_actions';
@@ -29,16 +31,23 @@ class UsersIndex extends React.Component {
           </ul>
         </div>
         <div id='users-index-detail'>
-
+          <UserDetail user={this.props.selectedUser} />
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  let userId = null;
+  let selectedUser = null;
+  if (ownProps.params.userId) {
+    userId = ownProps.params.userId;
+    selectedUser = state.users[userId];
+  }
   return {
-    users: usersArray(state.users)
+    users: usersArray(state.users),
+    selectedUser: selectedUser
   };
 };
 
@@ -48,4 +57,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersIndex);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UsersIndex));
