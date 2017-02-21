@@ -13,10 +13,21 @@ class PlaylistIndex extends React.Component {
     this.state = {
       selectedPlaylist: null
     }
+    this._toggleDisplayForm = this._toggleDisplayForm.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchPlaylists(this.props.userId);
+  }
+
+  _toggleDisplayForm(e) {
+    e.preventDefault();
+    const form = $('.add-playlist-form');
+    form.toggleClass('hidden-form');
+    if (!form.attr('class').includes('hidden-form')) {
+      const input = $('#add-playlist-input');
+      input.focus();
+    }
   }
 
   render() {
@@ -32,18 +43,19 @@ class PlaylistIndex extends React.Component {
     return (
       <div id='playlist-index' className='comp-d'>
           <div id='playlist-index-sidebar'>
-            <ul>
+            <ul id="playlist-index-list">
               <li
-                className='playlist-index-item add-playlist'>
+                className='playlist-index-item add-playlist'
+                onClick={this._toggleDisplayForm}>
                 <div className='playlist-index-new-playlist-plus'>
                   <i className="fa fa-plus" aria-hidden="true"></i>
                 </div>
                 <div className='playlist-index-title'>
                   <p>New Playlist</p>
                 </div>
-                <div className="playlist-form-dropdown">
+              </li>
+              <li className="playlist-index-item add-playlist-form hidden-form">
                   <AddPlaylistForm />
-                </div>
               </li>
               { playlistIndexItems }
             </ul>

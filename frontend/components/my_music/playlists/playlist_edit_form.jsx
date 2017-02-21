@@ -65,8 +65,9 @@ class PlaylistEditForm extends React.Component {
               disabled={this.state.disabled}
               placeholder={this.props.playlist.name}
               onChange={this.update('name')}
-              onKeyPress={this._handleKeyPress}
-              >{this.state.name}</textarea>
+              onKeyPress={this._handleKeyPress}>
+              {this.state.name}
+            </textarea>
           </form>
           <button
             id='playlist-detail-edit-btn'
