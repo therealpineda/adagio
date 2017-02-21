@@ -161,6 +161,10 @@
   color: #88898c;
 }
 
+#playlist-detail-edit-btn:hover {
+  border-color: #FFFFFF;
+}
+
 #playlist-detail-buttons {
   display: flex;
 }
@@ -275,10 +279,4 @@
   font-size: 36px;
   font-weight: 100;
   color: #DFE0E5;
-}
-
-.rename-playlist-btn {
-  display: none;
-  background-color: #84bd00;
-  width: 100px;
 }

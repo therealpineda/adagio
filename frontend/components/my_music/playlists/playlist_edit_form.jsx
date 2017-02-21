@@ -1,5 +1,4 @@
 import React from 'react';
-import autosize from 'autosize';
 import { updatePlaylist } from '../../../actions/playlist_actions';
 import { connect } from 'react-redux';
 import { merge } from 'lodash';
@@ -43,7 +42,7 @@ class PlaylistEditForm extends React.Component {
     e.preventDefault();
     if (this.state.playlist.name) {
       const playlist = merge({}, this.props.playlist, this.state.playlist);
-      this.props.renamePlaylist(playlist).then(autosize.update(this.input));
+      this.props.renamePlaylist(playlist);
     }
     this.setState( { disabled: true } );
   }
@@ -58,7 +57,7 @@ class PlaylistEditForm extends React.Component {
   render() {
     return (
       <div id='playlist-edit-form' className="comp-d">
-          <form onSubmit={ this._renamePlaylist }>
+          <form>
             <textarea
               id="rename-playlist-input"
               type="text"
@@ -68,7 +67,6 @@ class PlaylistEditForm extends React.Component {
               onChange={this.update('name')}
               onKeyPress={this._handleKeyPress}
               >{this.state.name}</textarea>
-            <br/><button className="rename-playlist-btn">Rename</button>
           </form>
           <button
             id='playlist-detail-edit-btn'
