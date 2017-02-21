@@ -55,6 +55,16 @@ class PlaylistEditForm extends React.Component {
   }
 
   render() {
+    let editButton = ("");
+    if (this.props.canEdit) {
+      editButton = (
+        <button
+          id='playlist-detail-edit-btn'
+          onClick={this._enableEdit}>
+          Rename
+        </button>
+      )
+    };
     return (
       <div id='playlist-edit-form' className="comp-d">
           <form>
@@ -69,11 +79,7 @@ class PlaylistEditForm extends React.Component {
               {this.state.name}
             </textarea>
           </form>
-          <button
-            id='playlist-detail-edit-btn'
-            onClick={this._enableEdit}>
-            Rename
-          </button>
+          { editButton }
       </div>
     );
   }

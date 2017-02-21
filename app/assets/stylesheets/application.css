@@ -21,6 +21,16 @@ body {
   color: #FFFFFF;
 }
 
+/*body {
+  scrollbar-face-color: green;
+  scrollbar-arrow-color:#FFFFFF;
+  scrollbar-track-color:#C0B0B0;
+  scrollbar-shadow-color:rgb(0,0,0);
+  scrollbar-highlight-color:rgb(0,0,0);
+  scrollbar-3dlight-color:#808080;
+  scrollbar-darkshadow-color:#202020;
+}*/
+
 .comp {
   border: 1px solid blue;
   margin: 2px;

@@ -5,6 +5,13 @@ export const fetchPlaylists = (userId) => {
   });
 };
 
+export const fetchPlaylist = (playlistId) => {
+  return $.ajax({
+    method: 'get',
+    url: `api/playlists/${playlistId}`
+  });
+};
+
 export const addPlaylist = (playlist) => {
   return $.ajax({
     method: 'post',
@@ -40,5 +47,19 @@ export const removeSongFromPlaylist = (songId, playlistId) => {
   return $.ajax({
     method: 'delete',
     url: `/api/playlists/${playlistId}/songs/${songId}`
+  });
+};
+
+export const followPlaylist = (playlistId) => {
+  return $.ajax({
+    method: 'post',
+    url: `api/playlists/${playlistId}/playlist_follows`
+  });
+};
+
+export const unfollowPlaylist = (playlistId, followId) => {
+  return $.ajax({
+    method: 'delete',
+    url: `api/playlists/${playlistId}/playlist_follows/${followId}`
   });
 };

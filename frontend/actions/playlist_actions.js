@@ -8,6 +8,14 @@ export const fetchPlaylists = (userId) => {
   };
 };
 
+export const fetchPlaylist = (playlistId) => {
+  return (dispatch) => {
+    return PlaylistApiUtil.fetchPlaylist(playlistId).then( (playlist) => {
+      return dispatch(receivePlaylist(playlist));
+    });
+  };
+};
+
 export const addPlaylist = (playlist) => {
   return (dispatch) => {
     return PlaylistApiUtil.addPlaylist(playlist).then( (playlist) => {
@@ -46,6 +54,22 @@ export const removeSongFromPlaylist = (songId, playlistId) => {
       return dispatch(receivePlaylist(playlist));
     });
   }
+};
+
+export const followPlaylist = (playlistId) => {
+  return (dispatch) => {
+    return PlaylistApiUtil.followPlaylist(playlistId).then( (playlist) => {
+      return dispatch(receivePlaylist(playlist));
+    });
+  };
+};
+
+export const unfollowPlaylist = (playlistId, followId) => {
+  return (dispatch) => {
+    return PlaylistApiUtil.unfollowPlaylist(playlistId, followId).then( (playlist) => {
+      return dispatch(receivePlaylist(playlist));
+    });
+  };
 };
 
 export const RECEIVE_PLAYLISTS = 'RECEIVE_PLAYLISTS';

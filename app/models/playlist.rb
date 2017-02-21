@@ -20,4 +20,14 @@ class Playlist < ApplicationRecord
     through: :playlist_songs,
     source: :song
 
+  has_many :playlist_follows,
+    class_name: 'PlaylistFollow',
+    primary_key: :id,
+    foreign_key: :playlist_id
+
+  has_many :followers,
+    through: :playlist_follows,
+    source: :follower
+
+
 end

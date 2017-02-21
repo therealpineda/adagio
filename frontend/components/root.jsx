@@ -6,6 +6,7 @@ import Welcome from './welcome/welcome';
 import Browse from './browse';
 import MyMusic from './my_music/my_music';
 import ExplorePlaylists from './users/explore_playlists';
+import PlaylistDetailPage from './playlist_detail_page';
 
 class Root extends React.Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class Root extends React.Component {
             <Route path="explore-playlists" component={ExplorePlaylists}>
               <Route path="users/:userId" />
             </Route>
+            <Route path="/playlists/:playlistId" component={PlaylistDetailPage} />
           </Route>
         </Router>
       </Provider>
