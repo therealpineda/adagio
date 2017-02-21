@@ -40,7 +40,8 @@ class PlaylistDetail extends React.Component {
                   <p>PLAYLIST</p>
                 </div>
                 <div id='playlist-detail-title'>
-                  <PlaylistEditForm playlist={this.props.playlist} />
+                  <PlaylistEditForm
+                    key={this.props.playlist.id} playlist={this.props.playlist} />
                 </div>
               </div>
               <div id="playlist-detail-buttons">

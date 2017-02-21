@@ -19,34 +19,27 @@ class PlaylistEditForm extends React.Component {
     this.update = this.update.bind(this);
     this.disabled = true;
     this.input = $('#rename-playlist-input');
-    autosize(this.input);
   }
 
   componentWillReceiveProps() {
     this.setState({ playlist: {name: this.props.playlist.name }});
-    autosize.update(this.input);
   }
 
   _enableEdit(e) {
-    autosize(this.input);
     this.setState( { disabled: false } );
     const input = $('#rename-playlist-input');
     input.val(this.props.playlist.name);
     input.focus();
-    autosize(this.input);
   }
 
   _handleKeyPress(e) {
-    autosize(this.input);
     if (e.key === 'Enter') {
       e.preventDefault();
       this._renamePlaylist(e);
     }
-    autosize(this.input);
   }
 
   _renamePlaylist(e) {
-    autosize(this.input);
     e.preventDefault();
     if (this.state.playlist.name) {
       const playlist = merge({}, this.props.playlist, this.state.playlist);
@@ -56,7 +49,6 @@ class PlaylistEditForm extends React.Component {
   }
 
   update(key) {
-    autosize(this.input);
 
     return (e) => {
       this.setState({ playlist: {[key]: e.target.value }})
@@ -64,7 +56,6 @@ class PlaylistEditForm extends React.Component {
   }
 
   render() {
-    autosize(this.input);
     return (
       <div id='playlist-edit-form' className="comp-d">
           <form onSubmit={ this._renamePlaylist }>
@@ -82,7 +73,7 @@ class PlaylistEditForm extends React.Component {
           <button
             id='playlist-detail-edit-btn'
             onClick={this._enableEdit}>
-            Edit
+            Rename
           </button>
       </div>
     );
