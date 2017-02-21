@@ -136,6 +136,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
+}
+
+#playlist-detail-text {
+  width: 100%;
+}
+
+#playlist-detail-title {
+  width: 100%;
 }
 
 #playlist-detail-playlist {
@@ -144,13 +153,7 @@
   font-size: 10px;
 }
 
-#playlist-detail-title p {
-  font-size: 40px;
-  font-weight: 100;
-  color: #DFE0E5;
-}
-
-#playlist-detail-rename-btn {
+#playlist-detail-edit-btn {
   width: 70px;
   font-size: 8px;
   background-color: transparent;
@@ -211,14 +214,6 @@
   border-bottom: 1px solid #FFFFFF;
 }
 
-.playlist-rename-dropdown {
-  display: none;
-}
-
-#rename-action:hover .playlist-rename-dropdown {
-  display: block;
-}
-
 #add-playlist-input {
   height: 22px;
   width: 130px;
@@ -239,24 +234,51 @@
 }
 
 #playlist-edit-form {
-  width: 400px;
+  // width: 100%;
+  // height: auto;
 }
 
-#rename-playlist-input {
-  height: 22px;
-  width: 250px;
-  margin-top: 5px;
+#playlist-edit-form textarea {
+  width: 100%;
+  border: none;
   margin-right: 5px;
-  padding: 5px;
-  font-size: 12px;
+  font-family: 'Montserrat', 'Helvetica', sans-serif;
+  font-size: 36px;
+  font-weight: 100;
+  color: #DFE0E5;
+  background-color: transparent;
+  resize: none;
 }
 
-#rename-playlist-input::-webkit-input-placeholder {
-  color: #000000;
-  padding: 5px;
+#rename-playlist-input:focus {
+  border: none;
+  outline: none;
+  font-family: 'Montserrat', 'Helvetica', sans-serif;
+  color: #88898c;
 }
 
-#rename-playlist-btn {
+#rename-playlist-input:-webkit-input-placeholder {
+  font-family: 'Montserrat', 'Helvetica', sans-serif;
+  font-size: 36px;
+  font-weight: 100;
+  color: #DFE0E5;
+}
+
+#rename-playlist-input:-webkit-input-placeholder, #rename-playlist-input::-webkit-input-placeholder {
+  font-family: 'Montserrat', 'Helvetica', sans-serif;
+  font-size: 36px;
+  font-weight: 100;
+  color: #DFE0E5;
+}
+#playlist-edit-form input:-moz-placeholder, #playlist-edit-form textarea:-moz-placeholder {
+  font-family: 'Montserrat', 'Helvetica', sans-serif;
+  font-size: 36px;
+  font-weight: 100;
+  color: #DFE0E5;
+}
+
+.rename-playlist-btn {
+  display: none;
   background-color: #84bd00;
   width: 100px;
 }

@@ -7,7 +7,6 @@ class UserIndexItem extends React.Component {
     super(props);
 
   }
-
   render() {
     let classStyle = classNames({
       'user-index-item-container': true,
@@ -27,7 +26,7 @@ class UserIndexItem extends React.Component {
                 { this.props.user.last_name }
               </p>
               <p className='user-index-item-follower-text'>
-                0 followers
+                { this.props.user.followers_count }
               </p>
             </div>
           </div>

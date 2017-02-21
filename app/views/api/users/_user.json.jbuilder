@@ -14,6 +14,12 @@ json.playlists do
   end
 end
 
+user_follow = UserFollow.find do |follow|
+  follow.user_id == user.id && follow.follower_id == current_user.id
+end
+
+json.following user_follow ? user_follow.id : false
+
 json.followers_count pluralize(user.followers.count, 'follower')
 
 json.followings do

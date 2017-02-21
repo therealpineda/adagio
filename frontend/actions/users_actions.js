@@ -8,6 +8,31 @@ export const fetchUsers = () => {
   };
 };
 
+export const followUser = (followerId, followingId) => {
+  return (dispatch) => {
+    return UsersApiUtil.newUserFollow(followerId, followingId).then( (users) => {
+      return dispatch(receiveUsers(users));
+    });
+  };
+};
+
+export const unfollowUser = (followingId, followId) => {
+  return (dispatch) => {
+    return UsersApiUtil.deleteUserFollow(followingId, followId).then( (users) => {
+      return dispatch(receiveUsers(users));
+    });
+  };
+};
+
+export const RECEIVE_USER = 'RECEIVE_USER';
+
+export const receiveUser = (user) => {
+  return {
+    type: RECEIVE_USER,
+    user: user
+  };
+}
+
 export const RECEIVE_USERS = 'RECEIVE_USERS';
 
 const receiveUsers = (users) => {

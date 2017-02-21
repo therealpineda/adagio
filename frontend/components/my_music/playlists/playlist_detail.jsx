@@ -40,13 +40,7 @@ class PlaylistDetail extends React.Component {
                   <p>PLAYLIST</p>
                 </div>
                 <div id='playlist-detail-title'>
-                  <p>{this.props.playlist.name}</p>
-                  <div id='rename-action'>
-                    <button id='playlist-detail-rename-btn'>Rename</button>
-                  <div className='playlist-rename-dropdown'>
-                    <PlaylistEditForm playlist={this.props.playlist} />
-                  </div>
-                </div>
+                  <PlaylistEditForm playlist={this.props.playlist} />
                 </div>
               </div>
               <div id="playlist-detail-buttons">
@@ -55,10 +49,12 @@ class PlaylistDetail extends React.Component {
                   onClick={this.playPlaylist}>
                   <i id="playlist-detail-play-btn-icon" className="fa fa-caret-right" aria-hidden="true"></i>
                    <p>Play</p>
-               </button>
+                </button>
                 <button
                   id="playlist-detail-delete-btn"
-                  onClick={this.deletePlaylist}>Delete</button>
+                  onClick={this.deletePlaylist}>
+                  Delete
+                </button>
               </div>
             </div>
           </div>

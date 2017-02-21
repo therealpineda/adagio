@@ -3,25 +3,45 @@ import UserPlaylistIndex from './user_playlist_index';
 import UserFollowingIndex from './user_following_index';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { playSongs } from '../../actions/play_queue_actions';
+import { followUser, unfollowUser } from '../../actions/users_actions';
 
 class UserDetail extends React.Component {
   constructor(props) {
     super();
+    this._followUser = this._followUser.bind(this);
+    this._unfollowUser = this._unfollowUser.bind(this);
   }
+
+  _followUser() {
+    const followerId = this.props.currentUser.id;
+    const followingId = parseInt(this.props.params.userId);
+    this.props.followUser(followerId, followingId);
+  }
+
+  _unfollowUser(id) {
+    const followingId = parseInt(this.props.params.userId);
+    this.props.unfollowUser(followingId, id);
+  }
+
 
   render() {
     if (this.props.user) {
       let followButton = (
         <button
           id="user-detail-follow-btn"
-          onClick={console.log()}>Follow</button>
+          onClick={this._followUser}>Follow</button>
       )
       if (this.props.user.id === this.props.currentUser.id) {
         followButton = (
           <button
             id="user-detail-follow-btn-you">You</button>
         )
+      }
+      if (this.props.user.following) {
+        const id = this.props.user.following;
+        followButton = (<button
+          id="user-detail-follow-btn"
+          onClick={this._unfollowUser.bind(this, id)}>Unfollow</button>)
       }
       return (
         <div id='user-detail' className='comp-d'>
@@ -79,7 +99,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    followUser: (followerId, followingId) => { dispatch(followUser(followerId, followingId)); },
+    unfollowUser: (followingId, followId) => { dispatch(unfollowUser(followingId, followId)); }
+  };
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserDetail));
