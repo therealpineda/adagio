@@ -7,6 +7,7 @@ class UserIndexItem extends React.Component {
     super(props);
 
   }
+
   render() {
     let classStyle = classNames({
       'user-index-item-container': true,

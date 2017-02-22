@@ -17,7 +17,11 @@ class PlaylistIndex extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchPlaylists(this.props.userId);
+    this.props.fetchPlaylists(this.props.userId).then(() => {
+      if (!this.props.selectedPlaylist) {
+        this.props.router.push(`/my-music/playlists/${this.props.playlistId}`)
+      }
+    });
   }
 
   _toggleDisplayForm(e) {
@@ -75,6 +79,10 @@ const mapStateToProps = (state, ownProps) => {
   if (ownProps.params.playlistId) {
     playlistId = ownProps.params.playlistId;
     selectedPlaylist = state.playlists[playlistId];
+  }
+  if (!playlistId) {
+    const ids = Object.keys(state.playlists);
+    playlistId = ids[ids.length - 1];
   }
   return {
     userId: state.session.currentUser.id,

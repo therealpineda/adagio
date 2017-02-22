@@ -1,6 +1,6 @@
 import React from 'react';
 import RCPlaylistIndexItem from './rc_playlist_index_item';
-import { playlistsArray } from '../../../reducers/selectors';
+import { playlistsArrayNoFollowing } from '../../../reducers/selectors';
 import { fetchPlaylists } from '../../../actions/playlist_actions';
 import { connect } from 'react-redux';
 
@@ -38,7 +38,7 @@ class RCPlaylistIndex extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     userId: state.session.currentUser.id,
-    playlists: playlistsArray(state.playlists)
+    playlists: playlistsArrayNoFollowing(state.playlists)
   };
 };
 

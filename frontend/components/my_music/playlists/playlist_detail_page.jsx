@@ -1,17 +1,14 @@
 import React from 'react';
-import { fetchPlaylist } from '../../../actions/playlist_actions';
+import PlaylistEditForm from './playlist_edit_form';
+import SongsIndex from '../songs_index';
+import { fetchPlaylist, deletePlaylist, followPlaylist, unfollowPlaylist, removePlaylist } from '../../../actions/playlist_actions';
+import { playSongs } from '../../../actions/play_queue_actions';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
-import SongsIndex from '../songs_index';
-import PlaylistEditForm from './playlist_edit_form';
-import { deletePlaylist, followPlaylist, unfollowPlaylist } from '../../../actions/playlist_actions';
-import { playSongs } from '../../../actions/play_queue_actions';
-
-
 class PlaylistDetailPage extends React.Component {
   constructor() {
-    super()
+    super();
     this.state = {
       owner: false,
       fetched: false
@@ -22,32 +19,37 @@ class PlaylistDetailPage extends React.Component {
     this.playPlaylist = this.playPlaylist.bind(this);
   }
 
-  componentWillMount() {
-    this.playlistId = parseInt(this.props.params.playlistId);
-    this.props.fetchPlaylist(this.playlistId).then( () => {
-      if (this.props.playlist.author_username === this.props.currentUser) {
-        this.setState({owner: true});
+// use id for check user
+
+// if passing playlist as prop in directly, don't need to fetch
+
+  componentDidMount() {
+    this.props.fetchPlaylist(this.props.playlistId).then( (playlist) => {
+      if (playlist.author_id === this.props.currentUser.id) {
+        this.setState({owner: true, fetched: true});
+      } else {
+        this.setState({fetched: true});
       }
-      this.setState({fetched: true});
     });
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.playlistId !== parseInt(nextProps.params.playlistId)) {
+    if (this.props.playlistId !== nextProps.playlistId) {
       this.setState({owner: false, fetched: false});
-      this.playlistId = parseInt(nextProps.params.playlistId);
-      this.props.fetchPlaylist(nextProps.params.playlistId).then( () => {
-        if (this.props.playlist.author_username === this.props.currentUser) {
-          this.setState({owner: true});
+
+      this.props.fetchPlaylist(nextProps.playlistId).then( (playlist) => {
+        if (playlist.author_id === this.props.currentUser.id) {
+          this.setState({owner: true, fetched: true});
+        } else {
+          this.setState({fetched: true});
         }
-        this.setState({fetched: true});
       });
     }
   }
 
   deletePlaylist(e) {
     e.preventDefault();
-    this.props.deletePlaylist(this.props.playlist.id).then( () => {
+    this.props.deletePlaylist(this.props.playlistId).then( () => {
       this.props.router.push('/my-music');
     });
   }
@@ -59,16 +61,18 @@ class PlaylistDetailPage extends React.Component {
 
   followPlaylist(e) {
     e.preventDefault();
-    this.props.followPlaylist(this.playlistId);
+    this.props.followPlaylist(this.props.playlistId);
   };
 
   unfollowPlaylist(e) {
     e.preventDefault();
-    this.props.unfollowPlaylist(this.playlistId, this.props.playlist.following);
+    this.props.unfollowPlaylist(this.props.playlistId, this.props.playlist.following).then(() => {
+      this.props.removePlaylist(this.props.playlist);
+    });
   };
 
   render() {
-    if (this.state.fetched) {
+    if (this.state.fetched && this.props.playlist) {
       let canEdit = false;
       let followDeleteButton = (
         <button
@@ -103,10 +107,12 @@ class PlaylistDetailPage extends React.Component {
 
       return (
         <div id='playlist-detail-page' className='comp-d'>
+
           <div id='playlist-detail-header'>
             <div className='playlist-detail-img'>
               <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
             </div>
+
             <div id='playlist-detail-right'>
               <div id='playlist-detail-text'>
                 <div className='detail-type-header'>
@@ -114,28 +120,31 @@ class PlaylistDetailPage extends React.Component {
                 </div>
                 <div id='playlist-detail-title'>
                   <PlaylistEditForm
-                    key={this.props.playlist.id} playlist={this.props.playlist} canEdit={canEdit}/>
+                    key={this.props.playlist.id}
+                    playlist={this.props.playlist}
+                    canEdit={canEdit} />
                 </div>
               </div>
+
               <div id='playlist-detail-btm-rt-container'>
+                <div id="playlist-detail-buttons">
+                  <button
+                    id="playlist-detail-play-btn"
+                    onClick={this.playPlaylist}>
+                    <i id="playlist-detail-play-btn-icon" className="fa fa-caret-right" aria-hidden="true"></i>
+                     <p>Play</p>
+                  </button>
+                  { followDeleteButton }
+                </div>
 
-              <div id="playlist-detail-buttons">
-                <button
-                  id="playlist-detail-play-btn"
-                  onClick={this.playPlaylist}>
-                  <i id="playlist-detail-play-btn-icon" className="fa fa-caret-right" aria-hidden="true"></i>
-                   <p>Play</p>
-                </button>
-
-                { followDeleteButton }
-
+                <div id="playlist-detail-follower-count">
+                  <p>{this.props.playlist.followers_count}</p>
+                </div>
               </div>
-              <div id="playlist-detail-follower-count">
-                <p>{this.props.playlist.followers_count}</p>
-              </div>
-            </div>
+
             </div>
           </div>
+
           <div id="playlist-detail-user">
             <p>Created by: &nbsp;
               <Link to={`/explore-playlists/users/${this.props.playlist.author_id}`}>
@@ -143,8 +152,10 @@ class PlaylistDetailPage extends React.Component {
                   {this.props.playlist.author}
                 </span>
               </ Link>
-               &nbsp; &#8226;	{this.props.playlist.songs.length} songs, {this.props.playlist.duration}</p>
+               &nbsp; &#8226;	{this.props.playlist.songs.length} songs, {this.props.playlist.duration}
+             </p>
           </div>
+
           <div id='playlist-songs-index'>
             <SongsIndex songs={this.props.playlist.songs} />
           </div>
@@ -153,7 +164,7 @@ class PlaylistDetailPage extends React.Component {
     } else {
       return (
         <div id='playlist-detail-page' className='comp-d'>
-          <p></p>
+          <p>Loading...</p>
         </div>
       );
     }
@@ -161,10 +172,11 @@ class PlaylistDetailPage extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const playlistId = parseInt(ownProps.params.playlistId);
+  let playlistId = ownProps.params.playlistId
   return {
+    playlistId: playlistId,
     playlist: state.playlists[playlistId],
-    currentUser: state.session.currentUser.username
+    currentUser: state.session.currentUser
   };
 }
 
@@ -173,6 +185,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchPlaylist: (playlistId) => { return dispatch(fetchPlaylist(playlistId)); },
     followPlaylist: (playlistId) => { return dispatch(followPlaylist(playlistId)); },
     unfollowPlaylist: (playlistId, followId) => { return dispatch(unfollowPlaylist(playlistId, followId)); },
+    removePlaylist: (playlist) => { return dispatch(removePlaylist(playlist)); },
     deletePlaylist: (id) => { return dispatch(deletePlaylist(id)); },
     playSongs: (songs) => { return dispatch(playSongs(songs)); }
   };

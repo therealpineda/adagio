@@ -11,8 +11,11 @@ class UsersIndex extends React.Component {
     super();
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchUsers();
+    if (!this.props.selectedUser) {
+      this.props.router.push(`/explore-playlists/users/${this.props.userId}`)
+    }
   }
 
   render() {
@@ -20,7 +23,7 @@ class UsersIndex extends React.Component {
       return (
         <UserIndexItem
           key={user.id}
-          user={user} />
+          user={user}/>
       );
     });
     return (
@@ -39,7 +42,7 @@ class UsersIndex extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let userId = null;
+  let userId = state.session.currentUser.id;
   let selectedUser = null;
   if (ownProps.params.userId) {
     userId = ownProps.params.userId;
@@ -47,6 +50,7 @@ const mapStateToProps = (state, ownProps) => {
   }
   return {
     users: usersArray(state.users),
+    userId: userId,
     selectedUser: selectedUser
   };
 };

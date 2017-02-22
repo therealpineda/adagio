@@ -60,12 +60,13 @@
   flex-direction: column;
   justify-content: center;
   padding: 5px;
-  border-top: 1px solid #0F1010;
+  border-bottom: 1px solid #0F1010;
 }
 
 .rc-modal-item:first-of-type {
   font-size: .85em;
   color: #D7D9DF;
+  border: none;
 }
 
 .rc-modal-item:hover {
