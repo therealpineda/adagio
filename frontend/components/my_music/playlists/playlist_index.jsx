@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { playlistsArray } from '../../../reducers/selectors';
-import { fetchPlaylists } from '../../../actions/playlist_actions';
+// import { fetchPlaylists } from '../../../actions/playlist_actions';
 import PlaylistIndexItem from './playlist_index_item';
 import PlaylistDetailPage from './playlist_detail_page';
 import AddPlaylistForm from './add_playlist_form';
@@ -14,15 +14,6 @@ class PlaylistIndex extends React.Component {
       selectedPlaylist: null
     }
     this._toggleDisplayForm = this._toggleDisplayForm.bind(this);
-  }
-
-  // by default, display most recent playlist
-  componentWillMount() {
-    this.props.fetchPlaylists(this.props.userId).then(() => {
-      if (!this.props.selectedPlaylist) {
-        this.props.router.push(`/my-music/playlists/${this.props.playlistId}`)
-      }
-    });
   }
 
   // redirect if URL is not in state
@@ -84,28 +75,31 @@ class PlaylistIndex extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let playlistId = null;
-  let selectedPlaylist = null;
+  let playlistId;
   if (ownProps.params.playlistId) {
     playlistId = ownProps.params.playlistId;
-    selectedPlaylist = state.playlists[playlistId];
-  }
-  // by default, display most recent playlist
-  if (!playlistId) {
+  } else {
     const ids = Object.keys(state.playlists);
     playlistId = ids[ids.length - 1];
   }
+  const selectedPlaylist = state.playlists[playlistId];
+
+  const userPlaylists = state.session.currentUser.playlists;
+  const userFollowedPlaylists = state.session.currentUser.followed_playlists;
+
   return {
     userId: state.session.currentUser.id,
-    playlists: playlistsArray(state.playlists),
+    playlists: userPlaylists.concat(userFollowedPlaylists),
     playlistId: playlistId,
     selectedPlaylist: selectedPlaylist
   };
 };
 
+// playlists: playlistsArray(state.playlists),
+// fetchPlaylists: (userId) => { return dispatch(fetchPlaylists(userId)); }
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchPlaylists: (userId) => { return dispatch(fetchPlaylists(userId)); }
   };
 };
 

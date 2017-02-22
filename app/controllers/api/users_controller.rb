@@ -10,13 +10,13 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(playlists: [songs: [:artist]]).find(params[:id])
+    @user = User.includes(playlists: [:songs, :followers]).find(params[:id])
     render :show
   end
 
   def index
     @users = User.includes(playlists: [songs: [:artist]]).all
-    render :index
+    render :index, content_type: 'application/json'
   end
 
   private

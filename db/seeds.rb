@@ -198,7 +198,7 @@ song_ids = Song.all.pluck(:id)
 
 20.times do
   playlist_name = [
-    Faker::Commerce.color.capitalize,
+    Faker::Commerce.color.split(" ").map(&:capitalize).join(" "),
     Faker::Commerce.department(1),
     Faker::Commerce.product_name.split[0],
     Faker::Space.constellation
@@ -217,5 +217,5 @@ song_ids = Song.all.pluck(:id)
   other_users_ids.take(rand(0..7)).each do |user_id|
     PlaylistFollow.create(playlist_id: playlist.id, follower_id: user_id)
   end
-  
+
 end
