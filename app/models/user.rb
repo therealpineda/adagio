@@ -15,10 +15,10 @@
 #
 
 class User < ApplicationRecord
-  validates :username, presence: { message: "Username cannot be blank." }
+  validates :username, presence: { message: "Username cannot be blank." }, uniqueness: true
   validates :first_name, presence: { message: "First name cannot be blank." }
   validates :last_name, presence: { message: "Last name cannot be blank." }
-  validates :email, presence: { message: "Email cannot be blank." }
+  validates :email, presence: { message: "Email cannot be blank." }, uniqueness: true
   validates :password_digest, :session_token, presence: true
   validates :password, length: { minimum: 6, allow_nil: true, message: "Password must be at least 6 characters long." }
 

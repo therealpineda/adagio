@@ -1,7 +1,12 @@
 json.extract! playlist, :id, :name
 playlist_length = playlist.songs.inject(0) { |sum, song| sum + song.duration}
 if playlist_length > 3600
-  json.duration "#{playlist_length / 3600} hr #{playlist_length / 60} min"
+  hours = 0
+  until playlist_length < 3600
+      hours += 1
+      playlist_length -= 3600
+  end
+  json.duration "#{hours} hr #{playlist_length / 60} min"
 else
   json.duration "#{playlist_length / 60} min"
 end
