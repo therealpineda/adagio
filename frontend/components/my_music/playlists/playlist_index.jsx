@@ -16,12 +16,23 @@ class PlaylistIndex extends React.Component {
     this._toggleDisplayForm = this._toggleDisplayForm.bind(this);
   }
 
+  // by default, display most recent playlist
   componentWillMount() {
     this.props.fetchPlaylists(this.props.userId).then(() => {
       if (!this.props.selectedPlaylist) {
         this.props.router.push(`/my-music/playlists/${this.props.playlistId}`)
       }
     });
+  }
+
+  // redirect if URL is not in state
+  componentWillReceiveProps(nextProps) {
+    const ids = nextProps.playlists.map((playlist) => {
+      return playlist.id
+    });
+    if (!ids.includes(parseInt(nextProps.params.playlistId))) {
+      this.props.router.push(`/my-music/playlists/${nextProps.playlists[0].id}`)
+    }
   }
 
   _toggleDisplayForm(e) {
@@ -40,7 +51,6 @@ class PlaylistIndex extends React.Component {
         <PlaylistIndexItem
           key={playlist.id}
           playlist={playlist}
-          onClick={this._selectPlaylist}
           selectedPlaylistId={this.props.playlistId}
           authorId={this.props.userId} />
       );
@@ -80,6 +90,7 @@ const mapStateToProps = (state, ownProps) => {
     playlistId = ownProps.params.playlistId;
     selectedPlaylist = state.playlists[playlistId];
   }
+  // by default, display most recent playlist
   if (!playlistId) {
     const ids = Object.keys(state.playlists);
     playlistId = ids[ids.length - 1];

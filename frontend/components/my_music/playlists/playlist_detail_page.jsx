@@ -19,8 +19,6 @@ class PlaylistDetailPage extends React.Component {
     this.playPlaylist = this.playPlaylist.bind(this);
   }
 
-// use id for check user
-
 // if passing playlist as prop in directly, don't need to fetch
 
   componentDidMount() {
@@ -50,7 +48,7 @@ class PlaylistDetailPage extends React.Component {
   deletePlaylist(e) {
     e.preventDefault();
     this.props.deletePlaylist(this.props.playlistId).then( () => {
-      this.props.router.push('/my-music');
+
     });
   }
 
@@ -164,18 +162,23 @@ class PlaylistDetailPage extends React.Component {
     } else {
       return (
         <div id='playlist-detail-page' className='comp-d'>
-          <p>Loading...</p>
+          <p></p>
         </div>
       );
     }
   }
 }
 
+// debugger
 const mapStateToProps = (state, ownProps) => {
   let playlistId = ownProps.params.playlistId
+  let playlist = ownProps.playlist
+  if (!playlist) {
+    playlist = state.playlists[playlistId]
+  }
   return {
     playlistId: playlistId,
-    playlist: state.playlists[playlistId],
+    playlist: playlist,
     currentUser: state.session.currentUser
   };
 }
