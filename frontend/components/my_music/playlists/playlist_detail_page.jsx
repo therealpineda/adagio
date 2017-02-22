@@ -2,6 +2,7 @@ import React from 'react';
 import PlaylistEditForm from './playlist_edit_form';
 import SongsIndex from '../songs_index';
 import { fetchPlaylist, deletePlaylist, followPlaylist, unfollowPlaylist, removePlaylist } from '../../../actions/playlist_actions';
+import Modal from 'react-modal';
 import { playSongs } from '../../../actions/play_queue_actions';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
@@ -11,15 +12,54 @@ class PlaylistDetailPage extends React.Component {
     super();
     this.state = {
       owner: false,
-      fetched: false
+      fetched: false,
+      modalIsOpen: false,
+      customStyles: {
+        overlay : {
+          position          : 'fixed',
+          top               : 0,
+          left              : 0,
+          right             : 0,
+          bottom            : 0,
+          backgroundColor   : 'rgba(15,16,16,0.3)'
+        },
+        content : {
+          position                    : 'absolute',
+          top                         : '240px',
+          left                        : '340px',
+          right                       : '10px',
+          bottom                      : '10px',
+          height                      : '128px',
+          border                      : '1px solid #151616',
+          background                  : '#2f2f31',
+          overflowX                   : 'hidden',
+          overflowY                   : 'hidden',
+          WebkitOverflowScrolling     : 'touch',
+          borderRadius                : '3px',
+          outline                     : 'none',
+          padding                     : '0px',
+          width                       : "300px"
+        }
+      }
     };
+
     this.followPlaylist = this.followPlaylist.bind(this);
     this.unfollowPlaylist = this.unfollowPlaylist.bind(this);
     this.deletePlaylist = this.deletePlaylist.bind(this);
     this.playPlaylist = this.playPlaylist.bind(this);
+
+    this.handleClick = this.handleClick.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.afterOpenModal = this.afterOpenModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
-// if passing playlist as prop in directly, don't need to fetch
+
+  componentWillMount() {
+    Modal.setAppElement('body');
+  }
+
+  // if passing playlist as prop in directly, don't need to fetch! - TO DO
 
   componentDidMount() {
     this.props.fetchPlaylist(this.props.playlistId).then( (playlist) => {
@@ -47,9 +87,30 @@ class PlaylistDetailPage extends React.Component {
 
   deletePlaylist(e) {
     e.preventDefault();
-    this.props.deletePlaylist(this.props.playlistId).then( () => {
+    this.closeModal();
+    this.props.deletePlaylist(this.props.playlistId);
+  }
 
-    });
+  handleClick(e) {
+    e.preventDefault();
+    let customStyles = this.state.customStyles;
+    customStyles.content.left = e.clientX;
+    customStyles.content.top = e.clientY;
+    this.setState({customStyles: customStyles});
+    this.openModal();
+  }
+
+  openModal() {
+    this.setState({modalIsOpen: true});
+  }
+
+  afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    // this.refs.subtitle.style.color = '#f00';
+  }
+
+  closeModal() {
+    this.setState({modalIsOpen: false});
   }
 
   playPlaylist(e) {
@@ -97,7 +158,7 @@ class PlaylistDetailPage extends React.Component {
           <button
             id="playlist-detail-delete-btn"
             className="negative-button"
-            onClick={this.deletePlaylist}>
+            onClick={this.handleClick}>
             Delete
           </button>
         );
@@ -157,6 +218,38 @@ class PlaylistDetailPage extends React.Component {
           <div id='playlist-songs-index'>
             <SongsIndex songs={this.props.playlist.songs} />
           </div>
+
+
+          <Modal
+            className="delete-playlist-modal"
+            isOpen={this.state.modalIsOpen}
+            onAfterOpen={this.afterOpenModal}
+            onRequestClose={this.closeModal}
+            style={this.state.customStyles}
+            contentLabel="Delete Playlist Modal"
+          >
+            <div className='delete-modal'>
+              <div className='delete-modal-text'>
+                <p><span className="detail-type-header">Playlist</span></p>
+                <p>{this.props.playlist.name}</p>
+              </div>
+              <div className='delete-modal-buttons'>
+                <button
+                  className="negative-button"
+                  onClick={this.closeModal}>
+                  Cancel
+                </button>
+                <button
+                  className="positive-button"
+                  onClick={this.deletePlaylist}>
+
+                  Delete
+                </button>
+              </div>
+            </div>
+          </Modal>
+
+
         </div>
       );
     } else {

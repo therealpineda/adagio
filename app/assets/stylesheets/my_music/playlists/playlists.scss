@@ -325,3 +325,27 @@
   font-weight: 100;
   color: #DFE0E5;
 }
+
+.delete-modal {
+  height: 100%;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.delete-modal-text {
+  letter-spacing: 1px;
+  font-size: 15px;
+}
+
+.delete-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete-modal-buttons button {
+  width: 80px;
+  margin-left: 10px;
+  font-size: 12px;
+}
