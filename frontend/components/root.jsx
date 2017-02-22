@@ -6,7 +6,7 @@ import Welcome from './welcome/welcome';
 import Browse from './browse';
 import MyMusic from './my_music/my_music';
 import ExplorePlaylists from './users/explore_playlists';
-import PlaylistDetailPage from './playlist_detail_page';
+import PlaylistDetailPage from './my_music/playlists/playlist_detail_page';
 
 class Root extends React.Component {
   constructor(props) {

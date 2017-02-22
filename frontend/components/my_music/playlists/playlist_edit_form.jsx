@@ -60,6 +60,7 @@ class PlaylistEditForm extends React.Component {
       editButton = (
         <button
           id='playlist-detail-edit-btn'
+          className='negative-button'
           onClick={this._enableEdit}>
           Rename
         </button>

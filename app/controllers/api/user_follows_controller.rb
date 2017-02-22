@@ -16,13 +16,11 @@ class Api::UserFollowsController < ApplicationController
 
   def destroy
     @follow = UserFollow.find(params[:id])
-    # debugger
     @follow.destroy
     @users = [
       User.find(params[:user_id]),
       User.find(@follow.follower.id)
     ]
-    # debugger
     render 'api/users/index'
   end
 

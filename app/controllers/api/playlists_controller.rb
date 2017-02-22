@@ -14,7 +14,7 @@ class Api::PlaylistsController < ApplicationController
   end
 
   def index
-    @playlists = Playlist.includes(songs: [:artist]).where(user_id: params[:user_id])
+    @playlists = Playlist.includes(songs: [:artist]).where(user_id: params[:user_id]) + current_user.followed_playlists.includes(songs: [:artist])
     render :index
   end
 

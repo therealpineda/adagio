@@ -31,22 +31,25 @@ body {
   scrollbar-darkshadow-color:#202020;
 }*/
 
-.comp {
-  border: 1px solid blue;
-  margin: 2px;
-  padding: 2px;
-}
-
-.comp h6 {
-  font-size: 10px;
-  color: blue;
-}
+/* BUTTONS */
 
 button {
+
+  height: 28px;
+
   border-radius: 256px;
 
   letter-spacing: .03em;
   text-transform: uppercase;
+
+  font-weight: 400;
+  text-align: center;
+
+
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 .green-big-btn {
@@ -64,3 +67,49 @@ button {
   height: 41px;
   color: #FFFFFF;
 }
+
+.positive-button {
+  border: 1px solid #88898c;
+  color: #DFE0E5;
+  background-color: transparent;
+}
+
+.positive-button:hover {
+  border-color: #80AB27;
+  color: #ffffff;
+}
+
+.negative-button {
+  border: 1px solid #88898c;
+  background-color: transparent;
+  color: #88898c;
+}
+
+.negative-button:hover {
+  border-color: #FFFFFF;
+}
+
+
+/* HEADERS */
+
+.detail-type-header {
+  /*e.g. PLAYLIST or USER */
+  color: #88898c;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+
+
+
+/*DEV ONLY, FOR MARKING COMPONENTS*/
+  .comp {
+    border: 1px solid blue;
+    margin: 2px;
+    padding: 2px;
+  }
+  .comp h6 {
+    font-size: 10px;
+    color: blue;
+  }

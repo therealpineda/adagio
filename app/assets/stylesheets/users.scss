@@ -143,15 +143,10 @@
 }
 
 #user-detail-right {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-#user-detail-user {
-  margin-top: 20px;
-  color: #88898c;
-  font-size: 10px;
 }
 
 #user-detail-title p {

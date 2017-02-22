@@ -52,8 +52,8 @@ class UserDetail extends React.Component {
               </div>
               <div id='user-detail-right'>
                 <div id='user-detail-text'>
-                  <div id='user-detail-user'>
-                    <p>USER</p>
+                  <div className='detail-type-header'>
+                    <p>User</p>
                   </div>
                   <div id='user-detail-title'>
                     <p>{this.props.user.first_name} {this.props.user.last_name}</p>

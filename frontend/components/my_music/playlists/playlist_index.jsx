@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { playlistsArray } from '../../../reducers/selectors';
 import { fetchPlaylists } from '../../../actions/playlist_actions';
 import PlaylistIndexItem from './playlist_index_item';
-import PlaylistDetail from './playlist_detail';
+import PlaylistDetailPage from './playlist_detail_page';
 import AddPlaylistForm from './add_playlist_form';
 
 class PlaylistIndex extends React.Component {
@@ -37,31 +37,32 @@ class PlaylistIndex extends React.Component {
           key={playlist.id}
           playlist={playlist}
           onClick={this._selectPlaylist}
-          selectedPlaylistId={this.props.playlistId} />
+          selectedPlaylistId={this.props.playlistId}
+          authorId={this.props.userId} />
       );
     });
     return (
       <div id='playlist-index' className='comp-d'>
           <div id='playlist-index-sidebar'>
-            <ul id="playlist-index-list">
+            <ul id='playlist-index-list'>
               <li
-                className='playlist-index-item add-playlist'
+                className='playlist-index-item-container add-playlist'
                 onClick={this._toggleDisplayForm}>
                 <div className='playlist-index-new-playlist-plus'>
-                  <i className="fa fa-plus" aria-hidden="true"></i>
+                  <i className='fa fa-plus' aria-hidden='true'></i>
                 </div>
-                <div className='playlist-index-title'>
+                <div className='playlist-index-title add-playlist-text-container'>
                   <p>New Playlist</p>
                 </div>
               </li>
-              <li className="playlist-index-item add-playlist-form hidden-form">
+              <li className='playlist-index-item-container add-playlist-form hidden-form'>
                   <AddPlaylistForm />
               </li>
               { playlistIndexItems }
             </ul>
           </div>
           <div id='playlist-index-main'>
-            <PlaylistDetail playlist={this.props.selectedPlaylist} />
+            <PlaylistDetailPage playlist={this.props.selectedPlaylist} />
           </div>
       </div>
     );

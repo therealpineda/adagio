@@ -37,7 +37,7 @@ class SongsIndex extends React.Component {
           borderRadius                : '0',
           outline                     : 'none',
           padding                     : '0',
-          width                       : "150px"
+          width                       : "200px"
         }
       },
       clickedSong: ""

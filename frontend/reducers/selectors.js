@@ -5,7 +5,21 @@ export const playlistsArray = (playlists) => {
       playlists[id]
     );
   });
-  return array;
+  array.sort((pl1, pl2) => {
+    return (new Date(pl2.created_at)) - (new Date(pl1.created_at));
+  });
+  const sortedFollowing = []
+  array.forEach((playlist) => {
+    if (!playlist.following) {
+      sortedFollowing.push(playlist);
+    }
+  });
+  array.forEach((playlist) => {
+    if (playlist.following) {
+      sortedFollowing.push(playlist);
+    }
+  });
+  return sortedFollowing;
 }
 
 export const currentSong = (playQueue) => {

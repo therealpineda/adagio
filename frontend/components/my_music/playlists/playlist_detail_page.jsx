@@ -1,12 +1,12 @@
 import React from 'react';
-import { fetchPlaylist } from '../actions/playlist_actions';
-import { withRouter } from 'react-router';
+import { fetchPlaylist } from '../../../actions/playlist_actions';
+import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
-import SongsIndex from './my_music/songs_index';
-import PlaylistEditForm from './my_music/playlists/playlist_edit_form';
-import { deletePlaylist, followPlaylist, unfollowPlaylist } from '../actions/playlist_actions';
-import { playSongs } from '../actions/play_queue_actions';
+import SongsIndex from '../songs_index';
+import PlaylistEditForm from './playlist_edit_form';
+import { deletePlaylist, followPlaylist, unfollowPlaylist } from '../../../actions/playlist_actions';
+import { playSongs } from '../../../actions/play_queue_actions';
 
 
 class PlaylistDetailPage extends React.Component {
@@ -73,6 +73,7 @@ class PlaylistDetailPage extends React.Component {
       let followDeleteButton = (
         <button
         id="playlist-detail-follow-btn"
+        className='positive-button'
         onClick={this.followPlaylist}>
         Follow
         </button>
@@ -81,6 +82,7 @@ class PlaylistDetailPage extends React.Component {
         followDeleteButton = (
           <button
             id="playlist-detail-follow-btn"
+            className='negative-button'
             onClick={this.unfollowPlaylist}>
             Unfollow
           </button>
@@ -92,6 +94,7 @@ class PlaylistDetailPage extends React.Component {
         followDeleteButton = (
           <button
             id="playlist-detail-delete-btn"
+            className="negative-button"
             onClick={this.deletePlaylist}>
             Delete
           </button>
@@ -99,21 +102,23 @@ class PlaylistDetailPage extends React.Component {
       }
 
       return (
-        <div id='playlist-detail-page' className='comp'>
+        <div id='playlist-detail-page' className='comp-d'>
           <div id='playlist-detail-header'>
             <div className='playlist-detail-img'>
               <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
             </div>
             <div id='playlist-detail-right'>
               <div id='playlist-detail-text'>
-                <div id='playlist-detail-playlist'>
-                  <p>PLAYLIST</p>
+                <div className='detail-type-header'>
+                  <p>Playlist</p>
                 </div>
                 <div id='playlist-detail-title'>
                   <PlaylistEditForm
                     key={this.props.playlist.id} playlist={this.props.playlist} canEdit={canEdit}/>
                 </div>
               </div>
+              <div id='playlist-detail-btm-rt-container'>
+
               <div id="playlist-detail-buttons">
                 <button
                   id="playlist-detail-play-btn"
@@ -125,13 +130,19 @@ class PlaylistDetailPage extends React.Component {
                 { followDeleteButton }
 
               </div>
+              <div id="playlist-detail-follower-count">
+                <p>{this.props.playlist.followers_count}</p>
+              </div>
+            </div>
             </div>
           </div>
           <div id="playlist-detail-user">
             <p>Created by: &nbsp;
-              <span className='playlist-user-link'>
-                {this.props.playlist.author}
-              </span>
+              <Link to={`/explore-playlists/users/${this.props.playlist.author_id}`}>
+                <span className='playlist-user-link'>
+                  {this.props.playlist.author}
+                </span>
+              </ Link>
                &nbsp; &#8226;	{this.props.playlist.songs.length} songs, {this.props.playlist.duration}</p>
           </div>
           <div id='playlist-songs-index'>
@@ -141,8 +152,8 @@ class PlaylistDetailPage extends React.Component {
       );
     } else {
       return (
-        <div id='playlist-detail-page' className='comp'>
-          <p>Loading...</p>
+        <div id='playlist-detail-page' className='comp-d'>
+          <p></p>
         </div>
       );
     }

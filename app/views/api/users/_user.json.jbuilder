@@ -11,7 +11,25 @@ json.playlists do
       json.duration "#{playlist_length / 60} min"
     end
     json.num_songs playlist.songs.count
+    json.followers_count pluralize(playlist.playlist_follows.count, 'follower')
   end
+
+end
+
+json.followed_playlists do
+  json.array! user.followed_playlists do |playlist|
+    json.extract! playlist, :id, :name
+    json.created_at Time.at(playlist.created_at).utc.strftime("%B %-d, %Y")
+    playlist_length = playlist.songs.inject(0) { |sum, song| sum + song.duration}
+    if playlist_length > 3600
+      json.duration "#{playlist_length / 3600} hr #{playlist_length / 60} min"
+    else
+      json.duration "#{playlist_length / 60} min"
+    end
+    json.num_songs playlist.songs.count
+    json.followers_count pluralize(playlist.playlist_follows.count, 'follower')
+  end
+
 end
 
 user_follow = UserFollow.find do |follow|

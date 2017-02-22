@@ -9,6 +9,14 @@ const PlaylistIndexItem = (props) => {
     'selected-playlist': props.playlist.id === parseInt(props.selectedPlaylistId)
   });
 
+  let authorName = ("");
+
+  if (props.authorId !== props.playlist.author_id) {
+    authorName = (
+      <p className="playlist-index-author-text">by {props.playlist.author}</p>
+    );
+  }
+
   return (
     <li className={classStyle}>
       <Link to={`/my-music/playlists/${props.playlist.id}`}>
@@ -18,6 +26,7 @@ const PlaylistIndexItem = (props) => {
           </div>
           <div className='playlist-index-title'>
             <p className="playlist-index-title-text">{props.playlist.name}</p>
+            { authorName }
           </div>
         </div>
       </Link>
