@@ -6,7 +6,8 @@ json.playlists do
     author_name = "#{playlist.user.first_name} #{playlist.user.last_name}"
     json.author_id playlist.user.id
     json.author author_name
-    json.created_at Time.at(playlist.created_at).utc.strftime("%B %-d, %Y")
+    json.created_at playlist.created_at
+    json.created_on Time.at(playlist.created_at).utc.strftime("%B %-d, %Y")
     playlist_length = playlist.songs.inject(0) { |sum, song| sum + song.duration}
     if playlist_length > 3600
       hours = 0
@@ -20,6 +21,11 @@ json.playlists do
     end
     json.num_songs playlist.songs.count
     json.followers_count pluralize(playlist.playlist_follows.count, 'follower')
+    playlist_follow = PlaylistFollow.find do |follow|
+      follow.playlist_id == playlist.id && follow.follower_id == current_user.id
+    end
+
+    json.following playlist_follow ? playlist_follow.id : false
   end
 end
 
@@ -29,7 +35,8 @@ json.followed_playlists do
     author_name = "#{playlist.user.first_name} #{playlist.user.last_name}"
     json.author_id playlist.user.id
     json.author author_name
-    json.created_at Time.at(playlist.created_at).utc.strftime("%B %-d, %Y")
+    json.created_at playlist.created_at
+    json.created_on Time.at(playlist.created_at).utc.strftime("%B %-d, %Y")
     playlist_length = playlist.songs.inject(0) { |sum, song| sum + song.duration}
     if playlist_length > 3600
       hours = 0
@@ -43,6 +50,11 @@ json.followed_playlists do
     end
     json.num_songs playlist.songs.count
     json.followers_count pluralize(playlist.playlist_follows.count, 'follower')
+    playlist_follow = PlaylistFollow.find do |follow|
+      follow.playlist_id == playlist.id && follow.follower_id == current_user.id
+    end
+
+    json.following playlist_follow ? playlist_follow.id : false
   end
 end
 

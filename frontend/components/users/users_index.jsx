@@ -11,13 +11,13 @@ class UsersIndex extends React.Component {
     super();
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetchUsers();
     if (!this.props.selectedUser) {
       this.props.router.push(`/explore-playlists/users/${this.props.userId}`)
     }
   }
-
+  
   render() {
     const userIndexItems = this.props.users.map((user) => {
       return (

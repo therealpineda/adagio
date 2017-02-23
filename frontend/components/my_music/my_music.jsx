@@ -1,8 +1,18 @@
 import React from 'react';
 import PlaylistIndex from './playlists/playlist_index';
 import PlaylistDetail from './playlists/playlist_detail';
+import { Link, withRouter } from 'react-router';
+import { connect } from 'react-redux';
 
 class MyMusic extends React.Component {
+
+  componentWillMount() {
+    const id = this.props.defaultPlaylistId
+    if (id) {
+      this.props.router.push(`/my-music/playlists/${id}`);
+    }
+  }
+
   render() {
     return (
       <div id='my-music' className="comp-d">
@@ -14,7 +24,7 @@ class MyMusic extends React.Component {
         </ul></nav>
       <main>
         <div id='playlist-index-container'>
-          <PlaylistIndex />
+          { this.props.children }
         </div>
       </main>
       </div>
@@ -22,4 +32,15 @@ class MyMusic extends React.Component {
   }
 }
 
-export default MyMusic;
+const mapStateToProps = (state, ownProps) => {
+  let defaultPlaylistId = null;
+  if (!ownProps.params.playlistId) {
+    const userPlaylists = state.session.currentUser.playlists;
+    defaultPlaylistId = userPlaylists[userPlaylists.length - 1].id;
+  }
+  return {
+    defaultPlaylistId: defaultPlaylistId
+  };
+};
+
+export default withRouter(connect(mapStateToProps, null)(MyMusic));

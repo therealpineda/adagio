@@ -1,10 +1,15 @@
 export const playlistsArray = (playlists) => {
-  let array = []
-  array = Object.keys(playlists).map( (id) => {
-    return (
-      playlists[id]
-    );
-  });
+  let array;
+  if (Array.isArray(playlists)) {
+    array = playlists
+  } else {
+    array = []
+    array = Object.keys(playlists).map( (id) => {
+      return (
+        playlists[id]
+      );
+    });
+  }
   array.sort((pl1, pl2) => {
     return (new Date(pl2.created_at)) - (new Date(pl1.created_at));
   });
@@ -14,6 +19,7 @@ export const playlistsArray = (playlists) => {
       sortedFollowing.push(playlist);
     }
   });
+  array.reverse();
   array.forEach((playlist) => {
     if (playlist.following) {
       sortedFollowing.push(playlist);

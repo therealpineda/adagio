@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { logout } from '../actions/session_actions'
+import { logout } from '../actions/session_actions';
+import classNames from 'classnames';
 
 class Nav extends React.Component {
   constructor(props) {
@@ -11,6 +12,9 @@ class Nav extends React.Component {
     };
     this._logOut = this._logOut.bind(this);
   }
+  // this._checkActive = this._checkActive.bind(this);
+
+
 
   _logOut() {
     this.props.logout().then( () => {
@@ -24,14 +28,52 @@ class Nav extends React.Component {
     this.props.router.push(`${route}`);
   }
 
+  // refactor !
+  // _checkActive(linkText) {
+  //   const currentPath = this.props.location.pathname;
+  //
+  //   let activeLink = currentPath.includes(linkText) ? true : false;
+  //   debugger
+  //   return classNames({
+  //     'nav-link': true,
+  //     'active-link': activeLink
+  //   });
+  // }
+
   render() {
+    const currentPath = this.props.location.pathname;
+
+    let activeLink = currentPath.includes("search") ? true : false;
+    const classStyleSearch = classNames({
+      'nav-link': true,
+      'active-link': activeLink
+    });
+
+    activeLink = currentPath.includes("browse") ? true : false;
+    const classStyleBrowse = classNames({
+      'nav-link': true,
+      'active-link': activeLink
+    });
+
+    activeLink = currentPath.includes("music") ? true : false;
+    const classStyleMyMusic = classNames({
+      'nav-link': true,
+      'active-link': activeLink
+    });
+
+    activeLink = currentPath.includes("explore") ? true : false;
+    const classStyleExplore = classNames({
+      'nav-link': true,
+      'active-link': activeLink
+    });
+
     return (
       <div id='nav' className="comp-d">
         <div id="nav-links">
           <div id="nav-logo">
             <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
           </div>
-          <div className="nav-link" onClick={this._clickLink.bind(this,'search')}>
+          <div className={classStyleSearch} onClick={this._clickLink.bind(this,'search')}>
             <div className="nav-icon">
               <i className="fa fa-search" aria-hidden="true"></i>
             </div>
@@ -40,7 +82,7 @@ class Nav extends React.Component {
             </div>
           </div>
 
-          <div className="nav-link" onClick={this._clickLink.bind(this,'browse')}>
+          <div className={classStyleBrowse} onClick={this._clickLink.bind(this,'browse')}>
             <div className="nav-icon">
               <i className="fa fa-qrcode" aria-hidden="true"></i>
             </div>
@@ -49,7 +91,7 @@ class Nav extends React.Component {
             </div>
           </div>
 
-          <div className="nav-link active-link" onClick={this._clickLink.bind(this,'my-music')}>
+          <div className={classStyleMyMusic} onClick={this._clickLink.bind(this,'my-music')}>
             <div className="nav-icon">
               <i className="fa fa-podcast" aria-hidden="true"></i>
             </div>
@@ -58,7 +100,7 @@ class Nav extends React.Component {
             </div>
           </div>
 
-          <div className="nav-link" onClick={this._clickLink.bind(this,'explore-playlists')}>
+          <div className={classStyleExplore} onClick={this._clickLink.bind(this,'explore-playlists')}>
             <div className="nav-icon">
               <i className="fa fa-users" aria-hidden="true"></i>
             </div>

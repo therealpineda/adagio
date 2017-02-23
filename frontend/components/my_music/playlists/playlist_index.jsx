@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { playlistsArray } from '../../../reducers/selectors';
-// import { fetchPlaylists } from '../../../actions/playlist_actions';
+import { playlistsArray, playlistsArraySorted } from '../../../reducers/selectors';
 import PlaylistIndexItem from './playlist_index_item';
 import PlaylistDetailPage from './playlist_detail_page';
 import AddPlaylistForm from './add_playlist_form';
@@ -86,17 +85,14 @@ const mapStateToProps = (state, ownProps) => {
 
   const userPlaylists = state.session.currentUser.playlists;
   const userFollowedPlaylists = state.session.currentUser.followed_playlists;
-
+  const playlists = userPlaylists.concat(userFollowedPlaylists);
   return {
     userId: state.session.currentUser.id,
-    playlists: userPlaylists.concat(userFollowedPlaylists),
     playlistId: playlistId,
+    playlists: playlistsArray(playlists),
     selectedPlaylist: selectedPlaylist
   };
 };
-
-// playlists: playlistsArray(state.playlists),
-// fetchPlaylists: (userId) => { return dispatch(fetchPlaylists(userId)); }
 
 const mapDispatchToProps = (dispatch) => {
   return {
