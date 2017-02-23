@@ -24,7 +24,10 @@ class MiniPlayQueue extends React.Component {
     });
     if (queued.length > 0 ) {
       return (
-        <div id="mini-play-queue">
+        <div
+          id="mini-play-queue"
+          className='custom-scrollbar'
+          >
           <p id="mini-play-queue-title">Play Queue</p>
           <ul>
             {queued}
