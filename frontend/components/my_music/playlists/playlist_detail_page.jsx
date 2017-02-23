@@ -226,7 +226,9 @@ class PlaylistDetailPage extends React.Component {
              </p>
           </div>
 
-          <div id='playlist-songs-index'>
+          <div
+            id='playlist-songs-index'
+            className='custom-scrollbar'>
             <SongsIndex songs={this.props.playlist.songs} />
           </div>
 

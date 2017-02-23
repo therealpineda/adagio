@@ -1,5 +1,9 @@
 /* Playlist Index */
 
+#playlist-index-main {
+  height: 100%;
+}
+
 #playlist-index {
   height: 100%;
   display: flex;
@@ -9,7 +13,8 @@
 #playlist-index-sidebar {
   height: calc(100% - 6px);
   min-width: 250px;
-  background-color: #151617;
+  background-color: #1c1c1f;
+  overflow-y: auto;
 }
 
 #playlist-index-list {
@@ -45,13 +50,13 @@
 }
 
 .playlist-index-item-container:hover {
-  background-color: #1a1a1c;
+  background-color: #222326;
   cursor: pointer;
 }
 
 .selected-playlist {
-  background-color: #1a1a1c;
-  border-right: 2px solid #80AB27;
+  background-color: #222326;
+  border-right: 2px solid #84BD00;
 }
 
 .playlist-index-item-container a {
@@ -85,11 +90,12 @@
 }
 
 .add-playlist-form {
-  margin-top: 12px;
+  margin-top: 20px;
   padding: 10px 5px;
 }
+
 .add-playlist-form:hover {
-  background-color: #151617;
+  background-color: #1c1c1f;
   cursor: default;
 }
 
@@ -112,7 +118,7 @@
   background-color: transparent;
   color: #DFE0E5;
   font-family: 'Montserrat', 'Helvetica', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 #add-playlist-input::-webkit-input-placeholder {
@@ -120,7 +126,7 @@
   outline: none;
   font-family: 'Montserrat', 'Helvetica', sans-serif;
   color: #88898c;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 #create-playlist-btn-container {
@@ -133,11 +139,11 @@
   background-color: #5b791c;
   color: #FFFFFF;
   padding: 0 5px;
-  margin-bottom: 0px;
+  margin-bottom: 5px;
 }
 
 #create-playlist-btn:hover {
-  background-color: #80AB27;
+  background-color: #84BD00;
 }
 
 .playlist-index-item-img {
@@ -236,7 +242,7 @@
 }
 
 #playlist-detail-play-btn:hover {
-  background-color: #80AB27;
+  background-color: #84BD00;
 }
 
 #playlist-detail-delete-btn {
@@ -262,8 +268,8 @@
 }
 
 #playlist-detail-user {
-  border-top: 1px solid #1a1a1c;
-  border-bottom: 1px solid #1a1a1c;
+  border-top: 1px solid #222326;
+  border-bottom: 1px solid #222326;
   margin: 10px 0 20px 0;
   padding: 11px 5px;
 }
@@ -343,4 +349,9 @@
   width: 80px;
   margin-left: 10px;
   font-size: 12px;
+}
+
+#playlist-songs-index {
+  height: calc(100% - 280px);
+  overflow-y: auto;
 }

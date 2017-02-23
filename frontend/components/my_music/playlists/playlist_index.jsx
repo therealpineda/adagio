@@ -53,7 +53,9 @@ class PlaylistIndex extends React.Component {
     });
     return (
       <div id='playlist-index' className='comp-d'>
-          <div id='playlist-index-sidebar'>
+          <div
+            id='playlist-index-sidebar'
+            className='custom-scrollbar'>
             <ul id='playlist-index-list'>
               <li
                 className='playlist-index-item-container add-playlist'

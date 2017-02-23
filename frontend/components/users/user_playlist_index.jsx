@@ -21,7 +21,9 @@ class UserPlaylistIndex extends React.Component {
     });
     return (
       <div id='user-playlist-index'>
-        <ul id='user-playlists-index-list'>
+        <ul
+          id='user-playlists-index-list'
+          className='custom-scrollbar'>
           { playlists }
         </ul>
       </div>

@@ -17,7 +17,7 @@ class UsersIndex extends React.Component {
       this.props.router.push(`/explore-playlists/users/${this.props.userId}`)
     }
   }
-  
+
   render() {
     const userIndexItems = this.props.users.map((user) => {
       return (
@@ -28,12 +28,15 @@ class UsersIndex extends React.Component {
     });
     return (
       <div id='users-index' className="comp-d">
-        <div id='users-index-sidebar'>
+        <div
+          id='users-index-sidebar'
+          className='custom-scrollbar'>
           <ul>
             { userIndexItems }
           </ul>
         </div>
-        <div id='users-index-detail'>
+        <div id='users-index-detail'
+          className='custom-scrollbar'>
           <UserDetail user={this.props.selectedUser} />
         </div>
       </div>

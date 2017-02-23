@@ -3,6 +3,7 @@
   width: 100%;
 }
 
+
 #explore-playlists-users-header {
   border-bottom: 1px solid #222326;
   margin-bottom: 5px;
@@ -17,7 +18,7 @@
 
 #ep-main {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 87px);
 }
 
 /* Users Index */
@@ -32,13 +33,16 @@
 #users-index-sidebar {
   height: 100%;
   width: 20%;
-  min-width: 200px;
+  min-width: 220px;
   background-color: #151617;
   color: #dfe0e6;
+  overflow-y: auto;
 }
 
 #users-index-detail {
-  width: calc(79%);
+  // width: calc(79%);
+  width: 100%;
+  overflow-y: auto;
 }
 
 #users-index button {
@@ -60,18 +64,18 @@
 }
 
 .user-index-item-container:hover {
-  background-color: #1a1a1c;
+  background-color: #222326;
   color: #FFF;
 }
 
 .user-index-item-container:hover i {
-  background-color: #1a1a1c;
+  background-color: #222326;
   color: #FFF;
 }
 
 .selected-user {
-  background-color: #1a1a1c;
-  border-right: 2px solid #80AB27;
+  background-color: #222326;
+  border-right: 2px solid #84BD00;
 }
 
 .user-index-item-container a {
@@ -168,7 +172,7 @@
 }
 #user-detail-follow-btn:hover {
   color: #ffffff;
-  border-color: #80AB27;
+  border-color: #84BD00;
 }
 
 #user-detail-follow-btn-you {
@@ -179,8 +183,12 @@
   color: #88898c;
 }
 
+#user-detail-follow-btn-you:hover {
+  cursor: default;
+}
+
 #playlist-detail-user {
-  border-bottom: 1px solid #1a1a1c;
+  border-bottom: 1px solid #222326;
   margin: 10px 0 20px 0;
   padding: 11px 5px;
   color: #88898c;
@@ -201,7 +209,7 @@
   margin-bottom: 12px;
   padding-bottom: 8px;
   color: #88898c;
-  border-bottom: 1px solid #1a1a1c;
+  border-bottom: 1px solid #222326;
   text-transform: uppercase;
   font-size: 13px;
   font-weight: 300;
@@ -220,7 +228,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .user-playlist-index-item {
@@ -228,7 +236,7 @@
   min-width: 200px;
   margin-right: 20px;
   margin-bottom: 10px;
-  background-color: #1a1a1c;
+  background-color: #222326;
 
 }
 .user-playlist-index-item-img {
@@ -272,7 +280,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .user-following-index-item {
@@ -281,7 +289,7 @@
   margin-right: 15px;
   margin-bottom: 10px;
   padding: 10px 5px;
-  background-color: #1a1a1c;
+  background-color: #222326;
   color: #dfe0e6;
   text-align: center;
 }

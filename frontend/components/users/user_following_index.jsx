@@ -21,7 +21,9 @@ class UserFollowingIndex extends React.Component {
 
     return (
       <div id='user-following-index' className="comp-d">
-        <ul id='user-following-index-list'>
+        <ul
+          id='user-following-index-list'
+          className='custom-scrollbar'>
           { users }
         </ul>
       </div>

@@ -16,7 +16,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div id='app' className="comp-d">
+      <div id='app' className="comp-d custom-scrollbar">
         <div id='nav-sidebar'>
           <Nav />
         </div>
