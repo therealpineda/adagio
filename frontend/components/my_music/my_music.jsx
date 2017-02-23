@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 class MyMusic extends React.Component {
 
-  componentWillMount() {
+  componentWillReceiveProps() {
     const id = this.props.defaultPlaylistId
     if (id) {
       this.props.router.push(`/my-music/playlists/${id}`);

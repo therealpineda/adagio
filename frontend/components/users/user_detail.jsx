@@ -85,7 +85,7 @@ class UserDetail extends React.Component {
     } else {
       return (
         <div id='playlist-detail' className='comp-d'>
-          <p>Choose a user...</p>
+          <p>Loading...</p>
         </div>
       );
     }

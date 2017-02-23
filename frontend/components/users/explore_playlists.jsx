@@ -1,9 +1,17 @@
 import React from 'react';
 import UsersIndex from './users_index';
+import { connect } from 'react-redux';
 
 class ExplorePlaylists extends React.Component {
   constructor() {
     super();
+  }
+
+  componentWillMount() {
+    const id = this.props.currentUserId
+    if (id) {
+      this.props.router.push(`/explore-playlists/users/${id}`);
+    }
   }
 
   render() {
@@ -20,4 +28,10 @@ class ExplorePlaylists extends React.Component {
   }
 }
 
-export default ExplorePlaylists;
+const mapStateToProps = (state) => {
+  return {
+    currentUserId: state.session.currentUser.id
+  };
+}
+
+export default connect(mapStateToProps)(ExplorePlaylists);

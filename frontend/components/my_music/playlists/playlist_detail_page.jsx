@@ -89,6 +89,7 @@ class PlaylistDetailPage extends React.Component {
     e.preventDefault();
     this.closeModal();
     this.props.deletePlaylist(this.props.playlistId);
+    this.props.router.push('/my-music');
   }
 
   handleClick(e) {
@@ -127,6 +128,7 @@ class PlaylistDetailPage extends React.Component {
     e.preventDefault();
     this.props.unfollowPlaylist(this.props.playlistId, this.props.playlist.following).then(() => {
       this.props.removePlaylist(this.props.playlist);
+      this.props.router.push('/my-music');
     });
   };
 
@@ -262,7 +264,6 @@ class PlaylistDetailPage extends React.Component {
   }
 }
 
-// debugger
 const mapStateToProps = (state, ownProps) => {
   let playlistId = ownProps.params.playlistId
   let playlist = ownProps.playlist

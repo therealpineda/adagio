@@ -14,8 +14,6 @@ class Nav extends React.Component {
   }
   // this._checkActive = this._checkActive.bind(this);
 
-
-
   _logOut() {
     this.props.logout().then( () => {
       this.props.router.replace('/welcome');
@@ -33,7 +31,6 @@ class Nav extends React.Component {
   //   const currentPath = this.props.location.pathname;
   //
   //   let activeLink = currentPath.includes(linkText) ? true : false;
-  //   debugger
   //   return classNames({
   //     'nav-link': true,
   //     'active-link': activeLink
@@ -125,12 +122,19 @@ class Nav extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+
   const userFullName = (
     state.session.currentUser.first_name + " " + state.session.currentUser.last_name )
+  const userId = state.session.currentUser.id;
+
+  if (!userId) {
+    ownProps.router.replace('/welcome')
+  }
+
   return {
     userFullName: userFullName,
-    userId: state.session.currentUser.id
+    userId: userId
   };
 };
 

@@ -22,9 +22,10 @@ export const login = (user) => {
 
 export const logout = () => {
   return (dispatch) => {
-    return SessionApiUtil.logout().then(
-      (user) => { return dispatch(receiveCurrentUser({username: null, id: null})); },
-      (errors) => { return dispatch(receiveErrors(errors)); }
+    return SessionApiUtil.logout().then( (user) => {
+      return dispatch(receiveCurrentUser({
+        username: null, id: null
+      })); }
     );
   };
 };
