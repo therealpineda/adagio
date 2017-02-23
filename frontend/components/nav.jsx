@@ -12,7 +12,6 @@ class Nav extends React.Component {
     };
     this._logOut = this._logOut.bind(this);
   }
-  // this._checkActive = this._checkActive.bind(this);
 
   _logOut() {
     this.props.logout().then( () => {
@@ -25,17 +24,6 @@ class Nav extends React.Component {
     e.currentTarget.className += " active-link";
     this.props.router.push(`${route}`);
   }
-
-  // refactor !
-  // _checkActive(linkText) {
-  //   const currentPath = this.props.location.pathname;
-  //
-  //   let activeLink = currentPath.includes(linkText) ? true : false;
-  //   return classNames({
-  //     'nav-link': true,
-  //     'active-link': activeLink
-  //   });
-  // }
 
   render() {
     const currentPath = this.props.location.pathname;
@@ -88,7 +76,7 @@ class Nav extends React.Component {
             </div>
           </div>
 
-          <div className={classStyleMyMusic} onClick={this._clickLink.bind(this,'my-music')}>
+          <div className={classStyleMyMusic} onClick={this._clickLink.bind(this,'my-music/playlists/0')}>
             <div className="nav-icon">
               <i className="fa fa-podcast" aria-hidden="true"></i>
             </div>

@@ -36,6 +36,7 @@ class MyMusic extends React.Component {
 //   let defaultPlaylistId = null;
 //   const userId = state.session.currentUser.id;
 //   if (!ownProps.params.playlistId) {
+//     debugger
 //     const userPlaylists = state.users[userId].playlists;
 //     defaultPlaylistId = userPlaylists[userPlaylists.length - 1].id;
 //   }

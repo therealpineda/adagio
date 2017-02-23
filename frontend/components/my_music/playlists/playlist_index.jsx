@@ -15,15 +15,19 @@ class PlaylistIndex extends React.Component {
     this._toggleDisplayForm = this._toggleDisplayForm.bind(this);
   }
 
-  // redirect if URL is not in state
-  // componentWillReceiveProps(nextProps) {
-  //   const ids = nextProps.playlists.map((playlist) => {
-  //     return playlist.id
-  //   });
-  //   if (!ids.includes(parseInt(nextProps.params.playlistId))) {
-  //     this.props.router.push(`/my-music/playlists/${nextProps.playlists[0].id}`)
-  //   }
-  // }
+  // redirect if URL is not in state (yet, or deleted)
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.playlists.length > 0) {
+      const incomingPlaylistId = parseInt(nextProps.params.playlistId);
+      const playlist = nextProps.playlists.find( (pl) => pl.id === incomingPlaylistId );
+      if (!playlist) {
+        const playlists = nextProps.playlists;
+        const mostRecentPlaylist = playlists[0];
+        const id = mostRecentPlaylist.id;
+        this.props.router.push(`/my-music/playlists/${id}`);
+      }
+    }
+  }
 
   _toggleDisplayForm(e) {
     e.preventDefault();
