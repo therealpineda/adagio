@@ -1,9 +1,5 @@
 /* Playlist Index */
 
-#playlist-index-container {
-  height: 100%;
-}
-
 #playlist-index {
   height: 100%;
   display: flex;
@@ -11,14 +7,13 @@
 }
 
 #playlist-index-sidebar {
-  height: 100%;
-  width: 25%;
+  height: calc(100% - 6px);
   min-width: 250px;
   background-color: #151617;
 }
 
 #playlist-index-list {
-
+  height: 100%;
 }
 
 #playlist-index-main {
