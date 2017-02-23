@@ -13,7 +13,7 @@ class AlbumsIndex extends React.Component {
     const albumIndexItems = this.props.albums.map((album) => {
       return (
         <li key={album.id} className="album-index-item">
-          <Link to={`/playlists/${album.id}`}>
+          <Link to={`/browse/albums/${album.id}`}>
             <div className='album-index-item-img'>
               <img src={album.image_url}/>
             </div>

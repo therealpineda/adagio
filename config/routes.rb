@@ -15,6 +15,6 @@ Rails.application.routes.draw do
       resources :songs, only: [:create, :destroy]
       resources :playlist_follows, as: "follows", only: [:create, :destroy]
     end
-    resources :albums, only: [:index]
+    resources :albums, only: [:index, :show]
   end
 end

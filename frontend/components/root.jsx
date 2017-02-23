@@ -5,6 +5,7 @@ import App from './app';
 import Welcome from './welcome/welcome';
 import Browse from './browse';
 import AlbumsIndex from './albums_index';
+import AlbumDetailPage from './album_detail_page';
 import MyMusic from './my_music/my_music';
 import Songs from './my_music/songs/songs';
 import ExplorePlaylists from './users/explore_playlists';
@@ -38,6 +39,7 @@ class Root extends React.Component {
           <Route path="/" component={App} onEnter={this._redirectUnlessLoggedIn} >
             <IndexRedirect to="my-music/playlists/0" />
             <Route path="browse" component={Browse}>
+              <Route path="albums/:albumId" component={AlbumDetailPage} />
               <Route path="albums" component={AlbumsIndex} />
             </Route>
             <Route path="my-music" component={MyMusic}>
