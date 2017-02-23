@@ -1,0 +1,68 @@
+#browse {
+  height: 100%;
+  overflow-y: auto;
+}
+
+#browse-albums-header {
+  border-bottom: 1px solid #222326;
+  margin-bottom: 5px;
+}
+
+#browse-albums-header h2 {
+  margin: 12px 0 9px 0;
+  color: #dfe0e6;
+  font-size: 48px;
+  font-weight: 100;
+}
+
+#albums-index {
+  height: 100%;
+  overflow-y: auto;
+}
+
+#albums-index-items-container {
+}
+
+#albums-index-list {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.album-index-item {
+  width: 20%;
+  min-width: 200px;
+  margin: 15px;
+  background-color: #222326;
+
+}
+.album-index-item-img {
+  width: 100%;
+}
+
+.album-index-item-details {
+  padding: 10px 5px;
+}
+
+.album-index-name {
+  color: #dfe0e6;
+  font-size: 13px;
+}
+
+.album-index-name:hover {
+  cursor: pointer;
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+.album-index-followers {
+  color: #dfe0e6;
+  font-size: 12px;
+}
+
+.album-index-songs {
+  margin: 5px 0 8px 0;
+  color: #88898c;
+  font-size: .8em;
+}

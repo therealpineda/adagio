@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import App from './app';
 import Welcome from './welcome/welcome';
 import Browse from './browse';
+import AlbumsIndex from './albums_index';
 import MyMusic from './my_music/my_music';
 import Songs from './my_music/songs/songs';
 import ExplorePlaylists from './users/explore_playlists';
@@ -36,7 +37,9 @@ class Root extends React.Component {
           <Route path="/welcome" component={Welcome} onEnter={this._redirectIfLoggedIn}/>
           <Route path="/" component={App} onEnter={this._redirectUnlessLoggedIn} >
             <IndexRedirect to="my-music/playlists/0" />
-            <Route path="browse" component={Browse} />
+            <Route path="browse" component={Browse}>
+              <Route path="albums" component={AlbumsIndex} />
+            </Route>
             <Route path="my-music" component={MyMusic}>
               <Route path="playlists/:playlistId" component={PlaylistIndex} />
               <Route path="songs" component={Songs}/>

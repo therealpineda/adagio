@@ -47,6 +47,14 @@ export const playlistsArrayNoFollowing = (playlists) => {
   return sorted;
 }
 
+export const albumsArray = (albums) => {
+  const array = []
+  Object.keys(albums).forEach( (id) => {
+    array.push(albums[id]);
+  });
+  return array;
+}
+
 export const currentSong = (playQueue) => {
   return playQueue[0];
 }

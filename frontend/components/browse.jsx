@@ -1,15 +1,14 @@
 import React from 'react';
+import AlbumsIndex from './albums_index';
 
 class Browse extends React.Component {
-  constructor(props){
-    super(props);
-
-  }
 
   render() {
     return (
-      <div className="comp">
-        <h6>Browse</h6>
+      <div id='browse' className="comp-d custom-scrollbar">
+        <div id='albums-index-container'>
+          {this.props.children}
+        </div>
       </div>
     );
   }

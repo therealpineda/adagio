@@ -108,7 +108,7 @@ album_id = Album.find_by(title: "HiFi City Tales").id
   Song.create(title: "Rooftop", duration: 122, album_id: album_id, album_order: 11, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/hifi_city/Jahzzar_-_11_-_Rooftop.mp3")
   Song.create(title: "Sculptures", duration: 134, album_id: album_id, album_order: 12, audio_url: "	https://s3.amazonaws.com/adagio-prod/songs/hifi_city/Jahzzar_-_12_-_Sculptures.mp3")
   Song.create(title: "Sirens", duration: 218, album_id: album_id, album_order: 13, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/hifi_city/Jahzzar_-_13_-_Sirens.mp3")
-  Song.create(title: "Vault", duration: 197, album_id: album_id, album_order: 14, audio_url: "	https://s3.amazonaws.com/adagio-prod/songs/hifi_city/Jahzzar_-_14_-_Vault.mp3")
+  Song.create(title: "Vault", duration: 197, album_id: album_id, album_order: 14, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/hifi_city/Jahzzar_-_14_-_Vault.mp3")
 
 album_id = Album.find_by(title: "Wake Up").id
   Song.create(title: "Hachiko(The Faithful Dog)", duration: 185, album_id: album_id, album_order: 9, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/The_Kyoto_Connection_-_09_-_Hachiko_The_Faithtful_Dog.mp3")
