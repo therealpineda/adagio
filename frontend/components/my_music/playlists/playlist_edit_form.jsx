@@ -42,7 +42,7 @@ class PlaylistEditForm extends React.Component {
     e.preventDefault();
     if (this.state.playlist.name) {
       const playlist = merge({}, this.props.playlist, this.state.playlist);
-      this.props.renamePlaylist(playlist);
+      this.props.renamePlaylist(playlist, this.props.author);
     }
     this.setState( { disabled: true } );
   }
@@ -88,7 +88,7 @@ class PlaylistEditForm extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    renamePlaylist: (playlist) => { return dispatch(updatePlaylist(playlist)); }
+    renamePlaylist: (playlist, author) => { return dispatch(updatePlaylist(playlist, author)); }
   };
 };
 

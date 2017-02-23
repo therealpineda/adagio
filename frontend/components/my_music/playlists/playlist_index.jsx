@@ -16,14 +16,14 @@ class PlaylistIndex extends React.Component {
   }
 
   // redirect if URL is not in state
-  componentWillReceiveProps(nextProps) {
-    const ids = nextProps.playlists.map((playlist) => {
-      return playlist.id
-    });
-    if (!ids.includes(parseInt(nextProps.params.playlistId))) {
-      this.props.router.push(`/my-music/playlists/${nextProps.playlists[0].id}`)
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   const ids = nextProps.playlists.map((playlist) => {
+  //     return playlist.id
+  //   });
+  //   if (!ids.includes(parseInt(nextProps.params.playlistId))) {
+  //     this.props.router.push(`/my-music/playlists/${nextProps.playlists[0].id}`)
+  //   }
+  // }
 
   _toggleDisplayForm(e) {
     e.preventDefault();
@@ -36,13 +36,15 @@ class PlaylistIndex extends React.Component {
   }
 
   render() {
+    const userId = this.props.userId
+    const selectedPlaylist = this.props.params.playlistId;
     const playlistIndexItems = this.props.playlists.map( (playlist) => {
       return (
         <PlaylistIndexItem
           key={playlist.id}
           playlist={playlist}
-          selectedPlaylistId={this.props.playlistId}
-          authorId={this.props.userId} />
+          selectedPlaylistId={selectedPlaylist}
+          authorId={userId} />
       );
     });
     return (
@@ -74,23 +76,18 @@ class PlaylistIndex extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let playlistId;
-  if (ownProps.params.playlistId) {
-    playlistId = ownProps.params.playlistId;
-  } else {
-    const ids = Object.keys(state.playlists);
-    playlistId = ids[ids.length - 1];
-  }
-  const selectedPlaylist = state.playlists[playlistId];
 
-  const userPlaylists = state.session.currentUser.playlists;
-  const userFollowedPlaylists = state.session.currentUser.followed_playlists;
-  const playlists = userPlaylists.concat(userFollowedPlaylists);
+  const userId = state.session.currentUser.id;
+  let playlists = [];
+  if (state.users[userId]) {
+    const userPlaylists = state.users[userId].playlists;
+    const followedPlaylists = state.users[userId].followed_playlists
+    playlists = userPlaylists.concat(followedPlaylists);
+  }
+
   return {
-    userId: state.session.currentUser.id,
-    playlistId: playlistId,
-    playlists: playlistsArray(playlists),
-    selectedPlaylist: selectedPlaylist
+    userId: userId,
+    playlists: playlistsArray(playlists)
   };
 };
 

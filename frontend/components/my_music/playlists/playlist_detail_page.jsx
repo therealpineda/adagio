@@ -54,7 +54,6 @@ class PlaylistDetailPage extends React.Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
-
   componentWillMount() {
     Modal.setAppElement('body');
   }
@@ -63,7 +62,7 @@ class PlaylistDetailPage extends React.Component {
 
   componentDidMount() {
     this.props.fetchPlaylist(this.props.playlistId).then( (playlist) => {
-      if (playlist.author_id === this.props.currentUser.id) {
+      if (playlist.author_id === this.props.userId) {
         this.setState({owner: true, fetched: true});
       } else {
         this.setState({fetched: true});
@@ -88,8 +87,12 @@ class PlaylistDetailPage extends React.Component {
   deletePlaylist(e) {
     e.preventDefault();
     this.closeModal();
-    this.props.deletePlaylist(this.props.playlistId);
-    this.props.router.push('/my-music');
+    this.props.deletePlaylist(this.props.playlistId, currentUser).then(() => {
+      const playlists = this.props.currentUser.playlists;
+      const mostRecentPlaylist = playlists[playlists.length - 1];
+      const id = mostRecentPlaylist.id;
+      this.props.router.push(`/my-music/playlists/${id}`);
+    });
   }
 
   handleClick(e) {
@@ -121,14 +124,19 @@ class PlaylistDetailPage extends React.Component {
 
   followPlaylist(e) {
     e.preventDefault();
-    this.props.followPlaylist(this.props.playlistId);
+    this.props.followPlaylist(this.props.playlistId, this.props.currentUser);
   };
 
   unfollowPlaylist(e) {
     e.preventDefault();
-    this.props.unfollowPlaylist(this.props.playlistId, this.props.playlist.following).then(() => {
-      this.props.removePlaylist(this.props.playlist);
-      this.props.router.push('/my-music');
+    this.props.unfollowPlaylist(this.props.playlistId, this.props.playlist.following, this.props.currentUser).then(() => {
+      if (this.props.location.pathname.includes("/my-music")) {
+        const playlists = this.props.currentUser.playlists;
+        const mostRecentPlaylist = playlists[playlists.length - 1];
+        const id = mostRecentPlaylist.id;
+        this.props.router.push(`/my-music/playlists/${id}`);
+      } else {
+      }
     });
   };
 
@@ -183,7 +191,8 @@ class PlaylistDetailPage extends React.Component {
                   <PlaylistEditForm
                     key={this.props.playlist.id}
                     playlist={this.props.playlist}
-                    canEdit={canEdit} />
+                    canEdit={canEdit}
+                    author={this.props.currentUser} />
                 </div>
               </div>
 
@@ -250,8 +259,6 @@ class PlaylistDetailPage extends React.Component {
               </div>
             </div>
           </Modal>
-
-
         </div>
       );
     } else {
@@ -270,20 +277,24 @@ const mapStateToProps = (state, ownProps) => {
   if (!playlist) {
     playlist = state.playlists[playlistId]
   }
+  const userId = state.session.currentUser.id;
+  const currentUser = state.users[userId];
+
   return {
     playlistId: playlistId,
     playlist: playlist,
-    currentUser: state.session.currentUser
+    userId: userId,
+    currentUser: currentUser
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchPlaylist: (playlistId) => { return dispatch(fetchPlaylist(playlistId)); },
-    followPlaylist: (playlistId) => { return dispatch(followPlaylist(playlistId)); },
-    unfollowPlaylist: (playlistId, followId) => { return dispatch(unfollowPlaylist(playlistId, followId)); },
+    followPlaylist: (playlistId, user) => { return dispatch(followPlaylist(playlistId, user)); },
+    unfollowPlaylist: (playlistId, followId, user) => { return dispatch(unfollowPlaylist(playlistId, followId, user)); },
     removePlaylist: (playlist) => { return dispatch(removePlaylist(playlist)); },
-    deletePlaylist: (id) => { return dispatch(deletePlaylist(id)); },
+    deletePlaylist: (id, user) => { return dispatch(deletePlaylist(id, user)); },
     playSongs: (songs) => { return dispatch(playSongs(songs)); }
   };
 }

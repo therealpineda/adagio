@@ -5,6 +5,13 @@ export const fetchUsers = () => {
   });
 }
 
+export const fetchUser = (id) => {
+  return $.ajax({
+    method: 'get',
+    url: `api/users/${id}`
+  });
+}
+
 export const newUserFollow = (followerId, followingId) => {
   return $.ajax({
     method: 'post',

@@ -12,6 +12,7 @@ const UsersReducer = (oldState = defaultState, action) => {
       newState = merge(newState, action.users);
       Object.keys(action.users).forEach((userId) => {
         newState[userId].playlists = action.users[userId].playlists
+        newState[userId].followed_playlists = action.users[userId].followed_playlists
         newState[userId].followings = action.users[userId].followings
       });
       return newState;

@@ -1,4 +1,6 @@
 import * as PlaylistApiUtil from '../util/playlist_api_util';
+import { receiveUser } from './users_actions';
+import { receiveCurrentUser } from './session_actions';
 
 export const fetchPlaylists = (userId) => {
   return (dispatch) => {
@@ -17,25 +19,42 @@ export const fetchPlaylist = (playlistId) => {
   };
 };
 
-export const addPlaylist = (playlist) => {
+export const addPlaylist = (playlist, currentUser) => {
   return (dispatch) => {
     return PlaylistApiUtil.addPlaylist(playlist).then( (playlist) => {
+      currentUser.playlists.push(playlist);
+      dispatch(receiveUser(currentUser));
       return dispatch(receivePlaylist(playlist));
     });
   };
 };
 
-export const deletePlaylist = (id) => {
+export const deletePlaylist = (id, currentUser) => {
   return (dispatch) => {
     return PlaylistApiUtil.deletePlaylist(id).then ( (playlist) => {
-        return dispatch(removePlaylist(playlist))
+
+      const updatedPlaylists = []
+      currentUser.playlists.forEach((userPlaylist) => {
+        if (userPlaylist.id !== playlist.id) {
+          updatedPlaylists.push(userPlaylist)
+        }
+      })
+      currentUser.playlists = updatedPlaylists;
+
+      dispatch(receiveUser(currentUser));
+      return dispatch(removePlaylist(playlist))
     });
   }
 };
 
-export const updatePlaylist = (playlist) => {
+export const updatePlaylist = (playlist, currentUser) => {
   return (dispatch) => {
     return PlaylistApiUtil.updatePlaylist(playlist).then( (playlist) => {
+
+      const oldPlaylist = currentUser.playlists.find( (pl) =>  pl.id === playlist.id);
+      oldPlaylist.name = playlist.name;
+      dispatch(receiveUser(currentUser));
+
       return dispatch(receivePlaylist(playlist));
     });
   };
@@ -57,17 +76,30 @@ export const removeSongFromPlaylist = (songId, playlistId) => {
   }
 };
 
-export const followPlaylist = (playlistId) => {
+export const followPlaylist = (playlistId, currentUser) => {
   return (dispatch) => {
     return PlaylistApiUtil.followPlaylist(playlistId).then( (playlist) => {
+      currentUser.followed_playlists.push(playlist);
+      dispatch(receiveUser(currentUser));
       return dispatch(receivePlaylist(playlist));
     });
   };
 };
 
-export const unfollowPlaylist = (playlistId, followId) => {
+export const unfollowPlaylist = (playlistId, followId, currentUser) => {
   return (dispatch) => {
     return PlaylistApiUtil.unfollowPlaylist(playlistId, followId).then( (playlist) => {
+
+      const updatedPlaylists = []
+      currentUser.followed_playlists.forEach((userFollowedPlaylist) => {
+        if (userFollowedPlaylist.id !== playlist.id) {
+          updatedPlaylists.push(userFollowedPlaylist)
+        }
+      })
+
+      currentUser.followed_playlists = updatedPlaylists;
+
+      dispatch(receiveUser(currentUser));
       return dispatch(receivePlaylist(playlist));
     });
   };

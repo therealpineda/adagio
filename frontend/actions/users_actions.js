@@ -1,5 +1,12 @@
 import * as UsersApiUtil from '../util/users_api_util';
 
+export const fetchUser = (id) => {
+  return (dispatch) => {
+    return UsersApiUtil.fetchUser(id).then( (user) => {
+      return dispatch(receiveUser(user));
+    })
+  };
+};
 export const fetchUsers = () => {
   return (dispatch) => {
     return UsersApiUtil.fetchUsers().then( (users) => {

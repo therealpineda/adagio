@@ -24,7 +24,7 @@ class AddPlaylistForm extends React.Component {
   _addPlaylist(e) {
     e.preventDefault();
     let playlist = merge(this.state, { user_id: this.props.userId })
-    this.props.addPlaylist(playlist);
+    this.props.addPlaylist(playlist, this.props.currentUser);
     this.setState({name: ""});
     const form = $('.add-playlist-form');
     form.addClass('hidden-form');
@@ -62,14 +62,16 @@ class AddPlaylistForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  const userId = state.session.currentUser.id;
   return {
-    userId: state.session.currentUser.id
+    userId: userId,
+    currentUser: state.users[userId]
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addPlaylist: (playlist) => { return dispatch(addPlaylist(playlist)); }
+    addPlaylist: (playlist, currentUser) => { return dispatch(addPlaylist(playlist, currentUser)); }
   };
 };
 
