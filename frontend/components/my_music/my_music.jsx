@@ -1,6 +1,5 @@
 import React from 'react';
 import PlaylistIndex from './playlists/playlist_index';
-import PlaylistDetail from './playlists/playlist_detail';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
