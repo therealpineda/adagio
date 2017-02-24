@@ -49,7 +49,9 @@ artist_names = [
   "The Kyoto Connection",
   "Waylon Thornton",
   "Silence Is Sexy",
-  "LJ Kruzer"
+  "LJ Kruzer",
+  "Plurabelle",
+  "Holy Coast"
 ]
 
 artist_names.each do |artist_name|
@@ -65,14 +67,24 @@ artist_id = Artist.find_by(name: "Jahzzar").id
 Album.create(title: "Traveller's Guide", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/travellers_guide.jpg")
 Album.create(title: "HiFi City Tales", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/hifi_city_tales.jpg")
 
+artist_id = Artist.find_by(name: "Holy Coast").id
+Album.create(title: "Holy Coast", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/holy_coast.jpg")
+
+artist_id = Artist.find_by(name: "Plurabelle").id
+Album.create(title: "Money, Blood and Light", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/money_blood_light.jpg")
+
 artist_id = Artist.find_by(name: "The Kyoto Connection").id
-Album.create(title: "Wake Up", artist_id: artist_id, image_url: default_img)
+Album.create(title: "Wake Up", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/kyoto.jpg")
+Album.create(title: "The Middle Way", artist_id: artist_id, image_url: "	https://s3.amazonaws.com/adagio-prod/images/album_art/middle_way.jpg")
+
 artist_id = Artist.find_by(name: "Waylon Thornton").id
-Album.create(title: "Mystery Club", artist_id: artist_id, image_url: default_img)
+Album.create(title: "Mystery Club", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/mystery_club.jpg")
 artist_id = Artist.find_by(name: "Silence Is Sexy").id
-Album.create(title: "Antique Instrumentals", artist_id: artist_id, image_url: default_img)
+Album.create(title: "Antique Instrumentals", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/antique_instr.jpg")
 artist_id = Artist.find_by(name: "LJ Kruzer").id
-Album.create(title: "Dance Audit Hour", artist_id: artist_id, image_url: default_img)
+Album.create(title: "Dance Audit Hour", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/dance_audit.jpg")
+
+
 
 
 ## SONGS
@@ -110,8 +122,36 @@ album_id = Album.find_by(title: "HiFi City Tales").id
   Song.create(title: "Sirens", duration: 218, album_id: album_id, album_order: 13, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/hifi_city/Jahzzar_-_13_-_Sirens.mp3")
   Song.create(title: "Vault", duration: 197, album_id: album_id, album_order: 14, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/hifi_city/Jahzzar_-_14_-_Vault.mp3")
 
+album_id = Album.find_by(title: "Holy Coast").id
+  Song.create(title: "Theme", duration: 41, album_id: album_id, album_order: 1, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/holy_coast/Holy_Coast_-_01_-_Theme.mp3")
+  Song.create(title: "San Blas", duration: 128, album_id: album_id, album_order: 2, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/holy_coast/Holy_Coast_-_02_-_San_Blas.mp3")
+  Song.create(title: "Grizzly Bear Sharktopus", duration: 130, album_id: album_id, album_order: 3, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/holy_coast/Holy_Coast_-_03_-_Grizzly_Bear_Sharktopus.mp3")
+  Song.create(title: "Dead Sea", duration: 154, album_id: album_id, album_order: 4, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/holy_coast/Holy_Coast_-_04_-_Dead_Sea.mp3")
+  Song.create(title: "The Trench", duration: 97, album_id: album_id, album_order: 5, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/holy_coast/Holy_Coast_-_05_-_The_Trench.mp3")
+  Song.create(title: "Holy Coast", duration: 120, album_id: album_id, album_order: 6, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/holy_coast/Holy_Coast_-_06_-_Holy_Coast.mp3")
+  Song.create(title: "The Beach! The Beach!", duration: 136, album_id: album_id, album_order: 7, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/holy_coast/Holy_Coast_-_08_-_The_Beach_The_Beach.mp3")
+
+album_id = Album.find_by(title: "Money, Blood and Light").id
+  Song.create(title: "Lips", duration: 200, album_id: album_id, album_order: 1, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/money_blood_light/Plurabelle_-_01_-_Lips.mp3")
+  Song.create(title: "Athens OH", duration: 220, album_id: album_id, album_order: 2, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/money_blood_light/Plurabelle_-_02_-_Athens_OH.mp3")
+  Song.create(title: "cuts&bruises", duration: 244, album_id: album_id, album_order: 3, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/money_blood_light/Plurabelle_-_03_-_cutsbruises.mp3")
+  Song.create(title: "Wallflower", duration: 248, album_id: album_id, album_order: 4, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/money_blood_light/Plurabelle_-_04_-_Wallflower.mp3")
+  Song.create(title: "Light, Livid", duration: 246, album_id: album_id, album_order: 5, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/money_blood_light/Plurabelle_-_05_-_Light_Livid.mp3")
+  Song.create(title: "Ropes", duration: 149, album_id: album_id, album_order: 6, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/money_blood_light/Plurabelle_-_06_-_Ropes.mp3")
+
 album_id = Album.find_by(title: "Wake Up").id
   Song.create(title: "Hachiko(The Faithful Dog)", duration: 185, album_id: album_id, album_order: 9, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/The_Kyoto_Connection_-_09_-_Hachiko_The_Faithtful_Dog.mp3")
+
+album_id = Album.find_by(title: "The Middle Way").id
+  Song.create(title: "Intro", duration: 126, album_id: album_id, album_order: 1, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/middle_way/The_Kyoto_Connection_-_01_-_Intro.mp3")
+  Song.create(title: "Close To The Abyss", duration: 334, album_id: album_id, album_order: 2, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/middle_way/The_Kyoto_Connection_-_02_-_Close_To_The_Abyss.mp3")
+  Song.create(title: "Voyage I - Setting Sun", duration: 300, album_id: album_id, album_order: 3, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/middle_way/The_Kyoto_Connection_-_03_-_Voyage_I_-_Setting_Sun.mp3")
+  Song.create(title: "Fears", duration: 263, album_id: album_id, album_order: 4, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/middle_way/The_Kyoto_Connection_-_04_-_Fears.mp3")
+  Song.create(title: "Voyage II - The Hero's Journey", duration: 350, album_id: album_id, album_order: 5, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/middle_way/The_Kyoto_Connection_-_05_-_Voyage_II_-_The_Heros_Journey.mp3")
+  Song.create(title: "Kuro Obi (lost mixtape)", duration: 106, album_id: album_id, album_order: 6, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/middle_way/The_Kyoto_Connection_-_06_-_Kuro_Obi_lost_mixtape.mp3")
+  Song.create(title: "Decisions | Illusions | Confusions", duration: 275, album_id: album_id, album_order: 7, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/middle_way/The_Kyoto_Connection_-_07_-_Decisions__Illusions__Confusions.mp3")
+  Song.create(title: "Voyage III - Finding The Way Out", duration: 203, album_id: album_id, album_order: 8, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/middle_way/The_Kyoto_Connection_-_08_-_Voyage_III_-_Finding_The_Way_Out.mp3")
+  Song.create(title: "Wake Up (2016 Tech Noir ver.)", duration: 241, album_id: album_id, album_order: 9, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/middle_way/The_Kyoto_Connection_-_09_-_Wake_Up_2016_Tech_Noir_ver.mp3")
 
 album_id = Album.find_by(title: "Mystery Club").id
   Song.create(title: "Favorite Secrets", duration: 75, album_id: album_id, album_order: 2, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/02_-_Favorite_Secrets.mp3")
