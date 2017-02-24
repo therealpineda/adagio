@@ -39,8 +39,8 @@ class Root extends React.Component {
           <Route path="/" component={App} onEnter={this._redirectUnlessLoggedIn} >
             <IndexRedirect to="my-music/playlists/0" />
             <Route path="browse" component={Browse}>
-              <Route path="albums/:albumId" component={AlbumDetailPage} />
               <Route path="albums" component={AlbumsIndex} />
+              <Route path="albums/:albumId" component={AlbumDetailPage} />
             </Route>
             <Route path="my-music" component={MyMusic}>
               <Route path="playlists/:playlistId" component={PlaylistIndex} />

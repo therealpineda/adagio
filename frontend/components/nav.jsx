@@ -67,7 +67,7 @@ class Nav extends React.Component {
             </div>
           </div>
 
-          <div className={classStyleBrowse} onClick={this._clickLink.bind(this,'browse')}>
+          <div className={classStyleBrowse} onClick={this._clickLink.bind(this,'browse/albums')}>
             <div className="nav-icon">
               <i className="fa fa-qrcode" aria-hidden="true"></i>
             </div>

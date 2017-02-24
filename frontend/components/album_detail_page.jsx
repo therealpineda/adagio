@@ -8,15 +8,25 @@ import { connect } from 'react-redux';
 class AlbumDetailPage extends React.Component {
   constructor() {
     super();
+    this.state = {
+      fetched: false
+    }
     this.playAlbum = this.playAlbum.bind(this);
   }
 
   componentWillMount() {
-    this.props.fetchAlbum(this.props.albumId);
+    this.props.fetchAlbum(this.props.albumId).then( () => {
+      this.setState({fetched: true})
+      });
   }
 
-  // debugger
   componentWillReceiveProps(nextProps) {
+    if (this.props.albumId !== nextProps.params.albumId) {
+      this.setState({fetched: false})
+      this.props.fetchAlbum(nextProps.albumId).then( () => {
+        this.setState({fetched: true})
+      });
+    }
   }
 
   playAlbum(e) {
@@ -26,7 +36,7 @@ class AlbumDetailPage extends React.Component {
 
   render() {
 
-    if (this.props.album) {
+    if (this.state.fetched) {
       return (
         <div id='playlist-detail-page' className='comp-d'>
 
@@ -81,6 +91,7 @@ class AlbumDetailPage extends React.Component {
     } else {
       return (
         <div id='album-detail-page' className='comp-d'>
+          <p></p>
         </div>
       );
     }

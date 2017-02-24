@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { albumsArray } from '../reducers/selectors';
 import { fetchAlbums } from '../actions/album_actions';
@@ -9,11 +9,17 @@ class AlbumsIndex extends React.Component {
     this.props.fetchAlbums();
   }
 
+  _redirect(id) {
+    this.props.router.push(`/browse/albums/${id}`)
+  }
+
   render() {
     const albumIndexItems = this.props.albums.map((album) => {
       return (
-        <li key={album.id} className="album-index-item">
-          <Link to={`/browse/albums/${album.id}`}>
+        <li key={album.id}
+          onClick={this._redirect.bind(this, album.id)}
+          className="album-index-item">
+
             <div className='album-index-item-img'>
               <img src={album.image_url}/>
             </div>
@@ -21,7 +27,7 @@ class AlbumsIndex extends React.Component {
               <p className="album-index-name">{album.title}</p>
               <p className="album-index-songs">{album.num_songs}</p>
             </div>
-          </Link>
+        
         </li>
       );
     });
@@ -55,4 +61,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AlbumsIndex);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AlbumsIndex));
