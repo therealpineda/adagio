@@ -25,9 +25,10 @@ class AlbumsIndex extends React.Component {
             </div>
             <div className='album-index-item-details'>
               <p className="album-index-name">{album.title}</p>
+              <p className="album-index-artist">{album.artist}</p>
               <p className="album-index-songs">{album.num_songs}</p>
             </div>
-        
+
         </li>
       );
     });

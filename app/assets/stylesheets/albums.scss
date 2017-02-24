@@ -35,8 +35,11 @@
   min-width: 200px;
   margin: 15px;
   background-color: #222326;
-
 }
+.album-index-item:hover {
+  cursor: pointer;
+}
+
 .album-index-item-img {
   width: 100%;
 }
@@ -47,13 +50,23 @@
 
 .album-index-name {
   color: #dfe0e6;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .album-index-name:hover {
   cursor: pointer;
   color: #FFFFFF;
   text-decoration: underline;
+}
+
+.album-index-artist {
+  color: #dfe0e6;
+  font-size: 13px;
+}
+
+.album-index-artist:hover {
+  cursor: pointer;
+  color: #FFFFFF;
 }
 
 .album-index-followers {

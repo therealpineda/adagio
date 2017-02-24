@@ -179,7 +179,7 @@ class PlaylistDetailPage extends React.Component {
 
           <div id='playlist-detail-header'>
             <div className='playlist-detail-img'>
-              <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
+              <img src="https://s3.amazonaws.com/adagio-prod/images/default/playlist_img.jpg" />
             </div>
 
             <div id='playlist-detail-right'>
