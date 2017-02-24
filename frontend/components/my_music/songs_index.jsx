@@ -80,15 +80,16 @@ class SongsIndex extends React.Component {
     this.setState({modalIsOpen: false});
   }
 
+// find instead of filter
+
   handleClick(e) {
     e.preventDefault();
     const songTitle = e.target.parentElement.parentElement.firstChild.firstChild.textContent;
     const clickedSong = this.props.songs.filter((song) => { return song.title === songTitle })[0];
-    this.setState({clickedSong: clickedSong});
     let customStyles = this.state.customStyles;
     customStyles.content.left = e.clientX;
     customStyles.content.top = e.clientY;
-    this.setState({customStyles: customStyles});
+    this.setState({clickedSong: clickedSong, customStyles: customStyles});
     this.openModal();
   }
 
@@ -118,11 +119,9 @@ class SongsIndex extends React.Component {
       );
     });
     let clickedTitle = "";
-    let clickedArtist = "";
     const clickedSong = this.state.clickedSong
     if (clickedSong) {
       clickedTitle = clickedSong.title;
-      clickedArtist = clickedSong.artist;
     }
 
     const div = document.getElementsByClassName('rc-modal-modal')[0]

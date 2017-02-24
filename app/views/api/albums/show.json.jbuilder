@@ -15,7 +15,6 @@ else
   json.duration "#{album_length / 60} min"
 end
 
-i = 0
 json.songs do
   json.array! @album.songs do |song|
     json.extract! song, :id, :album_order, :title
@@ -24,7 +23,6 @@ json.songs do
     json.image song.album.image_url
     json.duration Time.at(song.duration).utc.strftime("%-M:%S")
     json.url song.audio_url
-    json.playlist_song_id i
-    i += 1
+    json.playlist_song_id song.id
   end
 end

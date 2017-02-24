@@ -50,7 +50,6 @@ class PlaylistDetailPage extends React.Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
@@ -108,11 +107,6 @@ class PlaylistDetailPage extends React.Component {
 
   openModal() {
     this.setState({modalIsOpen: true});
-  }
-
-  afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    // this.refs.subtitle.style.color = '#f00';
   }
 
   closeModal() {

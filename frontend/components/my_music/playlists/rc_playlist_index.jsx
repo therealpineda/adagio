@@ -1,29 +1,19 @@
 import React from 'react';
 import RCPlaylistIndexItem from './rc_playlist_index_item';
-import { playlistsArrayNoFollowing } from '../../../reducers/selectors';
-import { fetchPlaylists } from '../../../actions/playlist_actions';
 import { connect } from 'react-redux';
 
+const RCPlaylistIndex = ({playlists, clickedSong}) => {
 
-class RCPlaylistIndex extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  componentWillMount() {
-    this.props.fetchPlaylists(this.props.userId);
-  }
-
-  render() {
-    const playlistIndexItems = this.props.playlists.map( (playlist) => {
+    const playlistIndexItems = playlists.map( (playlist) => {
       return (
       <RCPlaylistIndexItem
         key={playlist.id}
         name={playlist.name}
-        songId={this.props.clickedSong.id}
+        songId={clickedSong.id}
         playlistId={playlist.id} />
       );
     });
+
     return (
       <div id='rc-playlist-index' className="comp-d">
         <ul>
@@ -31,14 +21,13 @@ class RCPlaylistIndex extends React.Component {
         </ul>
       </div>
     );
-  }
-
 }
 
 const mapStateToProps = (state, ownProps) => {
+  const userId = state.session.currentUser.id;
   return {
-    userId: state.session.currentUser.id,
-    playlists: playlistsArrayNoFollowing(state.playlists)
+    userId: userId,
+    playlists: state.users[userId].playlists
   };
 };
 
