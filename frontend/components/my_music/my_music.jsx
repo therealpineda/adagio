@@ -1,14 +1,9 @@
 import React from 'react';
 import PlaylistIndex from './playlists/playlist_index';
-import { fetchUser } from '../../actions/users_actions';
 import { Link, withRouter } from 'react-router';
-import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 class MyMusic extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   _clickLink(route, e) {
     $(document.getElementsByClassName('my-music-link')).attr('class', 'my-music-link');
@@ -45,8 +40,6 @@ class MyMusic extends React.Component {
             onClick={this._clickLink.bind(this, "my-music/songs")}>
             Songs
           </li>
-          <li>Artists</li>
-          <li>Albums</li>
         </ul></nav>
         <main>
           { this.props.children }
@@ -56,5 +49,8 @@ class MyMusic extends React.Component {
   }
 }
 
+// FEATURES NOT YET IMPLEMENTED
+  // <li>Artists</li>
+  // <li>Albums</li>
 
 export default withRouter(MyMusic);

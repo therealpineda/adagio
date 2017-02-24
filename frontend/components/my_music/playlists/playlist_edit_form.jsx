@@ -48,7 +48,6 @@ class PlaylistEditForm extends React.Component {
   }
 
   update(key) {
-
     return (e) => {
       this.setState({ playlist: {[key]: e.target.value }})
     }

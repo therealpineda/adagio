@@ -2,7 +2,6 @@ import React from 'react';
 import SongIndexItem from './song_index_item';
 import Modal from 'react-modal';
 import RCPlaylistIndex from './playlists/rc_playlist_index';
-import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { playSong, addSong } from '../../actions/play_queue_actions';
 import { removeSongFromPlaylist } from '../../actions/playlist_actions';
@@ -45,7 +44,7 @@ class SongsIndex extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.rightClick = this.rightClick.bind(this);
     this.playClickedSong = this.playClickedSong.bind(this);
     this.addClickedSongToQueue = this.addClickedSongToQueue.bind(this);
     this.removeFromPlaylist = this.removeFromPlaylist.bind(this);
@@ -59,18 +58,6 @@ class SongsIndex extends React.Component {
     this.setState({modalIsOpen: true});
   }
 
-  _checkScroll() {
-    const windowHeight = window.innerHeight;
-    const menuTop = this.state.customStyles.content.top;
-    const menuBottom = parseInt(this.state.customStyles.content.bottom);
-    const overflow = windowHeight - menuTop - menuHeight - menuBottom;
-    if (overflow < 0) {
-      const customStyles = this.state.customStyles;
-      customStyles.content.overflowY = "auto";
-      this.setState({customStyles: customStyles});
-    }
-  }
-
   afterOpenModal() {
     // references are now sync'd and can be accessed.
     // this.refs.subtitle.style.color = '#f00';
@@ -80,15 +67,15 @@ class SongsIndex extends React.Component {
     this.setState({modalIsOpen: false});
   }
 
-// find instead of filter
-
-  handleClick(e) {
+  rightClick(e) {
     e.preventDefault();
     const songTitle = e.target.parentElement.parentElement.firstChild.firstChild.textContent;
-    const clickedSong = this.props.songs.filter((song) => { return song.title === songTitle })[0];
+
+    const clickedSong = this.props.songs.find((song) => song.title === songTitle );
+
     let customStyles = this.state.customStyles;
-    customStyles.content.left = e.clientX;
     customStyles.content.top = e.clientY;
+    customStyles.content.left = e.clientX;
     this.setState({clickedSong: clickedSong, customStyles: customStyles});
     this.openModal();
   }
@@ -124,12 +111,6 @@ class SongsIndex extends React.Component {
       clickedTitle = clickedSong.title;
     }
 
-    const div = document.getElementsByClassName('rc-modal-modal')[0]
-    if (div) {
-      const menuHeight = div.clientHeight;
-      this._checkScroll.bind(this, menuHeight);
-    }
-
     return (
         <div id='songs-index' className="comp-d">
           <table cellSpacing="0">
@@ -142,7 +123,7 @@ class SongsIndex extends React.Component {
                 </th>
               </tr>
             </thead>
-            <tbody onContextMenu={this.handleClick}>
+            <tbody onContextMenu={this.rightClick}>
               { songIndexItems }
             </tbody>
           </table>
@@ -196,4 +177,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(SongsIndex));
+export default connect(null, mapDispatchToProps)(SongsIndex);

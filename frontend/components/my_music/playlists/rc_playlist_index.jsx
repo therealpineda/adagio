@@ -4,37 +4,30 @@ import { connect } from 'react-redux';
 
 const RCPlaylistIndex = ({playlists, clickedSong}) => {
 
-    const playlistIndexItems = playlists.map( (playlist) => {
-      return (
-      <RCPlaylistIndexItem
-        key={playlist.id}
-        name={playlist.name}
-        songId={clickedSong.id}
-        playlistId={playlist.id} />
-      );
-    });
-
+  const playlistIndexItems = playlists.map( (playlist) => {
     return (
-      <div id='rc-playlist-index' className="comp-d">
-        <ul>
-          { playlistIndexItems }
-        </ul>
-      </div>
+    <RCPlaylistIndexItem
+      key={playlist.id}
+      name={playlist.name}
+      songId={clickedSong.id}
+      playlistId={playlist.id} />
     );
+  });
+
+  return (
+    <div id='rc-playlist-index' className="comp-d">
+      <ul>
+        { playlistIndexItems }
+      </ul>
+    </div>
+  );
 }
 
 const mapStateToProps = (state, ownProps) => {
   const userId = state.session.currentUser.id;
   return {
-    userId: userId,
     playlists: state.users[userId].playlists
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchPlaylists: (userId) => { return dispatch(fetchPlaylists(userId)); }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(RCPlaylistIndex);
+export default connect(mapStateToProps, null)(RCPlaylistIndex);

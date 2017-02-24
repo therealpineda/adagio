@@ -24,7 +24,12 @@ const mapStateToProps = (state) => {
   const userId = state.session.currentUser.id;
   let songs = []
   Object.keys(state.playlists).forEach((id) => {
-    songs = songs.concat(state.playlists[id].songs);
+    const playlistSongs = state.playlists[id].songs
+    playlistSongs.forEach((song) => {
+      if (!songs.includes(song)) {
+        songs.push(song);
+      }
+    });
   })
   return {
     userId: userId,
@@ -36,7 +41,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchPlaylists: (userId) => {return dispatch(fetchPlaylists(userId));}
   };
-
 };
 
 
