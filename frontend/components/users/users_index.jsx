@@ -23,6 +23,7 @@ class UsersIndex extends React.Component {
           user={user}/>
       );
     });
+    
     return (
       <div id='users-index' className="comp-d">
         <div

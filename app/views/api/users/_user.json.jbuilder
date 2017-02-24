@@ -50,6 +50,7 @@ json.followed_playlists do
     end
     json.num_songs playlist.songs.count
     json.followers_count pluralize(playlist.playlist_follows.count, 'follower')
+
     playlist_follow = PlaylistFollow.find do |follow|
       follow.playlist_id == playlist.id && follow.follower_id == current_user.id
     end

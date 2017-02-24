@@ -21,11 +21,12 @@ body {
   color: #FFFFFF;
 }
 
-/* SCROLLBAR */
-
-.custom-scrollbar {
-
+.section-header-btm-border {
+  border-bottom: 1px solid #222326;
+  margin-bottom: 5px;
 }
+
+/* SCROLLBAR */
 
 
 .custom-scrollbar::-webkit-scrollbar-track
