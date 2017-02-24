@@ -58,29 +58,31 @@ class PlaylistDetailPage extends React.Component {
     Modal.setAppElement('body');
   }
 
-  // if passing playlist as prop in directly, don't need to fetch! - TO DO
-
   componentDidMount() {
-    this.props.fetchPlaylist(this.props.playlistId).then( (playlist) => {
-      if (playlist.author_id === this.props.userId) {
-        this.setState({owner: true, fetched: true});
-      } else {
-        this.setState({fetched: true});
-      }
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.playlistId !== nextProps.playlistId) {
-      this.setState({owner: false, fetched: false});
-
-      this.props.fetchPlaylist(nextProps.playlistId).then( (playlist) => {
-        if (playlist.author_id === this.props.currentUser.id) {
+    if (this.props.playlistId !== "0") {
+      this.props.fetchPlaylist(this.props.playlistId).then( (playlist) => {
+        if (playlist.author_id === this.props.userId) {
           this.setState({owner: true, fetched: true});
         } else {
           this.setState({fetched: true});
         }
       });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.playlistId !== "0") {
+      if (this.props.playlistId !== nextProps.playlistId) {
+        this.setState({owner: false, fetched: false});
+
+        this.props.fetchPlaylist(nextProps.playlistId).then( (playlist) => {
+          if (playlist.author_id === this.props.currentUser.id) {
+            this.setState({owner: true, fetched: true});
+          } else {
+            this.setState({fetched: true});
+          }
+        });
+      }
     }
   }
 

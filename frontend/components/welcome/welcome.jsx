@@ -58,7 +58,7 @@ class Welcome extends React.Component {
         </div>
         <div id='landing-page'>
           <h1>Get the right music, right now.</h1>
-          <h2>Listen to millions of songs for free.</h2>
+          <h2>Listen to a handful of songs for free.</h2>
           <ul id='landing-list'>
             <li className="landing-list-item">
               <div className="landing-list-check">
