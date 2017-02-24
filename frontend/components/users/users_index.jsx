@@ -52,7 +52,7 @@ const mapStateToProps = (state, ownProps) => {
     selectedUser = state.users[userId];
   }
   return {
-    users: usersArray(state.users),
+    users: usersArray(state),
     userId: userId,
     selectedUser: selectedUser
   };
