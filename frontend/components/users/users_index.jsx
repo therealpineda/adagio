@@ -7,9 +7,6 @@ import { usersArray } from '../../reducers/selectors';
 import { fetchUsers } from '../../actions/users_actions';
 
 class UsersIndex extends React.Component {
-  constructor() {
-    super();
-  }
 
   componentWillMount() {
     this.props.fetchUsers();
@@ -46,7 +43,7 @@ class UsersIndex extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   let userId = state.session.currentUser.id;
-  let selectedUser = null;
+  let selectedUser;
   if (ownProps.params.userId) {
     userId = ownProps.params.userId;
     selectedUser = state.users[userId];

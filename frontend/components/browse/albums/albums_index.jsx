@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { albumsArray } from '../reducers/selectors';
-import { fetchAlbums } from '../actions/album_actions';
+import { albumsArray } from '../../../reducers/selectors';
+import { fetchAlbums } from '../../../actions/album_actions';
 
 class AlbumsIndex extends React.Component {
   componentWillMount() {

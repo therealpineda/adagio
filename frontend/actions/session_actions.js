@@ -1,6 +1,7 @@
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 import * as SessionApiUtil from '../util/session_api_util';
+import { clearQueue } from './play_queue_actions';
 
 export const signup = (user) => {
   return (dispatch) => {

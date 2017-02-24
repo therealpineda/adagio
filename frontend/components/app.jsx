@@ -1,6 +1,6 @@
 import React from 'react';
 import Nav from './nav';
-import NowPlaying from './now_playing';
+import NowPlaying from './now_playing/now_playing';
 import { connect } from 'react-redux';
 import { fetchUser } from '../actions/users_actions';
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import AlbumsIndex from './albums_index';
 
 class Browse extends React.Component {
 

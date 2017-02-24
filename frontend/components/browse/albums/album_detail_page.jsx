@@ -1,7 +1,7 @@
 import React from 'react';
-import SongsIndex from './my_music/songs_index';
-import { fetchAlbum } from '../actions/album_actions';
-import { playSongs } from '../actions/play_queue_actions';
+import SongsIndex from '../../my_music/songs_index';
+import { fetchAlbum } from '../../../actions/album_actions';
+import { playSongs } from '../../../actions/play_queue_actions';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
@@ -21,11 +21,15 @@ class AlbumDetailPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.albumId !== nextProps.params.albumId) {
-      this.setState({fetched: false})
-      this.props.fetchAlbum(nextProps.albumId).then( () => {
-        this.setState({fetched: true})
-      });
+    if (!nextProps.albumId) {
+      this.setState({fetched: false});
+    } else {
+      if (this.props.albumId !== nextProps.params.albumId) {
+        this.setState({fetched: false})
+        this.props.fetchAlbum(nextProps.albumId).then( () => {
+          this.setState({fetched: true})
+        });
+      }
     }
   }
 
@@ -35,7 +39,6 @@ class AlbumDetailPage extends React.Component {
   }
 
   render() {
-
     if (this.state.fetched) {
       return (
         <div id='playlist-detail-page' className='comp-d'>

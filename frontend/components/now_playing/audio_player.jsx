@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { currentSong } from '../reducers/selectors';
-import { nextSong } from '../actions/play_queue_actions';
+import { currentSong } from '../../reducers/selectors';
+import { nextSong } from '../../actions/play_queue_actions';
 
 class AudioPlayer extends React.Component {
   constructor() {

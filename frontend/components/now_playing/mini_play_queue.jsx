@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { jumpQueue } from '../actions/play_queue_actions';
+import { jumpQueue } from '../../actions/play_queue_actions';
 
 class MiniPlayQueue extends React.Component {
   constructor() {

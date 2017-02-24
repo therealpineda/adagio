@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { currentSong } from '../reducers/selectors';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
+import { currentSong } from '../../reducers/selectors';
 import AudioPlayer from './audio_player';
 import MiniPlayQueue from './mini_play_queue';
 

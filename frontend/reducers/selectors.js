@@ -61,11 +61,14 @@ export const currentSong = (playQueue) => {
 
 export const usersArray = ({ session, users }) => {
   const currentUser = users[session.currentUser.id];
-  let array = [currentUser]
-  Object.keys(users).forEach( (id) => {
-    if (parseInt(id) !== currentUser.id) {
-      array.push(users[id]);
-    }
-  });
+  let array = []
+  if (currentUser) {
+    array = [currentUser]
+    Object.keys(users).forEach( (id) => {
+      if (parseInt(id) !== currentUser.id) {
+        array.push(users[id]);
+      }
+    });
+  }
   return array;
 }

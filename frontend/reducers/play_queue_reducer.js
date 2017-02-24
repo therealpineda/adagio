@@ -22,6 +22,8 @@ const PlayQueueReducer = (oldState = defaultState, action) => {
       newState.unshift(action.song);
       return newState;
     case REMOVE_SONGS:
+      newState = [];
+      return newState;
     case REMOVE_SONG:
       newState = [];
       oldState.forEach( (song) => {

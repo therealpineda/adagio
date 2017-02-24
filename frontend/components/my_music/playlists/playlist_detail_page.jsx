@@ -71,7 +71,7 @@ class PlaylistDetailPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.playlistId !== "0") {
+    if (nextProps.playlistId !== "0" || nextProps.playlistId !== undefined) {
       if (this.props.playlistId !== nextProps.playlistId) {
         this.setState({owner: false, fetched: false});
 

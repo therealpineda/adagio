@@ -58,14 +58,7 @@ class Nav extends React.Component {
           <div id="nav-logo">
             <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
           </div>
-          <div className={classStyleSearch} onClick={this._clickLink.bind(this,'search')}>
-            <div className="nav-icon">
-              <i className="fa fa-search" aria-hidden="true"></i>
-            </div>
-            <div className='nav-icon-text'>
-              <p>Search</p>
-            </div>
-          </div>
+
 
           <div className={classStyleBrowse} onClick={this._clickLink.bind(this,'browse/albums')}>
             <div className="nav-icon">
@@ -133,3 +126,14 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Nav));
+
+// SEARCH ICON - FEATURE NOT YET IMPLEMENTED
+  //
+  // <div className={classStyleSearch} onClick={this._clickLink.bind(this,'search')}>
+  //   <div className="nav-icon">
+  //     <i className="fa fa-search" aria-hidden="true"></i>
+  //   </div>
+  //   <div className='nav-icon-text'>
+  //     <p>Search</p>
+  //   </div>
+  // </div>

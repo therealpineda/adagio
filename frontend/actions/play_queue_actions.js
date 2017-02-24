@@ -49,3 +49,9 @@ export const jumpQueue = (jumpAmount) => {
     amount: jumpAmount
   };
 }
+
+export const clearQueue = () => {
+  return {
+    type: REMOVE_SONGS
+  }
+};
