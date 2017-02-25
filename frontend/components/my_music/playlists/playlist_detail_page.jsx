@@ -170,13 +170,45 @@ class PlaylistDetailPage extends React.Component {
         );
       }
 
+      const songImages = []
+      this.props.playlist.songs.forEach( (song) => {
+        if (songImages.length < 4 && !songImages.includes(song.image)) {
+          songImages.push(song.image);
+        }
+      });
+      while (songImages.length < 4) {
+        songImages.push(songImages[Math.floor(Math.random() * songImages.length)]);
+      }
+
+      let playlistImage = (
+        <div className='playlist-detail-image'
+          className='playlist-default-image'>
+          <img src="https://s3.amazonaws.com/adagio-prod/images/default/playlist_img.jpg"/>
+        </div>
+      );
+  
+      if (this.props.playlist.songs.length > 3) {
+        playlistImage = (
+          <div className='playlist-detail-image'>
+            <div className='pl-img-row'>
+              <div className='pl-img-piece'><img src={songImages[0]}/></div>
+              <div className='pl-img-piece'><img src={songImages[1]}/></div>
+            </div>
+            <div className='pl-img-row'>
+              <div className='pl-img-piece'><img src={songImages[2]}/></div>
+              <div className='pl-img-piece'><img src={songImages[3]}/></div>
+            </div>
+          </div>
+        );
+      }
+
+
       return (
         <div id='playlist-detail-page' className='comp-d'>
 
           <div id='playlist-detail-header'>
-            <div className='playlist-detail-img'>
-              <img src="https://s3.amazonaws.com/adagio-prod/images/default/playlist_img.jpg" />
-            </div>
+
+            { playlistImage }
 
             <div id='playlist-detail-right'>
               <div id='playlist-detail-text'>

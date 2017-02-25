@@ -187,13 +187,32 @@
   display: flex;
 }
 
-.playlist-detail-img {
+.playlist-detail-image {
+  height: 200px;
+  width: 200px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist-default-image {
+  height: 200px;
+  width: 200px;
   margin-right: 10px;
 }
 
-.playlist-detail-img img {
-  height: 200px;
+.playlist-default-image img {
   width: 200px;
+  height: 200px;
+}
+
+.pl-img-row {
+  display: flex;
+}
+
+.pl-img-piece {
+  height: 100px;
+  width: 100px;
 }
 
 #playlist-detail-right {

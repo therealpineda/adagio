@@ -75,7 +75,7 @@ Album.create(title: "Money, Blood and Light", artist_id: artist_id, image_url: "
 
 artist_id = Artist.find_by(name: "The Kyoto Connection").id
 Album.create(title: "Wake Up", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/kyoto.jpg")
-Album.create(title: "The Middle Way", artist_id: artist_id, image_url: "	https://s3.amazonaws.com/adagio-prod/images/album_art/middle_way.jpg")
+Album.create(title: "The Middle Way", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/middle_way.jpg")
 
 artist_id = Artist.find_by(name: "Waylon Thornton").id
 Album.create(title: "Mystery Club", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/mystery_club.jpg")
