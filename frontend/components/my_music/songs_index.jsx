@@ -2,6 +2,7 @@ import React from 'react';
 import SongIndexItem from './song_index_item';
 import Modal from 'react-modal';
 import RCPlaylistIndex from './playlists/rc_playlist_index';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { playSong, addSong } from '../../actions/play_queue_actions';
 import { removeSongFromPlaylist } from '../../actions/playlist_actions';
@@ -177,4 +178,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(SongsIndex);
+export default withRouter(connect(null, mapDispatchToProps)(SongsIndex));
