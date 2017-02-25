@@ -3,12 +3,9 @@
 ## USERS
 User.destroy_all
 
-User.create(username: 'johndoe', password: 'password', first_name: 'John', last_name: 'Doe', email: 'johndoe@email.com', image_url: Faker::Avatar.image)
-User.create(username: 'janedoe', password: 'password', first_name: 'Jane', last_name: 'Doe', email: 'janedoe@email.com', image_url: Faker::Avatar.image)
-User.create(username: 'jimmydoe', password: 'password', first_name: 'Jimmy', last_name: 'Doe', email: 'jimmydoe@email.com', image_url: Faker::Avatar.image)
-
-# Faker::Internet.unique.clear
-# Faker::UniqueGenerator.clear ... not working ...
+User.create(username: 'johndoe', password: 'password', first_name: 'John', last_name: 'Doe', email: 'johndoe@email.com', image_url: Faker::Avatar.image("adagio", "100x100", "png"))
+User.create(username: 'janedoe', password: 'password', first_name: 'Jane', last_name: 'Doe', email: 'janedoe@email.com', image_url: Faker::Avatar.image("adagio", "100x100", "png"))
+User.create(username: 'jimmydoe', password: 'password', first_name: 'Jimmy', last_name: 'Doe', email: 'jimmydoe@email.com', image_url: Faker::Avatar.image("adagio", "100x100", "png"))
 
 10.times do
   User.create(
@@ -17,7 +14,7 @@ User.create(username: 'jimmydoe', password: 'password', first_name: 'Jimmy', las
     first_name: Faker::Name.first_name,
     last_name: Faker::Music.instrument,
     email: Faker::Internet.unique.email,
-    image_url: Faker::Avatar.image
+    image_url: Faker::Avatar.image("adagio", "100x100", "png")
    )
 end
 
@@ -84,8 +81,6 @@ artist_id = Artist.find_by(name: "Silence Is Sexy").id
 Album.create(title: "Antique Instrumentals", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/antique_instr.jpg")
 artist_id = Artist.find_by(name: "LJ Kruzer").id
 Album.create(title: "Dance Audit Hour", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/dance_audit.jpg")
-
-
 
 
 ## SONGS
@@ -258,5 +253,4 @@ song_ids = Song.all.pluck(:id)
   other_users_ids.take(rand(0..7)).each do |user_id|
     PlaylistFollow.create(playlist_id: playlist.id, follower_id: user_id)
   end
-
 end

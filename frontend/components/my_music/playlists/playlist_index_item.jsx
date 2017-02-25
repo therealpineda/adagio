@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import classNames from 'classnames';
 
 const PlaylistIndexItem = ( { playlist, authorId, selectedPlaylistId } ) => {
-
   let classStyle = classNames({
     'playlist-index-item-container': true,
     'selected-playlist': playlist.id === parseInt(selectedPlaylistId)
@@ -17,13 +16,35 @@ const PlaylistIndexItem = ( { playlist, authorId, selectedPlaylistId } ) => {
     );
   }
 
+  let playlistImage = (
+    <div className='playlist-index-item-img'
+      className='playlist-default-image-sm'>
+      <img src={playlist.images[0]}/>
+    </div>
+  );
+
+  if (playlist.images.length > 1) {
+    playlistImage = (
+      <div className='playlist-index-item-img'>
+        <div className='pl-img-row'>
+          <div className='pl-img-piece-sm'><img src={playlist.images[0]}/></div>
+          <div className='pl-img-piece-sm'><img src={playlist.images[1]}/></div>
+        </div>
+        <div className='pl-img-row'>
+          <div className='pl-img-piece-sm'><img src={playlist.images[2]}/></div>
+          <div className='pl-img-piece-sm'><img src={playlist.images[3]}/></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <li className={classStyle}>
       <Link to={`/my-music/playlists/${playlist.id}`}>
         <div className='playlist-index-item'>
-          <div className='playlist-index-item-img'>
-            <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
-          </div>
+
+          { playlistImage }
+
           <div className='playlist-index-title'>
             <p className="playlist-index-title-text">{playlist.name}</p>
             { authorName }

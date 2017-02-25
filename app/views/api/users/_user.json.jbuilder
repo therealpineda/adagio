@@ -6,6 +6,22 @@ json.playlists do
     author_name = "#{playlist.user.first_name} #{playlist.user.last_name}"
     json.author_id playlist.user.id
     json.author author_name
+    images = []
+    if playlist.songs.length < 3
+      images =  ["https://s3.amazonaws.com/adagio-prod/images/default/playlist_img.jpg"]
+    else
+      playlist.songs.each do |song|
+        if images.length < 4 && !images.include?(song.album.image_url)
+          images.push(song.album.image_url)
+        end
+      end
+
+      while images.length < 4 do
+        images.push(images.sample)
+      end
+    end
+    json.images images
+
     json.created_at playlist.created_at
     json.created_on Time.at(playlist.created_at).utc.strftime("%B %-d, %Y")
     playlist_length = playlist.songs.inject(0) { |sum, song| sum + song.duration}
@@ -40,6 +56,23 @@ json.followed_playlists do
     author_name = "#{playlist.user.first_name} #{playlist.user.last_name}"
     json.author_id playlist.user.id
     json.author author_name
+
+    if playlist.songs.length < 3
+      json.images ["https://s3.amazonaws.com/adagio-prod/images/default/playlist_img.jpg"]
+    else
+      images = []
+      playlist.songs.each do |song|
+        if images.length < 4 && !images.include?(song.album.image_url)
+          images.push(song.album.image_url)
+        end
+      end
+
+      while images.length < 4 do
+        images.push(images.sample)
+      end
+      json.images images
+    end
+
     json.created_at playlist.created_at
     json.created_on Time.at(playlist.created_at).utc.strftime("%B %-d, %Y")
     playlist_length = playlist.songs.inject(0) { |sum, song| sum + song.duration}
