@@ -1,4 +1,19 @@
 json.extract! playlist, :id, :name
+images = []
+if playlist.songs.length < 3
+  images =  ["https://s3.amazonaws.com/adagio-prod/images/default/playlist_img.jpg"]
+else
+  playlist.songs.each do |song|
+    if images.length < 4 && !images.include?(song.album.image_url)
+      images.push(song.album.image_url)
+    end
+  end
+
+  if images.length < 4
+    images.push(images[0])
+  end
+end
+json.images images
 playlist_length = playlist.songs.inject(0) { |sum, song| sum + song.duration}
 if playlist_length > 3600
   hours = 0

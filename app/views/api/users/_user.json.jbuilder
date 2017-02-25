@@ -16,8 +16,8 @@ json.playlists do
         end
       end
 
-      while images.length < 4 do
-        images.push(images.sample)
+      if images.length < 4
+        images.push(images[0])
       end
     end
     json.images images
@@ -36,11 +36,6 @@ json.playlists do
       json.duration "#{playlist_length / 60} min"
     end
     json.num_songs playlist.songs.count
-    json.songs do
-      json.array! playlist.songs do |song|
-        json.image song.album.image_url
-      end
-    end
     json.followers_count pluralize(playlist.playlist_follows.count, 'follower')
     playlist_follow = PlaylistFollow.find do |follow|
       follow.playlist_id == playlist.id && follow.follower_id == current_user.id
@@ -57,21 +52,21 @@ json.followed_playlists do
     json.author_id playlist.user.id
     json.author author_name
 
+    images = []
     if playlist.songs.length < 3
-      json.images ["https://s3.amazonaws.com/adagio-prod/images/default/playlist_img.jpg"]
+      images =  ["https://s3.amazonaws.com/adagio-prod/images/default/playlist_img.jpg"]
     else
-      images = []
       playlist.songs.each do |song|
         if images.length < 4 && !images.include?(song.album.image_url)
           images.push(song.album.image_url)
         end
       end
 
-      while images.length < 4 do
-        images.push(images.sample)
+      if images.length < 4
+        images.push(images[0])
       end
-      json.images images
     end
+    json.images images
 
     json.created_at playlist.created_at
     json.created_on Time.at(playlist.created_at).utc.strftime("%B %-d, %Y")
