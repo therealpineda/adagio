@@ -4,11 +4,12 @@ import { Link } from 'react-router';
 class UserFollowingIndex extends React.Component {
   render() {
     let users = this.props.followings.map ((user) => {
+      
         return (
           <li key={user.id} className="user-following-index-item">
             <Link to={`/explore-playlists/users/${user.id}`}>
               <div className='user-following-index-item-img'>
-                <i className="fa fa-user-circle-o" aria-hidden="true"></i>
+                <img src={user.image_url} />
               </div>
               <div className='user-following-index-item-details'>
                 <p className="user-following-index-name">{user.name}</p>

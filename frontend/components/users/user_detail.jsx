@@ -43,13 +43,28 @@ class UserDetail extends React.Component {
           id="user-detail-follow-btn"
           onClick={this._unfollowUser.bind(this, id)}>Unfollow</button>)
       }
+
+      let userImage = (
+        <div className='user-detail-img'>
+          <i className="fa fa-user-circle-o" aria-hidden="true"></i>
+        </div>
+      );
+
+      if (this.props.user.image_url) {
+        userImage = (
+          <div className='user-detail-img'>
+            <img src={this.props.user.image_url} />
+          </div>
+        );
+      }
+
       return (
         <div id='user-detail' className='comp-d'>
           <div id='user-detail-header'>
             <div id='user-detail-header-top'>
-              <div className='user-detail-img'>
-                <i className="fa fa-user-circle-o" aria-hidden="true"></i>
-              </div>
+
+              { userImage }
+
               <div id='user-detail-right'>
                 <div id='user-detail-text'>
                   <div className='detail-type-header'>

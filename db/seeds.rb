@@ -3,9 +3,9 @@
 ## USERS
 User.destroy_all
 
-User.create(username: 'johndoe', password: 'password', first_name: 'John', last_name: 'Doe', email: 'johndoe@email.com')
-User.create(username: 'janedoe', password: 'password', first_name: 'Jane', last_name: 'Doe', email: 'janedoe@email.com')
-User.create(username: 'jimmydoe', password: 'password', first_name: 'Jimmy', last_name: 'Doe', email: 'jimmydoe@email.com')
+User.create(username: 'johndoe', password: 'password', first_name: 'John', last_name: 'Doe', email: 'johndoe@email.com', image_url: Faker::Avatar.image)
+User.create(username: 'janedoe', password: 'password', first_name: 'Jane', last_name: 'Doe', email: 'janedoe@email.com', image_url: Faker::Avatar.image)
+User.create(username: 'jimmydoe', password: 'password', first_name: 'Jimmy', last_name: 'Doe', email: 'jimmydoe@email.com', image_url: Faker::Avatar.image)
 
 # Faker::Internet.unique.clear
 # Faker::UniqueGenerator.clear ... not working ...
@@ -16,7 +16,8 @@ User.create(username: 'jimmydoe', password: 'password', first_name: 'Jimmy', las
     password: SecureRandom::urlsafe_base64(8),
     first_name: Faker::Name.first_name,
     last_name: Faker::Music.instrument,
-    email: Faker::Internet.unique.email
+    email: Faker::Internet.unique.email,
+    image_url: Faker::Avatar.image
    )
 end
 

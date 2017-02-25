@@ -19,7 +19,7 @@ class UserIndexItem extends React.Component {
         <Link to={`/explore-playlists/users/${this.props.user.id}`}>
           <div className='user-index-item'>
             <div className='user-index-item-img'>
-              <i className="fa fa-user-circle-o" aria-hidden="true"></i>
+              <img src={this.props.user.image_url} />
             </div>
             <div className='user-index-item-name'>
               <p className='user-index-item-name-text'>

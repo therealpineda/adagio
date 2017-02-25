@@ -1,4 +1,4 @@
-json.extract! user, :id, :username, :first_name, :last_name
+json.extract! user, :id, :username, :first_name, :last_name, :image_url
 
 json.playlists do
   json.array! user.playlists do |playlist|
@@ -75,6 +75,7 @@ json.followers_count pluralize(user.followers.count, 'follower')
 json.followings do
   json.array! user.followings do |userf|
     json.id userf.id
+    json.image_url userf.image_url
     json.name "#{userf.first_name} #{userf.last_name}"
     json.followers_count pluralize(userf.followers.count, 'follower')
   end

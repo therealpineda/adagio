@@ -91,7 +91,7 @@ class Nav extends React.Component {
         <div id='user-box'>
           <div id='user-box-user'>
             <Link to={`/explore-playlists/users/${this.props.userId}`}>
-            <i className="fa fa-user-circle-o" aria-hidden="true"></i>
+            <img src={this.props.userImg} />
             <p>{this.props.userFullName}</p>
             </Link>
           </div>
@@ -108,6 +108,7 @@ const mapStateToProps = (state, ownProps) => {
   const userFullName = (
     state.session.currentUser.first_name + " " + state.session.currentUser.last_name )
   const userId = state.session.currentUser.id;
+  const userImg = state.session.currentUser.image_url
 
   if (!userId) {
     ownProps.router.replace('/welcome')
@@ -115,7 +116,8 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     userFullName: userFullName,
-    userId: userId
+    userId: userId,
+    userImg: userImg
   };
 };
 

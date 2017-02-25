@@ -91,9 +91,12 @@
 }
 
 .user-index-item-img {
-  height: 40px;
-  width: 40px;
-  margin-right: 12px;
+  height: 47px;
+  width: 47px;
+  margin-right: 10px;
+  border-radius: 50%;
+  border: 1px solid #222326;
+  overflow: hidden;
 }
 
 .user-index-item-img i {
@@ -141,8 +144,20 @@
 }
 
 .user-detail-img {
+  height: 120px;
+  width: 120px;
   margin-right: 10px;
   font-size: 86px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20px;
+}
+
+.user-detail-img img {
+  width: 90%;
+  border-radius: 50%;
+  border: 2px solid #DFE0E5;
 }
 
 #user-detail-right {
@@ -177,7 +192,7 @@
 #user-detail-follow-btn-you {
   width: 80px;
   border: 1px solid #88898c;
-  margin-left: 3px;
+  margin-left: 25px;
   background-color: transparent;
   color: #88898c;
 }
@@ -285,8 +300,7 @@
 }
 
 .user-following-index-item {
-  width: 10%;
-  min-width: 100px;
+  width: 100px;
   margin-right: 15px;
   margin-bottom: 10px;
   padding: 10px 5px;
@@ -294,6 +308,7 @@
   color: #dfe0e6;
   text-align: center;
 }
+
 
 .user-following-index-item a, .user-following-index-item a:visited {
   color: #dfe0e6;
@@ -303,11 +318,19 @@
 .user-following-index-item:hover .user-following-index-item-name,
 .user-following-index-item:hover a {
   color: #fff;
+  background-color: #222326;
 }
 
 .user-following-index-item-img {
   width: 100%;
   margin-bottom: 10px;
+}
+
+.user-following-index-item-img img {
+  width: 90%;
+  border-radius: 50%;
+  border: 1px solid #DFE0E5;
+  background-color: #151617;
 }
 
 .user-following-index-item-img i {
