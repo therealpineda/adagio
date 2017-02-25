@@ -239,7 +239,7 @@ song_ids = Song.all.pluck(:id)
 20.times do
   playlist_name = [
     Faker::Commerce.color.split(" ").map(&:capitalize).join(" "),
-    Faker::Commerce.department(1),
+    Faker::Hipster.word.capitalize,
     Faker::Commerce.product_name.split[0],
     Faker::Space.constellation
   ].shuffle.take(rand(1..4)).join(" ")
