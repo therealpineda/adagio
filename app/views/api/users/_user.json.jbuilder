@@ -20,6 +20,11 @@ json.playlists do
       json.duration "#{playlist_length / 60} min"
     end
     json.num_songs playlist.songs.count
+    json.songs do
+      json.array! playlist.songs do |song|
+        json.image song.album.image_url
+      end
+    end
     json.followers_count pluralize(playlist.playlist_follows.count, 'follower')
     playlist_follow = PlaylistFollow.find do |follow|
       follow.playlist_id == playlist.id && follow.follower_id == current_user.id

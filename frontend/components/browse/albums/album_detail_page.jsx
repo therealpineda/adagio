@@ -44,7 +44,7 @@ class AlbumDetailPage extends React.Component {
         <div id='playlist-detail-page' className='comp-d'>
 
           <div id='playlist-detail-header'>
-            <div className='playlist-detail-img'>
+            <div className='album-detail-image'>
               <img src={this.props.album.image_url} />
             </div>
 

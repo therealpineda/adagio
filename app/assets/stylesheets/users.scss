@@ -231,15 +231,17 @@
 }
 
 .user-playlist-index-item {
-  width: 20%;
-  min-width: 200px;
+  width: 200px;
   margin-right: 20px;
   margin-bottom: 10px;
   background-color: #222326;
-
 }
+
 .user-playlist-index-item-img {
-  width: 100%;
+  height: 200px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
 }
 
 .user-playlist-index-item-details {
