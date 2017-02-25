@@ -240,8 +240,8 @@ song_ids = Song.all.pluck(:id)
   playlist_name = [
     Faker::Commerce.color.split(" ").map(&:capitalize).join(" "),
     Faker::Hipster.word.capitalize,
+    Faker::Hipster.word.capitalize,
     Faker::Commerce.product_name.split[0],
-    Faker::Space.constellation
   ].shuffle.take(rand(1..4)).join(" ")
 
   user_id = user_ids.sample
