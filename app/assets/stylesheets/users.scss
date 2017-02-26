@@ -317,9 +317,9 @@
 
 .user-following-index-item:hover,
 .user-following-index-item:hover .user-following-index-item-name,
-.user-following-index-item:hover a {
+.user-following-index-item:hover a,
+.user-following-index-item:hover img {
   color: #fff;
-  background-color: #222326;
 }
 
 .user-following-index-item-img {
@@ -332,10 +332,7 @@
   border-radius: 50%;
   border: 1px solid #DFE0E5;
   background-color: #151617;
-}
-
-.user-following-index-item-img i {
-  font-size: 64px;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .user-following-index-name {

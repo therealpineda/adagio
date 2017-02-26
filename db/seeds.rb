@@ -3,9 +3,9 @@
 ## USERS
 User.destroy_all
 
-User.create(username: 'johndoe', password: 'password', first_name: 'John', last_name: 'Doe', email: 'johndoe@email.com', image_url: Faker::Avatar.image("adagio", "100x100", "png"))
-User.create(username: 'janedoe', password: 'password', first_name: 'Jane', last_name: 'Doe', email: 'janedoe@email.com', image_url: Faker::Avatar.image("adagio", "100x100", "png"))
-User.create(username: 'jimmydoe', password: 'password', first_name: 'Jimmy', last_name: 'Doe', email: 'jimmydoe@email.com', image_url: Faker::Avatar.image("adagio", "100x100", "png"))
+User.create(username: 'johndoe', password: 'password', first_name: 'John', last_name: 'Doe', email: 'johndoe@email.com', image_url: Faker::Avatar.image(nil, "100x100", "png"))
+User.create(username: 'janedoe', password: 'password', first_name: 'Jane', last_name: 'Doe', email: 'janedoe@email.com', image_url: Faker::Avatar.image(nil, "100x100", "png"))
+User.create(username: 'jimmydoe', password: 'password', first_name: 'Jimmy', last_name: 'Doe', email: 'jimmydoe@email.com', image_url: Faker::Avatar.image(nil, "100x100", "png"))
 
 10.times do
   User.create(
@@ -14,7 +14,7 @@ User.create(username: 'jimmydoe', password: 'password', first_name: 'Jimmy', las
     first_name: Faker::Name.first_name,
     last_name: Faker::Music.instrument,
     email: Faker::Internet.unique.email,
-    image_url: Faker::Avatar.image("adagio", "100x100", "png")
+    image_url: Faker::Avatar.image(nil, "100x100", "png")
    )
 end
 
@@ -49,7 +49,9 @@ artist_names = [
   "Silence Is Sexy",
   "LJ Kruzer",
   "Plurabelle",
-  "Holy Coast"
+  "Holy Coast",
+  "Salmo",
+  "Macaw"
 ]
 
 artist_names.each do |artist_name|
@@ -75,10 +77,18 @@ artist_id = Artist.find_by(name: "The Kyoto Connection").id
 Album.create(title: "Wake Up", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/kyoto.jpg")
 Album.create(title: "The Middle Way", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/middle_way.jpg")
 
+artist_id = Artist.find_by(name: "Salmo").id
+Album.create(title: "Salmo", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/salmo.jpg")
+
 artist_id = Artist.find_by(name: "Waylon Thornton").id
 Album.create(title: "Mystery Club", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/mystery_club.jpg")
+
+artist_id = Artist.find_by(name: "Macaw").id
+Album.create(title: "Celadon", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/celadon.jpg")
+
 artist_id = Artist.find_by(name: "Silence Is Sexy").id
 Album.create(title: "Antique Instrumentals", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/antique_instr.jpg")
+
 artist_id = Artist.find_by(name: "LJ Kruzer").id
 Album.create(title: "Dance Audit Hour", artist_id: artist_id, image_url: "https://s3.amazonaws.com/adagio-prod/images/album_art/dance_audit.jpg")
 
@@ -149,8 +159,20 @@ album_id = Album.find_by(title: "The Middle Way").id
   Song.create(title: "Voyage III - Finding The Way Out", duration: 203, album_id: album_id, album_order: 8, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/middle_way/The_Kyoto_Connection_-_08_-_Voyage_III_-_Finding_The_Way_Out.mp3")
   Song.create(title: "Wake Up (2016 Tech Noir ver.)", duration: 241, album_id: album_id, album_order: 9, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/middle_way/The_Kyoto_Connection_-_09_-_Wake_Up_2016_Tech_Noir_ver.mp3")
 
+album_id = Album.find_by(title: "Salmo").id
+  Song.create(title: "Eclosion", duration: 107, album_id: album_id, album_order: 1, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/salmo/Salmo_-_01_-_Eclosion.mp3")
+  Song.create(title: "Histoire d'une truite", duration: 570, album_id: album_id, album_order: 2, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/salmo/Salmo_-_02_-_Histoire_dune_truite.mp3")
+  Song.create(title: "Rumeur sous la cascade", duration: 229, album_id: album_id, album_order: 3, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/salmo/Salmo_-_03_-_Rumeur_sous_la_cascade__nue_de_gammares.mp3")
+  Song.create(title: "Fraie", duration: 503, album_id: album_id, album_order: 4, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/salmo/Salmo_-_04_-_Fraie.mp3")
+  Song.create(title: "Le Festin du Héron", duration: 271, album_id: album_id, album_order: 5, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/salmo/Salmo_-_05_-_Le_Festin_du_Hron.mp3")
+  Song.create(title: "Norehud Nistsefel", duration: 190, album_id: album_id, album_order: 6, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/salmo/Salmo_-_06_-_Norehud_Nitsefel.mp3")
+
 album_id = Album.find_by(title: "Mystery Club").id
   Song.create(title: "Favorite Secrets", duration: 75, album_id: album_id, album_order: 2, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/02_-_Favorite_Secrets.mp3")
+
+album_id = Album.find_by(title: "Celadon").id
+  Song.create(title: "Five Minutes at the Rainforest Cafe", duration: 289, album_id: album_id, album_order: 1, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/celadon/Macaw_-_01_-_Five_Minutes_at_the_Rainforest_Cafe.mp3")
+  Song.create(title: "What Circle Where", duration: 120, album_id: album_id, album_order: 2, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/celadon/Macaw_-_02_-_What_Circle_Where.mp3")
 
 album_id = Album.find_by(title: "Antique Instrumentals").id
   Song.create(title: "Holiday(instrumental)", duration: 274, album_id: album_id, album_order: 1, audio_url: "https://s3.amazonaws.com/adagio-prod/songs/Silence_Is_Sexy_-_01_-_Holiday_instrumental.mp3")

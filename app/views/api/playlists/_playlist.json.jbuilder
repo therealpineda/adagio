@@ -8,8 +8,7 @@ else
       images.push(song.album.image_url)
     end
   end
-
-  if images.length < 4
+  while images.length < 4 do
     images.push(images[0])
   end
 end
