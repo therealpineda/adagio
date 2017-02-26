@@ -22,15 +22,17 @@ class Songs extends React.Component {
 
 const mapStateToProps = (state) => {
   const userId = state.session.currentUser.id;
-  let songs = []
+  let playlistSongs = [];
   Object.keys(state.playlists).forEach((id) => {
-    const playlistSongs = state.playlists[id].songs
-    playlistSongs.forEach((song) => {
-      if (!songs.includes(song)) {
-        songs.push(song);
-      }
-    });
-  })
+    playlistSongs = playlistSongs.concat(state.playlists[id].songs);
+  });
+  const songs = [];
+  playlistSongs.forEach((song) => {
+    if (!songs.includes(song)) {
+      songs.push(song);
+    }
+  });
+
   return {
     userId: userId,
     songs: songs

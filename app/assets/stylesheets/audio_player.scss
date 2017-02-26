@@ -48,14 +48,15 @@
 
 #timeline {
 	width: 210px;
-	height: 6px;
+	height: 7px;
   margin: 10px auto;
   border-radius: 15px;
 	background: #2f2f31;
 }
 
 #timeline:hover {
-  height: 6px;
+  height: 7px;
+  cursor: pointer;
 }
 
 #playhead {
