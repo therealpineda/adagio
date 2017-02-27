@@ -6,6 +6,7 @@ Adagio is a music streaming web application, built with Ruby on Rails and React/
 [heroku]: https://adagio-aa.herokuapp.com/
 
 Christopher Pineda
+
 <pineda.christopher@gmail.com>
 
 ## Features and Implementation
@@ -13,14 +14,12 @@ Christopher Pineda
 ### :musical_keyboard: My Music: Playlist and Playlist Song CRUD
 `User`s create `Playlist`s to save their favorite `Song`s they discover throughout the application. Songs are played by clicking the Play button to hear any playlist in its entirety, or by accessing a modal through right-clicking on any song. This modal, built with `react-modal`  also allows users to remove songs from the playlist or add them to additional playlists. Users can view all songs from all their playlists together through the 'Songs' tab.
 
-<center>
 ![alt text](https://s3.amazonaws.com/adagio-prod/images/readme/my-music.jpg "My Music - Adagio")
-</center>
 
 ### :earth_americas: Explore Playlists: Following and Unfollowing Playlists
 Users 'Explore Playlists' to discover music from other users. Play the playlist directly, or follow and unfollow playlists, which immediately updates the state of both the playlist as well as the current user. Followed playlists are immediately added to 'My Music' where users find all the playlists they're following along with all their own playlists.
 
-### :neckbeard: Following and Unfollowing Users
+### :sunglasses: Following and Unfollowing Users
 Users also follow and unfollow other users. A user profile shows the number of followers they have as well as all of the users they're following. The app was designed to load the current user data immediately when the app loads, so the user's own profile is always up right away on this page while the other users' data loads.
 
 <center>
@@ -57,11 +56,13 @@ Generate dynamic playlists based on genre, mood, or other characteristics. Users
 
 -- -- --
 
+The Adagio music library is populated by talented artists from [Free Music Archive][fmu], an interactive library of high-quality, legal audio downloads directed by WFMU, and licensed under [Creative Commons][cc] All rights belong to the credited artists -- please visit their work at FMU or online for more information.  
+
 ![alt text](https://licensebuttons.net/l/by-sa/4.0/88x31.png "Creative Commons")
-The Adagio music library is populated by some of the talented artists at [Free Music Archive][fmu], an interactive library of high-quality, legal audio downloads directed by WFMU, and licensed under [Creative Commons][cc] All rights belong to the credited artists -- please visit their work at FMU or online for more information.  
 
 [fmu]: http://freemusicarchive.org/about
 [cc]: https://creativecommons.org/about/
+
 
 
 :octocat: [Christopher Pineda GitHub][git]
