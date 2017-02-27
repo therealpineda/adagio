@@ -1,59 +1,59 @@
 # Adagio
 Adagio is a music streaming web application, built with Ruby on Rails and React/Redux.
 
-:notes: [AdagioMusic.com][heroku] :notes:
+:notes:  [adagio-app.com][heroku]  :notes:
 
 [heroku]: https://adagio-aa.herokuapp.com/
 
-Christopher Pineda - <pineda.christopher@gmail.com>
+Christopher Pineda
+<pineda.christopher@gmail.com>
 
 ## Features and Implementation
 
-### :musical_keyboard: 'My Music' (Playlist and Playlist Song CRUD)
+### :musical_keyboard: My Music: Playlist and Playlist Song CRUD
 `User`s create `Playlist`s to save their favorite `Song`s they discover throughout the application. Songs are played by clicking the Play button to hear any playlist in its entirety, or by accessing a modal through right-clicking on any song. This modal, built with `react-modal`  also allows users to remove songs from the playlist or add them to additional playlists. Users can view all songs from all their playlists together through the 'Songs' tab.
 
+<center>
 ![alt text](https://s3.amazonaws.com/adagio-prod/images/readme/my-music.jpg "My Music - Adagio")
+</center>
 
-
-### :earth_americas: 'Explore Playlists' (Following and Unfollowing Playlists)
-Users 'Explore Playlists' to discover music from other users. Play the playlist directly, or follow and unfollow playlists, which immediately updates the state of both the playlist as well as the current user -- it means the playlist is immediately added to the users 'My Music', where we find all the playlists a user is following as well as their own playlists.
+### :earth_americas: Explore Playlists: Following and Unfollowing Playlists
+Users 'Explore Playlists' to discover music from other users. Play the playlist directly, or follow and unfollow playlists, which immediately updates the state of both the playlist as well as the current user. Followed playlists are immediately added to 'My Music' where users find all the playlists they're following along with all their own playlists.
 
 ### :neckbeard: Following and Unfollowing Users
-Users also follow and unfollow other users, which updates both users' profile pages. A user profile page shows the number of followers they have as well as all of the other users that user is following. The app was designed to load the current user data immediately when the app loads, so the user's own profile is up immediately on this page, while the other users' data loads.
+Users also follow and unfollow other users. A user profile shows the number of followers they have as well as all of the users they're following. The app was designed to load the current user data immediately when the app loads, so the user's own profile is always up right away on this page while the other users' data loads.
 
-[screenshot - explore playlists]
+<center>
+![alt text](https://s3.amazonaws.com/adagio-prod/images/readme/explore-playlists.jpg "Explore Playlists - Adagio")
+</center>
 
 ### :headphones: Continuous Music Playback While Navigating the Site
 The application contains a `NowPlaying` component that holds an `AudioPlayer` and a `MiniPlayQueue` component. These are hidden to start and appear when a 'Current Song' exists in the PlayQueue state, giving the user control over their current and upcoming songs. The player is styled over an HTML5 audio tag with custom JavaScript functions to allow the user to restart, play/pause, seek, skip forward, and click ahead in the 'Play Queue' to skip directly to an upcoming song.
 
-[screenshot - now playing, with the play queue]
+<center>
+![alt text](https://s3.amazonaws.com/adagio-prod/images/readme/now-playing.jpg "Now Playing - Adagio")
+</center>
 
-### 5. 'Browse' (Adagio Music Library)
+### :minidisc: Browse: Adagio Music Library
 Adagio features an expanding library of open source music from the Free Music Archive. Users browse through all the albums on the entire Adagio music library to discover new music. Audio files and album art are hosted on AWS.
 
 
 ## Future Directions for the Project
 
-### Additional Browse Views and Genres & Moods
-Index of artists and artist detail pages. Songs are designed to hold information about their genre, mood, and tempo, which will allow an additional view of a user's music by those categories.
-
-### Additional Play Queue Functionality
-A separate Play Queue page for more room to view the full play queue, as well as shuffle and repeat functions to provide more variety to the listening experience.
-
-### Private Playlists
+### :see_no_evil: Private Playlists
 Users can set their playlists to be private or public, allowing them to decide what appears on their profile for other users to listen to and what remains private in their own music collections.
 
-### Search
-Dynamic search to discover songs, artists, albums, and other users across the application in real time.
+### :rocket: Explore
+Adagio will highlight featured albums, artists, songs, or other users to provide a more tailored experience for discovering new music on the application.
 
-### Genres & Moods
+### :mag: Search
+Dynamically search to discover songs, artists, albums, and other users across the application in real time.
 
+### :saxophone: Genres & Moods
+Songs were designed to hold information about their genre, mood, and tempo, which will allow the user to filter and enjoy music across various different categories.
 
 ### :radio: Radio
-Generating dynamic playlists based on genre, mood, or other similar characteristics of music. Users can select from stations curated by Adagio or the application can build a station based on a user's playlist or artist.
-
-### Explore
-Highlighting featured albums, artists, songs, or other users to provide a more tailored experience for discovering new music on the application.
+Generate dynamic playlists based on genre, mood, or other characteristics. Users will be able to select from stations curated by Adagio, or the application can build a custom station for the user based on their favorite playlist or artist.
 
 -- -- --
 
@@ -62,3 +62,7 @@ The Adagio music library is populated by some of the talented artists at [Free M
 
 [fmu]: http://freemusicarchive.org/about
 [cc]: https://creativecommons.org/about/
+
+
+:octocat: [Christopher Pineda GitHub][git]
+[git]: https://github.com/therealpineda/
