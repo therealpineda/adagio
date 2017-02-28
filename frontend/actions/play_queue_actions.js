@@ -26,7 +26,7 @@ export const playSong = (song) => {
   return {
     type: PLAY_SONG,
     song: song
-  }
+  };
 };
 
 export const playSongs = (songs) => {

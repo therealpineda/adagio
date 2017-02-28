@@ -11,12 +11,7 @@ const PlayQueueReducer = (oldState = defaultState, action) => {
     case RECEIVE_SONG:
       return oldState.concat([action.song]);
     case PLAY_SONGS:
-      newState = merge([], oldState);
-      const newSongs = merge([], action.songs);
-      newSongs.reverse().forEach((song) => {
-        newState.unshift(song);
-      });
-      return newState;
+      return action.songs;
     case PLAY_SONG:
       newState = merge([], oldState);
       newState.unshift(action.song);

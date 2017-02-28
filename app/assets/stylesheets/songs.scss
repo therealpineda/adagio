@@ -15,6 +15,10 @@
   padding-bottom: 8px;
 }
 
+.songs-index-labels th:first-of-type {
+  padding-left: 10px;
+}
+
 .songs-index-labels th:last-of-type {
   text-align: left;
   font-size: 15px;
@@ -31,6 +35,11 @@
 .song-index-item td {
   border-top: 1px solid #222326;
   padding: 11px 0;
+}
+
+.song-index-item td:first-of-type {
+  padding-left: 10px;
+
 }
 
 .song-index-item td:last-of-type {
