@@ -20,6 +20,13 @@ class SongIndexItem extends React.Component {
         className='song-index-item'
         onDoubleClick={ this._playSong }>
         <td>
+          <figure
+            className="mini-play-btn"
+            onClick={this._playSong}>
+            &nbsp;
+          </figure>
+        </td>
+        <td>
           <p>{this.props.song.title}</p>
         </td>
         <td>

@@ -70,7 +70,8 @@ class SongsIndex extends React.Component {
 
   rightClick(e) {
     e.preventDefault();
-    const songTitle = e.target.parentElement.parentElement.firstChild.firstChild.textContent;
+    debugger
+    const songTitle = e.target.parentElement.parentElement.childNodes[1].firstChild.textContent;
 
     const clickedSong = this.props.songs.find((song) => song.title === songTitle );
 
@@ -117,6 +118,7 @@ class SongsIndex extends React.Component {
           <table cellSpacing="0">
             <thead className='songs-index-labels'>
               <tr>
+                <th></th>
                 <th>Song</th>
                 <th>Artist</th>
                 <th>Album</th>

@@ -15,9 +15,9 @@
   padding-bottom: 8px;
 }
 
-.songs-index-labels th:first-of-type {
-  padding-left: 10px;
-}
+// .songs-index-labels th:first-of-type {
+//   padding-left: 10px;
+// }
 
 .songs-index-labels th:last-of-type {
   text-align: left;
@@ -32,15 +32,44 @@
   text-overflow: ellipsis;
 }
 
+.song-index-item:hover {
+  background-color: #222326;
+  cursor: default;
+}
+
+.song-index-item:hover figure {
+  visibility: visible;
+}
+
 .song-index-item td {
   border-top: 1px solid #222326;
   padding: 11px 0;
 }
 
 .song-index-item td:first-of-type {
-  padding-left: 10px;
-
+  padding: 0 12px 0 10px;
+  width: 5%;
+  min-width: 26px;
+  max-width: 27px;
+  font-size: 18px;
 }
+
+.mini-play-btn {
+  background: url('https://s3.amazonaws.com/adagio-prod/images/play.png') no-repeat;
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background-size: 129% 129%;
+  background-position: center;
+  filter:invert(100%);
+  visibility: hidden;
+}
+
+.mini-play-btn:hover {
+  border-color: #7B42FF;
+}
+
 
 .song-index-item td:last-of-type {
   color: #88898c;
@@ -53,10 +82,7 @@
   text-overflow: ellipsis;
 }
 
-.song-index-item:hover {
-  background-color: #222326;
-  cursor: default;
-}
+/* RC MODAL */
 
 .rc-modal {
   background-color: #2f2f31;

@@ -1,4 +1,4 @@
-html, body, h1, h2, h3, h4, h5, h6, div, p, ul, li, a, label, input, button {
+html, body, h1, h2, h3, h4, h5, h6, div, p, ul, li, a, label, input, button, figure {
   margin: 0;
   padding: 0;
   border: 0;
@@ -11,7 +11,7 @@ html, body, h1, h2, h3, h4, h5, h6, div, p, ul, li, a, label, input, button {
   list-style: none;
   box-sizing: border-box;
   text-decoration: none;
-  
+
   -webkit-touch-callout: none;
   -webkit-user-select: none;
    -khtml-user-select: none;
