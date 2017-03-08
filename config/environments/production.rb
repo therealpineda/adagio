@@ -22,11 +22,11 @@ Rails.application.configure do
   config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
 
-  ## ADDED Mar 8, 2016 - solving CSS img backgrounds not loading
+  ## NEW - solve CSS img backgrounds not loading
   config.serve_static_assets = true
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  ## ADJUSTED to true - Mar 8, 2016 - solving CSS img backgrounds not loading
+  ## CHANGED to true - solve CSS img backgrounds not loading
   config.assets.compile = true
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb

@@ -1,7 +1,7 @@
 {
   "name": "Adagio",
   "version": "1.0.0",
-  "description": "Full-stack music streaming web application, built with Ruby on Rails and React/Redux as the final project for App Academy Winter 2016 NYC.",
+  "description": "Full-stack music streaming web application, built with Ruby on Rails and React/Redux. App Academy Winter 2016 NYC. [http://www.adagio-app.com/](http://www.adagio-app.com/)",
   "main": "adagio.jsx",
   "directories": {
     "test": "test",
@@ -12,8 +12,7 @@
     "npm": "4.0.5"
   },
   "scripts": {
-    "test": "",
-    "postinstall": "webpack"
+    "heroku-postbuild": "webpack --config webpack.config.prod.js"
   },
   "keywords": [],
   "author": "Christopher Pineda <pineda.christopher@gmail.com>",
