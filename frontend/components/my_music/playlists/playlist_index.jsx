@@ -52,7 +52,7 @@ class PlaylistIndex extends React.Component {
       );
     });
     return (
-      <div id='playlist-index' className='comp-d'>
+      <div id='playlist-index'>
           <div
             id='playlist-index-sidebar'
             className='custom-scrollbar'>

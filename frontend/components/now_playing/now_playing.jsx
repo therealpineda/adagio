@@ -10,7 +10,6 @@ class NowPlaying extends React.Component {
   render() {
     const classStyle = classNames({
       'now-playing': true,
-      'comp-d': true,
       'hidden': !this.props.currentSong
     });
 

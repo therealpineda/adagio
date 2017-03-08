@@ -131,7 +131,7 @@ class AudioPlayer extends React.Component {
       image = song.image;
     }
     return (
-      <div id='audio-player' className='comp-d'>
+      <div id='audio-player'>
           <audio id="music" controls="controls">
             <source src="" type="audio/mpeg" />
           </audio>

@@ -59,7 +59,7 @@ class UserDetail extends React.Component {
       }
 
       return (
-        <div id='user-detail' className='comp-d'>
+        <div id='user-detail'>
           <div id='user-detail-header'>
             <div id='user-detail-header-top'>
 
@@ -99,7 +99,7 @@ class UserDetail extends React.Component {
       );
     } else {
       return (
-        <div id='playlist-detail' className='comp-d'>
+        <div id='playlist-detail'>
           <p>Loading...</p>
         </div>
       );

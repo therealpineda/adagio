@@ -41,7 +41,7 @@ class AlbumDetailPage extends React.Component {
   render() {
     if (this.state.fetched) {
       return (
-        <div id='playlist-detail-page' className='comp-d'>
+        <div id='playlist-detail-page'>
 
           <div id='playlist-detail-header'>
             <div className='album-detail-image'>
@@ -93,7 +93,7 @@ class AlbumDetailPage extends React.Component {
       );
     } else {
       return (
-        <div id='album-detail-page' className='comp-d'>
+        <div id='album-detail-page'>
           <p></p>
         </div>
       );

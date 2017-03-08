@@ -114,7 +114,7 @@ class SongsIndex extends React.Component {
     }
 
     return (
-        <div id='songs-index' className="comp-d">
+        <div id='songs-index'>
           <table cellSpacing="0">
             <thead className='songs-index-labels'>
               <tr>

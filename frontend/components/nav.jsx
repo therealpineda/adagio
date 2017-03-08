@@ -18,7 +18,7 @@ class Nav extends React.Component {
 
   render() {
     return (
-      <div id='nav' className="comp-d">
+      <div id='nav'>
         <div id="nav-links">
           <div id="nav-logo">
             <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />

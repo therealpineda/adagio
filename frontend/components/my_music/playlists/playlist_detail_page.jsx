@@ -194,7 +194,7 @@ class PlaylistDetailPage extends React.Component {
 
 
       return (
-        <div id='playlist-detail-page' className='comp-d'>
+        <div id='playlist-detail-page'>
 
           <div id='playlist-detail-header'>
 
@@ -283,7 +283,7 @@ class PlaylistDetailPage extends React.Component {
       );
     } else {
       return (
-        <div id='playlist-detail-page' className='comp-d'>
+        <div id='playlist-detail-page'>
           <p></p>
         </div>
       );

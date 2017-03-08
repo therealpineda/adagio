@@ -38,7 +38,7 @@ class LogIn extends React.Component {
 
   render() {
     return (
-      <div id='login' className='comp-d'>
+      <div id='login'>
           <div className='welcome-logo-sm'>
           <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
           <h4>Adagio</h4>

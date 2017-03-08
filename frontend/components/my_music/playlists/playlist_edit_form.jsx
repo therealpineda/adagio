@@ -66,7 +66,7 @@ class PlaylistEditForm extends React.Component {
       )
     };
     return (
-      <div id='playlist-edit-form' className="comp-d">
+      <div id='playlist-edit-form'>
           <form>
             <textarea
               id="rename-playlist-input"

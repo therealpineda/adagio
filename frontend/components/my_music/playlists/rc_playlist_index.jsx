@@ -15,7 +15,7 @@ const RCPlaylistIndex = ({playlists, clickedSong}) => {
   });
 
   return (
-    <div id='rc-playlist-index' className="comp-d">
+    <div id='rc-playlist-index'>
       <ul>
         { playlistIndexItems }
       </ul>

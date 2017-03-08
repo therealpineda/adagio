@@ -10,9 +10,6 @@ class UsersIndex extends React.Component {
 
   componentWillMount() {
     this.props.fetchUsers();
-    if (!this.props.selectedUser) {
-      this.props.router.push(`/explore-playlists/users/${this.props.userId}`)
-    }
   }
 
   render() {
@@ -23,9 +20,9 @@ class UsersIndex extends React.Component {
           user={user}/>
       );
     });
-    
+
     return (
-      <div id='users-index' className="comp-d">
+      <div id='users-index'>
         <div
           id='users-index-sidebar'
           className='custom-scrollbar'>
@@ -43,12 +40,13 @@ class UsersIndex extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let userId = state.session.currentUser.id;
-  let selectedUser;
+  let userId;
   if (ownProps.params.userId) {
     userId = ownProps.params.userId;
-    selectedUser = state.users[userId];
+  } else {
+    userId = state.session.currentUser.id;
   }
+  const selectedUser = state.users[userId];
   return {
     users: usersArray(state),
     userId: userId,

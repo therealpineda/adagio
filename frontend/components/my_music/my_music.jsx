@@ -8,19 +8,25 @@ class MyMusic extends React.Component {
 
   componentWillMount() {
     const id = this.props.params.playlistId;
-    if (!id) {
+    const currentPath = this.props.router.location.pathname;
+    if (!id && currentPath.includes("playlists")) {
       this.props.router.push("/my-music/playlists/0");
     } else {
-      this.props.router.push(`/my-music/playlists/${id}`);
+      if (!currentPath.includes("songs")) {
+        this.props.router.push(`/my-music/playlists/${id}`);  
+      }
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const id = this.props.params.playlistId;
-    if (!id) {
+    const currentPath = this.props.router.location.pathname;
+    if (!id && currentPath.includes("playlists")) {
       this.props.router.push("/my-music/playlists/0");
     } else {
-      this.props.router.push(`/my-music/playlists/${id}`);
+      if (id !== this.props.params.playlistId) {
+        this.props.router.push(`/my-music/playlists/${id}`);
+      }
     }
   }
 

@@ -50,7 +50,7 @@ class Welcome extends React.Component {
       sideLink = <p><a onClick={this._logIn}>Already have an account? Log in here</a>.</p>
     }
     return (
-      <div id='welcome-background' className="comp-d">
+      <div id='welcome-background'>
       <div id='welcome'>
         <div id='side-form'>
             { sideForm }

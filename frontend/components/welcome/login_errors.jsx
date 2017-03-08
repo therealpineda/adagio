@@ -7,7 +7,7 @@ const LogInErrors = (props) => {
     );
   })
   return (
-    <div id='login-errors' className="comp-d">
+    <div id='login-errors'>
       { loginErrors }
     </div>
   );
