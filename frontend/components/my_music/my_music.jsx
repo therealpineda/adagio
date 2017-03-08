@@ -7,7 +7,21 @@ import classNames from 'classnames';
 class MyMusic extends React.Component {
 
   componentWillMount() {
-    this.props.router.push(`my-music/playlists/0`);
+    const id = this.props.params.playlistId;
+    if (!id) {
+      this.props.router.push("/my-music/playlists/0");
+    } else {
+      this.props.router.push(`/my-music/playlists/${id}`);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const id = this.props.params.playlistId;
+    if (!id) {
+      this.props.router.push("/my-music/playlists/0");
+    } else {
+      this.props.router.push(`/my-music/playlists/${id}`);
+    }
   }
 
   render () {
