@@ -2,14 +2,11 @@ import React from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { logout } from '../actions/session_actions';
-import classNames from 'classnames';
+import { NavLink } from './navlink';
 
 class Nav extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      activeLink: 'your-music'
-    };
     this._logOut = this._logOut.bind(this);
   }
 
@@ -19,39 +16,7 @@ class Nav extends React.Component {
     })
   }
 
-  _clickLink(route, e) {
-    $(document.getElementsByClassName('nav-link')).attr('class', 'nav-link');
-    e.currentTarget.className += " active-link";
-    this.props.router.push(`${route}`);
-  }
-
   render() {
-    const currentPath = this.props.location.pathname;
-
-    let activeLink = currentPath.includes("search") ? true : false;
-    const classStyleSearch = classNames({
-      'nav-link': true,
-      'active-link': activeLink
-    });
-
-    activeLink = currentPath.includes("browse") ? true : false;
-    const classStyleBrowse = classNames({
-      'nav-link': true,
-      'active-link': activeLink
-    });
-
-    activeLink = currentPath.includes("music") ? true : false;
-    const classStyleMyMusic = classNames({
-      'nav-link': true,
-      'active-link': activeLink
-    });
-
-    activeLink = currentPath.includes("explore") ? true : false;
-    const classStyleExplore = classNames({
-      'nav-link': true,
-      'active-link': activeLink
-    });
-
     return (
       <div id='nav' className="comp-d">
         <div id="nav-links">
@@ -59,33 +24,32 @@ class Nav extends React.Component {
             <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
           </div>
 
-
-          <div className={classStyleBrowse} onClick={this._clickLink.bind(this,'browse/albums')}>
+          <NavLink to='/browse/albums' className='nav-link'>
             <div className="nav-icon">
               <i className="fa fa-qrcode" aria-hidden="true"></i>
             </div>
             <div className='nav-icon-text'>
               <p>Browse</p>
             </div>
-          </div>
+          </NavLink>
 
-          <div className={classStyleMyMusic} onClick={this._clickLink.bind(this,'my-music/playlists/0')}>
+          <NavLink to="/my-music" className='nav-link'>
             <div className="nav-icon">
               <i className="fa fa-podcast" aria-hidden="true"></i>
             </div>
             <div className='nav-icon-text'>
               <p>Your Music</p>
             </div>
-          </div>
+          </NavLink>
 
-          <div className={classStyleExplore} onClick={this._clickLink.bind(this,'explore-playlists')}>
+          <NavLink to='/explore-playlists' className='nav-link'>
             <div className="nav-icon">
               <i className="fa fa-users" aria-hidden="true"></i>
             </div>
             <div className='nav-icon-text'>
               <p>Explore Playlists</p>
             </div>
-          </div>
+          </NavLink>
 
           </div>
         <div id='user-box'>
@@ -109,6 +73,7 @@ const mapStateToProps = (state, ownProps) => {
     state.session.currentUser.first_name + " " + state.session.currentUser.last_name )
   const userId = state.session.currentUser.id;
   const userImg = state.session.currentUser.image_url
+  const currentUser = state.users[userId];
 
   if (!userId) {
     ownProps.router.replace('/welcome')
@@ -129,7 +94,7 @@ const mapDispatchToProps = (dispatch) => {
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Nav));
 
-// SEARCH ICON - FEATURE NOT YET IMPLEMENTED
+// SEARCH ICON - NOT YET IMPLEMENTED
   //
   // <div className={classStyleSearch} onClick={this._clickLink.bind(this,'search')}>
   //   <div className="nav-icon">

@@ -6,7 +6,7 @@
 
 #my-music nav {
   border-bottom: 1px solid #222326;
-  margin: 10px 0;
+  margin-bottom: 3px;
   color: #88898c;
   font-size: 14px;
   letter-spacing: 1.1px;
@@ -16,27 +16,32 @@
   #my-music nav ul {
     display: flex;
     flex-direction: row;
+    margin: 15px 0 5px 0;
   }
 
   #my-music nav li {
-    padding: 8px 0;
     margin-right: 20px;
-    text-transform: uppercase;
-    transition: color 0.4s;
-
   }
 
-  #my-music nav li:hover {
+  .my-music-link p, #my-music nav a {
+    padding-bottom: 12px;
+    text-transform: uppercase;
+    transition: color 0.4s;
+    color: #88898c;
+  }
+
+  .my-music-link:hover p, #my-music nav a:hover {
     color: #D7D9DF;
     cursor: pointer;
   }
 
-  .my-music-active-link {
+  .my-music-active-link p {
     color: #D7D9DF;
     cursor: default;
-    box-shadow: 0px 2px 0 0 #84BD00;
-    -webkit-box-shadow: 0 2px 0 0 #84BD00;
-       -moz-box-shadow: 0 2px 0 0 #84BD00;
+    box-shadow: 0px 2px 0 0 #00b26b;
+    -webkit-box-shadow: 0 2px 0 0 #00b26b;
+       -moz-box-shadow: 0 2px 0 0 #00b26b;
+    filter: none;
   }
 
 #my-music main {

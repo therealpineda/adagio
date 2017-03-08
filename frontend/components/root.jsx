@@ -44,6 +44,7 @@ class Root extends React.Component {
             </Route>
             <Route path="my-music" component={MyMusic}>
               <Route path="playlists/:playlistId" component={PlaylistIndex} />
+              <Route path="playlists" component={PlaylistIndex} />
               <Route path="songs" component={Songs}/>
             </Route>
             <Route path="explore-playlists" component={ExplorePlaylists}>

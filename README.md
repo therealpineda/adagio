@@ -3,7 +3,7 @@ Adagio is a music streaming web application, built with Ruby on Rails and React/
 
 :notes:  [adagio-app.com][heroku]  :notes:
 
-[heroku]: https://adagio-aa.herokuapp.com/
+[heroku]: http://www.adagio-app.com/
 
 Christopher Pineda
 
@@ -12,7 +12,7 @@ Christopher Pineda
 ## Features and Implementation
 
 ### :musical_keyboard: My Music: Playlist and Playlist Song CRUD
-`User`s create `Playlist`s to save their favorite `Song`s they discover throughout the application. Songs are played by clicking the Play button to hear any playlist in its entirety, or by accessing a modal through right-clicking on any song. This modal, built with `react-modal`  also allows users to remove songs from the playlist or add them to additional playlists. Users can view all songs from all their playlists together through the 'Songs' tab.
+`User`s create `Playlist`s to save their favorite `Song`s they discover throughout the application. Songs are played by clicking the Play button to hear any playlist in its entirety, or through the song directly. Users access a custom context menu by right-clicking on any song. This modal, built with `react-modal` also allows users to remove songs from the playlist or add them to additional playlists. Users can view all songs from all their playlists together through the 'Songs' tab.
 
 ![alt text](https://s3.amazonaws.com/adagio-prod/images/readme/my-music.jpg "My Music - Adagio")
 

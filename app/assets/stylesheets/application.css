@@ -71,8 +71,8 @@ button:hover {
 }
 
 .green-big-btn {
-  background-color: #07d159;
-  border-color: #07d159;
+  background-color: #1db954;
+  border-color: #1db954;
 }
 
 .clear-btn {
@@ -93,7 +93,7 @@ button:hover {
 }
 
 .positive-button:hover {
-  border-color: #84BD00;
+  border-color: #00b26b;
   color: #ffffff;
 }
 
