@@ -24,29 +24,31 @@ class AudioPlayer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.music = document.getElementById('music');
-    this.music.src = nextProps.currentSong.url;
-    this.pButton = document.getElementById('pButton')
-    this.playhead = document.getElementById('playhead');
-    this.timeline = document.getElementById('timeline');
-    this.timelineWidth = this.timeline.offsetWidth;
-    this.music.addEventListener("canplaythrough", () => {
-      this.duration = this.music.duration;
-      this.setState({
-        displayDuration: this._convertToTime(this.duration)
-      });
+    if (nextProps.currentSong) {
+      this.music.src = nextProps.currentSong.url;
+      this.pButton = document.getElementById('pButton')
+      this.playhead = document.getElementById('playhead');
+      this.timeline = document.getElementById('timeline');
+      this.timelineWidth = this.timeline.offsetWidth;
+      this.music.addEventListener("canplaythrough", () => {
+        this.duration = this.music.duration;
+        this.setState({
+          displayDuration: this._convertToTime(this.duration)
+        });
 
-      this.timeline.addEventListener("click", (event) => {
-        this.moveplayhead(event);
-        this.music.currentTime = this.duration * this.clickPercent(event);
+        this.timeline.addEventListener("click", (event) => {
+          this.moveplayhead(event);
+          this.music.currentTime = this.duration * this.clickPercent(event);
+        }, false);
+        this.music.addEventListener("timeupdate", this.timeUpdate, false);
+        this.playhead.addEventListener('mousedown', this.mouseDown, false);
+        window.addEventListener('mouseup', this.mouseUp, false);
       }, false);
-      this.music.addEventListener("timeupdate", this.timeUpdate, false);
-      this.playhead.addEventListener('mousedown', this.mouseDown, false);
-      window.addEventListener('mouseup', this.mouseUp, false);
-    }, false);
 
-    this.pButton.className = "";
-    this.pButton.className = "pause";
-    this.music.play();
+      this.pButton.className = "";
+      this.pButton.className = "pause";
+      this.music.play();
+    }
   }
 
   clickPercent(event) {
