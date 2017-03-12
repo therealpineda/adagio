@@ -70,11 +70,8 @@ class SongsIndex extends React.Component {
 
   rightClick(e) {
     e.preventDefault();
-    debugger
     const songTitle = e.target.parentElement.parentElement.childNodes[1].firstChild.textContent;
-
     const clickedSong = this.props.songs.find((song) => song.title === songTitle );
-
     let customStyles = this.state.customStyles;
     customStyles.content.top = e.clientY;
     customStyles.content.left = e.clientX;
@@ -111,6 +108,20 @@ class SongsIndex extends React.Component {
     const clickedSong = this.state.clickedSong
     if (clickedSong) {
       clickedTitle = clickedSong.title;
+    }
+
+    let removePlaylist = "";
+    const playlistId = this.props.params.playlistId;
+    if (playlistId) {  
+      const authorId = this.props.playlists[playlistId].author_id;
+      if (authorId === this.props.userId) {
+        removePlaylist = (
+          <div className='rc-modal-item'
+            onClick={this.removeFromPlaylist}>
+            <p>Remove from Playlist</p>
+          </div>
+        );
+      }
     }
 
     return (
@@ -153,10 +164,7 @@ class SongsIndex extends React.Component {
                 onClick={this.addClickedSongToQueue}>
                 <p>Add to Play Queue</p>
               </div>
-              <div className='rc-modal-item'
-                onClick={this.removeFromPlaylist}>
-                <p>Remove from Playlist</p>
-              </div>
+              { removePlaylist }
               <div
                 className='rc-modal-item'
                 onClick={this.closeModal} >
@@ -172,6 +180,13 @@ class SongsIndex extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    userId: state.session.currentUser.id,
+    playlists: state.playlists
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     playSong: (song) => { return dispatch( playSong(song) ); },
@@ -180,4 +195,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(SongsIndex));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SongsIndex));
