@@ -11,6 +11,7 @@ class Songs extends React.Component {
       fetching: true
     };
   }
+  
   componentWillMount() {
     this.props.fetchPlaylists(this.props.userId).then(() => {
       this.setState({ fetching: false})

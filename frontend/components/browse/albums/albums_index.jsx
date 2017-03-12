@@ -9,27 +9,24 @@ class AlbumsIndex extends React.Component {
     this.props.fetchAlbums();
   }
 
-  _redirect(id) {
-    this.props.router.push(`/browse/albums/${id}`)
-  }
-
   render() {
     const albumIndexItems = this.props.albums.map((album) => {
       return (
-        <li key={album.id}
-          onClick={this._redirect.bind(this, album.id)}
+        <Link
+          key={album.id}
+          to={`/browse/albums/${album.id}`}
           className="album-index-item">
-
-            <div className='album-index-item-img'>
-              <img src={album.image_url}/>
-            </div>
-            <div className='album-index-item-details'>
-              <p className="album-index-name">{album.title}</p>
-              <p className="album-index-artist">{album.artist}</p>
-              <p className="album-index-songs">{album.num_songs}</p>
-            </div>
-
-        </li>
+          <li>
+              <div className='album-index-item-img'>
+                <img src={album.image_url}/>
+              </div>
+              <div className='album-index-item-details'>
+                <p className="album-index-name">{album.title}</p>
+                <p className="album-index-artist">{album.artist}</p>
+                <p className="album-index-songs">{album.num_songs}</p>
+              </div>
+          </li>
+        </Link>
       );
     });
 
@@ -43,7 +40,6 @@ class AlbumsIndex extends React.Component {
               { albumIndexItems }
             </ul>
           </div>
-
       </div>
     );
   }
