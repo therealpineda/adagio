@@ -1,40 +1,16 @@
-json.extract! user, :id, :username, :first_name, :last_name, :image_url
+json.extract! user, :id, :username, :image_url
+json.name full_name(user)
 
 json.playlists do
   json.array! user.playlists do |playlist|
     json.extract! playlist, :id, :name
-    author_name = "#{playlist.user.first_name} #{playlist.user.last_name}"
+    author_name = full_name(playlist.user)
     json.author_id playlist.user.id
     json.author author_name
-    images = []
-    if playlist.songs.length < 3
-      images =  ["https://s3.amazonaws.com/adagio-prod/images/default/playlist_img.jpg"]
-    else
-      playlist.songs.each do |song|
-        if images.length < 4 && !images.include?(song.album.image_url)
-          images.push(song.album.image_url)
-        end
-      end
-
-      if images.length < 4
-        images.push(images[0])
-      end
-    end
-    json.images images
-
+    json.images calc_playlist_image(playlist.songs)
     json.created_at playlist.created_at
-    json.created_on Time.at(playlist.created_at).utc.strftime("%B %-d, %Y")
     playlist_length = playlist.songs.inject(0) { |sum, song| sum + song.duration}
-    if playlist_length > 3600
-      hours = 0
-      until playlist_length < 3600
-          hours += 1
-          playlist_length -= 3600
-      end
-      json.duration "#{hours} hr #{playlist_length / 60} min"
-    else
-      json.duration "#{playlist_length / 60} min"
-    end
+    json.duration format_duration(playlist_length)
     json.num_songs playlist.songs.count
     json.followers_count pluralize(playlist.playlist_follows.count, 'follower')
     playlist_follow = PlaylistFollow.find do |follow|
@@ -48,39 +24,13 @@ end
 json.followed_playlists do
   json.array! user.followed_playlists do |playlist|
     json.extract! playlist, :id, :name
-    author_name = "#{playlist.user.first_name} #{playlist.user.last_name}"
+    author_name = full_name(playlist.user)
     json.author_id playlist.user.id
     json.author author_name
-
-    images = []
-    if playlist.songs.length < 3
-      images =  ["https://s3.amazonaws.com/adagio-prod/images/default/playlist_img.jpg"]
-    else
-      playlist.songs.each do |song|
-        if images.length < 4 && !images.include?(song.album.image_url)
-          images.push(song.album.image_url)
-        end
-      end
-
-      if images.length < 4
-        images.push(images[0])
-      end
-    end
-    json.images images
-
+    json.images calc_playlist_image(playlist.songs)
     json.created_at playlist.created_at
-    json.created_on Time.at(playlist.created_at).utc.strftime("%B %-d, %Y")
     playlist_length = playlist.songs.inject(0) { |sum, song| sum + song.duration}
-    if playlist_length > 3600
-      hours = 0
-      until playlist_length < 3600
-          hours += 1
-          playlist_length -= 3600
-      end
-      json.duration "#{hours} hr #{playlist_length / 60} min"
-    else
-      json.duration "#{playlist_length / 60} min"
-    end
+    json.duration format_duration(playlist_length)
     json.num_songs playlist.songs.count
     json.followers_count pluralize(playlist.playlist_follows.count, 'follower')
 
@@ -104,7 +54,7 @@ json.followings do
   json.array! user.followings do |userf|
     json.id userf.id
     json.image_url userf.image_url
-    json.name "#{userf.first_name} #{userf.last_name}"
+    json.name full_name(userf)
     json.followers_count pluralize(userf.followers.count, 'follower')
   end
 end

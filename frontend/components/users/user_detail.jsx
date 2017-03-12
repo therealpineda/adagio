@@ -71,7 +71,7 @@ class UserDetail extends React.Component {
                     <p>User</p>
                   </div>
                   <div id='user-detail-title'>
-                    <p>{this.props.user.first_name} {this.props.user.last_name}</p>
+                    <p>{this.props.user.name}</p>
                   </div>
                 </div>
               </div>

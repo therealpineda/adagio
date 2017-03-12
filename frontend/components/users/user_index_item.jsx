@@ -23,8 +23,7 @@ class UserIndexItem extends React.Component {
             </div>
             <div className='user-index-item-name'>
               <p className='user-index-item-name-text'>
-                { this.props.user.first_name } &nbsp;
-                { this.props.user.last_name }
+                { this.props.user.name }
               </p>
               <p className='user-index-item-follower-text'>
                 { this.props.user.followers_count }

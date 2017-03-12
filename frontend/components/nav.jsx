@@ -56,7 +56,7 @@ class Nav extends React.Component {
           <div id='user-box-user'>
             <Link to={`/explore-playlists/users/${this.props.userId}`}>
             <img src={this.props.userImg} />
-            <p>{this.props.userFullName}</p>
+            <p>{this.props.userName}</p>
             </Link>
           </div>
           <button
@@ -68,20 +68,18 @@ class Nav extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-
-  const userFullName = (
-    state.session.currentUser.first_name + " " + state.session.currentUser.last_name )
-  const userId = state.session.currentUser.id;
-  const userImg = state.session.currentUser.image_url
-  const currentUser = state.users[userId];
+  const currentUser = state.session.currentUser;
+  const userId = currentUser.id;
+  const userName = currentUser.name;
+  const userImg = currentUser.image_url;
 
   if (!userId) {
     ownProps.router.replace('/welcome')
   }
 
   return {
-    userFullName: userFullName,
     userId: userId,
+    userName: userName,
     userImg: userImg
   };
 };
@@ -93,14 +91,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Nav));
-
-// SEARCH ICON - NOT YET IMPLEMENTED
-  //
-  // <div className={classStyleSearch} onClick={this._clickLink.bind(this,'search')}>
-  //   <div className="nav-icon">
-  //     <i className="fa fa-search" aria-hidden="true"></i>
-  //   </div>
-  //   <div className='nav-icon-text'>
-  //     <p>Search</p>
-  //   </div>
-  // </div>
