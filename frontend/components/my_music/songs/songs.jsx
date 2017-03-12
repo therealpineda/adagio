@@ -2,36 +2,46 @@ import React from 'react';
 import SongsIndex from '../songs_index';
 import { fetchPlaylists } from '../../../actions/playlist_actions';
 import { connect } from 'react-redux';
+import { userSongsArray } from '../../../reducers/selectors';
 
 class Songs extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      fetching: true
+    };
+  }
   componentWillMount() {
-    this.props.fetchPlaylists(this.props.userId);
+    this.props.fetchPlaylists(this.props.userId).then(() => {
+      this.setState({ fetching: false})
+    });
   }
 
   render() {
-    return(
-      <div
-        id='my-music-songs-container'
-        className='custom-scrollbar'>
-        <SongsIndex
-          songs={this.props.songs} />
-      </div>
-    );
+    if (this.state.fetching) {
+      return (
+        <div
+          id='my-music-songs-container'
+          className='custom-scrollbar'>
+          <p></p>
+        </div>
+      );
+    } else {
+      return(
+        <div
+          id='my-music-songs-container'
+          className='custom-scrollbar'>
+          <SongsIndex
+            songs={this.props.songs} />
+        </div>
+      );
+    }
   }
 };
 
 const mapStateToProps = (state) => {
   const userId = state.session.currentUser.id;
-  let playlistSongs = [];
-  Object.keys(state.playlists).forEach((id) => {
-    playlistSongs = playlistSongs.concat(state.playlists[id].songs);
-  });
-  const songs = [];
-  playlistSongs.forEach((song) => {
-    if (!songs.includes(song)) {
-      songs.push(song);
-    }
-  });
+  const songs = userSongsArray(state);
 
   return {
     userId: userId,

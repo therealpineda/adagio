@@ -13,7 +13,7 @@ class MyMusic extends React.Component {
       this.props.router.push("/my-music/playlists/0");
     } else {
       if (!currentPath.includes("songs")) {
-        this.props.router.push(`/my-music/playlists/${id}`);  
+        this.props.router.push(`/my-music/playlists/${id}`);
       }
     }
   }
@@ -59,9 +59,5 @@ class MyMusic extends React.Component {
     );
   }
 }
-
-// FEATURES NOT YET IMPLEMENTED
-  // <li>Artists</li>
-  // <li>Albums</li>
 
 export default withRouter(MyMusic);

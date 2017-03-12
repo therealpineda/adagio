@@ -17,4 +17,8 @@ class PlaylistSong < ApplicationRecord
 
   belongs_to :song
 
+  has_one :user,
+    through: :playlist,
+    source: :user
+
 end

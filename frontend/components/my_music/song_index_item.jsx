@@ -50,5 +50,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(null, mapDispatchToProps)(SongIndexItem);
-
-// will need to connect for all the song actions, etc

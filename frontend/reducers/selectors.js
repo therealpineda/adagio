@@ -55,6 +55,23 @@ export const albumsArray = (albums) => {
   return array;
 }
 
+export const userSongsArray = (state) => {
+
+  const playlists = playlistsArray(state.playlists)
+  const playlistSongs = [];
+  const ids = [];
+  playlists.forEach((playlist) => {
+    playlist.songs.forEach( (song) => {
+      if (!ids.includes(song.id)) {
+        playlistSongs.push(song);
+        ids.push(song.id);
+      }
+    });
+  });
+
+  return playlistSongs;
+}
+
 export const currentSong = (playQueue) => {
   return playQueue[0];
 }
