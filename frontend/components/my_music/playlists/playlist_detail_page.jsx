@@ -130,12 +130,11 @@ class PlaylistDetailPage extends React.Component {
     this.props.unfollowPlaylist(
       this.props.playlistId, this.props.playlist.following, this.props.currentUser
     ).then(() => {
-      if (this.props.location.pathname.includes("/my-music")) {
+      if (this.props.location.pathname.includes('/my-music')) {
         const playlists = this.props.currentUser.playlists;
         const mostRecentPlaylist = playlists[playlists.length - 1];
         const id = mostRecentPlaylist.id;
         this.props.router.push(`/my-music/playlists/${id}`);
-      } else {
       }
     });
   }
@@ -178,8 +177,7 @@ class PlaylistDetailPage extends React.Component {
       }
       let playlistImage = (
         <div
-          className="playlist-detail-image"
-          className="playlist-default-image"
+          className="playlist-detail-image playlist-default-image"
         >
           <img src={this.props.playlist.images[0]} alt={this.props.playlist.name} />
         </div>
@@ -211,11 +209,8 @@ class PlaylistDetailPage extends React.Component {
 
       return (
         <div id="playlist-detail-page">
-
           <div id="playlist-detail-header">
-
             { playlistImage }
-
             <div id="playlist-detail-right">
               <div id="playlist-detail-text">
                 <div className="detail-type-header">
@@ -226,21 +221,21 @@ class PlaylistDetailPage extends React.Component {
                     key={this.props.playlist.id}
                     playlist={this.props.playlist}
                     canEdit={canEdit}
-                    author={this.props.currentUser} />
+                    author={this.props.currentUser}
+                  />
                 </div>
               </div>
-
               <div id="playlist-detail-btm-rt-container">
                 <div id="playlist-detail-buttons">
                   <button
                     id="playlist-detail-play-btn"
-                    onClick={this.playPlaylist}>
+                    onClick={this.playPlaylist}
+                  >
                     <i id="playlist-detail-play-btn-icon" className="fa fa-caret-right" aria-hidden="true"></i>
                      <p>Play</p>
                   </button>
                   { followDeleteButton }
                 </div>
-
                 <div id="playlist-detail-follower-count">
                   <p>{this.props.playlist.followers_count}</p>
                 </div>
@@ -248,7 +243,6 @@ class PlaylistDetailPage extends React.Component {
 
             </div>
           </div>
-
           <div id="playlist-detail-user">
             <p>Created by: &nbsp;
               <Link to={`/explore-playlists/users/${this.props.playlist.author_id}`}>
@@ -256,16 +250,17 @@ class PlaylistDetailPage extends React.Component {
                   {this.props.playlist.author}
                 </span>
               </ Link>
-               &nbsp; &#8226;	{this.props.playlist.songs.length} songs, {this.props.playlist.duration}
-             </p>
+              &nbsp; &#8226;	{this.props.playlist.songs.length} songs,
+              {this.props.playlist.duration}
+            </p>
           </div>
 
           <div
             id="playlist-songs-index"
-            className="custom-scrollbar">
+            className="custom-scrollbar"
+          >
             <SongsIndex songs={this.props.playlist.songs} />
           </div>
-
 
           <Modal
             className="delete-playlist-modal"
@@ -283,13 +278,14 @@ class PlaylistDetailPage extends React.Component {
               <div className="delete-modal-buttons">
                 <button
                   className="negative-button"
-                  onClick={this.closeModal}>
+                  onClick={this.closeModal}
+                >
                   Cancel
                 </button>
                 <button
                   className="positive-button"
-                  onClick={this.deletePlaylist}>
-
+                  onClick={this.deletePlaylist}
+                >
                   Delete
                 </button>
               </div>
@@ -297,42 +293,42 @@ class PlaylistDetailPage extends React.Component {
           </Modal>
         </div>
       );
-    } else {
-      return (
-        <div id="playlist-detail-page">
-          <p></p>
-        </div>
-      );
     }
+    return (
+      <div id="playlist-detail-page">
+      </div>
+    );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let playlistId = ownProps.params.playlistId
-  let playlist = ownProps.playlist
+  const playlistId = ownProps.params.playlistId;
+  let playlist = ownProps.playlist;
   if (!playlist) {
-    playlist = state.playlists[playlistId]
+    playlist = state.playlists[playlistId];
   }
   const userId = state.session.currentUser.id;
   const currentUser = state.users[userId];
 
   return {
-    playlistId: playlistId,
-    playlist: playlist,
-    userId: userId,
-    currentUser: currentUser
+    playlistId,
+    playlist,
+    userId,
+    currentUser,
   };
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchPlaylist: (playlistId) => { return dispatch(fetchPlaylist(playlistId)); },
     followPlaylist: (playlistId, user) => { return dispatch(followPlaylist(playlistId, user)); },
-    unfollowPlaylist: (playlistId, followId, user) => { return dispatch(unfollowPlaylist(playlistId, followId, user)); },
+    unfollowPlaylist: (playlistId, followId, user) => {
+      return dispatch(unfollowPlaylist(playlistId, followId, user));
+    },
     removePlaylist: (playlist) => { return dispatch(removePlaylist(playlist)); },
     deletePlaylist: (id, user) => { return dispatch(deletePlaylist(id, user)); },
-    playSongs: (songs) => { return dispatch(playSongs(songs)); }
+    playSongs: (songs) => { return dispatch(playSongs(songs)); },
   };
-}
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PlaylistDetailPage));

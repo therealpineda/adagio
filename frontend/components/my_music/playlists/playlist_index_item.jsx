@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router';
 import classNames from 'classnames';
 
-const PlaylistIndexItem = ( { playlist, authorId, selectedPlaylistId } ) => {
-  let classStyle = classNames({
+const PlaylistIndexItem = ({ playlist, authorId, selectedPlaylistId }) => {
+  const classStyle = classNames({
     'playlist-index-item-container': true,
-    'selected-playlist': playlist.id === parseInt(selectedPlaylistId)
+    'selected-playlist': playlist.id === parseInt(selectedPlaylistId, 10),
   });
 
-  let authorName = ("");
+  let authorName = ('');
 
   if (authorId !== playlist.author_id) {
     authorName = (
@@ -17,22 +17,29 @@ const PlaylistIndexItem = ( { playlist, authorId, selectedPlaylistId } ) => {
   }
 
   let playlistImage = (
-    <div className='playlist-index-item-img'
-      className='playlist-default-image-sm'>
-      <img src={playlist.images[0]}/>
+    <div className="playlist-index-item-img playlist-default-image-sm">
+      <img src={playlist.images[0]} alt={playlist.name} />
     </div>
   );
 
   if (playlist.images.length > 1) {
     playlistImage = (
-      <div className='playlist-index-item-img'>
-        <div className='pl-img-row'>
-          <div className='pl-img-piece-sm'><img src={playlist.images[0]}/></div>
-          <div className='pl-img-piece-sm'><img src={playlist.images[1]}/></div>
+      <div className="playlist-index-item-img">
+        <div className="pl-img-row">
+          <div className="pl-img-piece-sm">
+            <img src={playlist.images[0]} alt={playlist.name} />
+          </div>
+          <div className="pl-img-piece-sm">
+            <img src={playlist.images[1]} alt={playlist.name} />
+          </div>
         </div>
-        <div className='pl-img-row'>
-          <div className='pl-img-piece-sm'><img src={playlist.images[2]}/></div>
-          <div className='pl-img-piece-sm'><img src={playlist.images[3]}/></div>
+        <div className="pl-img-row">
+          <div className="pl-img-piece-sm">
+            <img src={playlist.images[2]} alt={playlist.name} />
+          </div>
+          <div className="pl-img-piece-sm">
+            <img src={playlist.images[3]} alt={playlist.name} />
+          </div>
         </div>
       </div>
     );
@@ -41,11 +48,9 @@ const PlaylistIndexItem = ( { playlist, authorId, selectedPlaylistId } ) => {
   return (
     <li className={classStyle}>
       <Link to={`/my-music/playlists/${playlist.id}`}>
-        <div className='playlist-index-item'>
-
+        <div className="playlist-index-item">
           { playlistImage }
-
-          <div className='playlist-index-title'>
+          <div className="playlist-index-title">
             <p className="playlist-index-title-text">{playlist.name}</p>
             { authorName }
           </div>

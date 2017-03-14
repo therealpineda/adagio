@@ -1,20 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import SongsIndex from '../songs_index';
 import { fetchPlaylists } from '../../../actions/playlist_actions';
-import { connect } from 'react-redux';
 import { userSongsArray } from '../../../reducers/selectors';
 
 class Songs extends React.Component {
   constructor() {
     super();
     this.state = {
-      fetching: true
+      fetching: true,
     };
   }
-  
+
   componentWillMount() {
     this.props.fetchPlaylists(this.props.userId).then(() => {
-      this.setState({ fetching: false})
+      this.setState({ fetching: false });
     });
   }
 
@@ -22,39 +22,36 @@ class Songs extends React.Component {
     if (this.state.fetching) {
       return (
         <div
-          id='my-music-songs-container'
-          className='custom-scrollbar'>
-          <p></p>
-        </div>
-      );
-    } else {
-      return(
-        <div
-          id='my-music-songs-container'
-          className='custom-scrollbar'>
-          <SongsIndex
-            songs={this.props.songs} />
+          id="my-music-songs-container"
+          className="custom-scrollbar"
+        >
         </div>
       );
     }
+    return (
+      <div
+        id="my-music-songs-container"
+        className="custom-scrollbar"
+      >
+        <SongsIndex songs={this.props.songs} />
+      </div>
+    );
   }
-};
+}
 
 const mapStateToProps = (state) => {
   const userId = state.session.currentUser.id;
   const songs = userSongsArray(state);
-
   return {
-    userId: userId,
-    songs: songs
+    userId,
+    songs,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchPlaylists: (userId) => {return dispatch(fetchPlaylists(userId));}
+    fetchPlaylists: (userId) => { return dispatch(fetchPlaylists(userId)); },
   };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Songs);

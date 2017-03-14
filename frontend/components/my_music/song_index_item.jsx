@@ -1,5 +1,4 @@
 import React from 'react';
-import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { playSong } from '../../actions/play_queue_actions';
 
@@ -12,17 +11,19 @@ class SongIndexItem extends React.Component {
   _playSong(e) {
     e.preventDefault();
     this.props.playSong(this.props.song);
-  };
+  }
 
   render() {
     return (
       <tr
-        className='song-index-item'
-        onDoubleClick={ this._playSong }>
+        className="song-index-item"
+        onDoubleClick={this._playSong}
+      >
         <td>
           <figure
             className="mini-play-btn"
-            onClick={this._playSong}>
+            onClick={this._playSong}
+          >
             &nbsp;
           </figure>
         </td>
@@ -45,7 +46,7 @@ class SongIndexItem extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    playSong: (song) => { return dispatch( playSong(song) ); }
+    playSong: (song) => { return dispatch(playSong(song)); },
   };
 };
 

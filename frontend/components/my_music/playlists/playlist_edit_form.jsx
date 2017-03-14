@@ -1,17 +1,17 @@
 import React from 'react';
-import { updatePlaylist } from '../../../actions/playlist_actions';
 import { connect } from 'react-redux';
 import { merge } from 'lodash';
+import { updatePlaylist } from '../../../actions/playlist_actions';
 
 class PlaylistEditForm extends React.Component {
   constructor() {
     super();
     this.state = {
       playlist: {
-        name: ""
+        name: '',
       },
-      disabled: true
-    }
+      disabled: true,
+    };
     this._enableEdit = this._enableEdit.bind(this);
     this._renamePlaylist = this._renamePlaylist.bind(this);
     this._handleKeyPress = this._handleKeyPress.bind(this);
@@ -21,11 +21,12 @@ class PlaylistEditForm extends React.Component {
   }
 
   componentWillReceiveProps() {
-    this.setState({ playlist: {name: this.props.playlist.name }});
+    this.setState({ playlist: { name: this.props.playlist.name } });
   }
 
   _enableEdit(e) {
-    this.setState( { disabled: false } );
+    e.preventDefault();
+    this.setState({ disabled: false });
     const input = $('#rename-playlist-input');
     input.val(this.props.playlist.name);
     input.focus();
@@ -44,42 +45,44 @@ class PlaylistEditForm extends React.Component {
       const playlist = merge({}, this.props.playlist, this.state.playlist);
       this.props.renamePlaylist(playlist, this.props.author);
     }
-    this.setState( { disabled: true } );
+    this.setState({ disabled: true });
   }
 
   update(key) {
     return (e) => {
-      this.setState({ playlist: {[key]: e.target.value }})
-    }
+      this.setState({ playlist: { [key]: e.target.value } });
+    };
   }
 
   render() {
-    let editButton = ("");
+    let editButton = ('');
     if (this.props.canEdit) {
       editButton = (
         <button
-          id='playlist-detail-edit-btn'
-          className='negative-button'
-          onClick={this._enableEdit}>
+          id="playlist-detail-edit-btn"
+          className="negative-button"
+          onClick={this._enableEdit}
+        >
           Rename
         </button>
-      )
-    };
+      );
+    }
     return (
-      <div id='playlist-edit-form'>
-          <form>
-            <textarea
-              id="rename-playlist-input"
-              type="text"
-              rows="2"
-              disabled={this.state.disabled}
-              placeholder={this.props.playlist.name}
-              onChange={this.update('name')}
-              onKeyPress={this._handleKeyPress}>
-              {this.state.name}
-            </textarea>
-          </form>
-          { editButton }
+      <div id="playlist-edit-form">
+        <form>
+          <textarea
+            id="rename-playlist-input"
+            type="text"
+            rows="2"
+            disabled={this.state.disabled}
+            placeholder={this.props.playlist.name}
+            onChange={this.update('name')}
+            onKeyPress={this._handleKeyPress}
+          >
+            {this.state.name}
+          </textarea>
+        </form>
+        { editButton }
       </div>
     );
   }
@@ -87,7 +90,7 @@ class PlaylistEditForm extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    renamePlaylist: (playlist, author) => { return dispatch(updatePlaylist(playlist, author)); }
+    renamePlaylist: (playlist, author) => { return dispatch(updatePlaylist(playlist, author)); },
   };
 };
 

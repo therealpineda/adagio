@@ -1,14 +1,14 @@
 import React from 'react';
-import SongIndexItem from './song_index_item';
 import Modal from 'react-modal';
-import RCPlaylistIndex from './playlists/rc_playlist_index';
-import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import SongIndexItem from './song_index_item';
+import RCPlaylistIndex from './playlists/rc_playlist_index';
 import { playSong, addSong } from '../../actions/play_queue_actions';
 import { removeSongFromPlaylist } from '../../actions/playlist_actions';
 
 class SongsIndex extends React.Component {
-  constructor(props) {
+  constructor() {
     super();
 
     this.state = {
@@ -55,21 +55,21 @@ class SongsIndex extends React.Component {
   }
 
   openModal() {
-    this.setState({modalIsOpen: true});
+    this.setState({ modalIsOpen: true });
   }
 
   closeModal() {
-    this.setState({modalIsOpen: false});
+    this.setState({ modalIsOpen: false });
   }
 
   rightClick(e) {
     e.preventDefault();
     const songTitle = e.target.parentElement.parentElement.childNodes[1].firstChild.textContent;
-    const clickedSong = this.props.songs.find((song) => song.title === songTitle );
-    let customStyles = this.state.customStyles;
+    const clickedSong = this.props.songs.find(song => song.title === songTitle);
+    const customStyles = this.state.customStyles;
     customStyles.content.top = e.clientY;
     customStyles.content.left = e.clientX;
-    this.setState({clickedSong: clickedSong, customStyles: customStyles});
+    this.setState({ clickedSong, customStyles });
     this.openModal();
   }
 
@@ -95,23 +95,26 @@ class SongsIndex extends React.Component {
       return (
         <SongIndexItem
           key={song.playlist_song_id}
-          song={song} />
+          song={song}
+        />
       );
     });
-    let clickedTitle = "";
+    let clickedTitle = '';
     const clickedSong = this.state.clickedSong
     if (clickedSong) {
       clickedTitle = clickedSong.title;
     }
 
-    let removePlaylist = "";
+    let removePlaylist = '';
     const playlistId = this.props.params.playlistId;
     if (playlistId) {
       const authorId = this.props.playlists[playlistId].author_id;
       if (authorId === this.props.userId) {
         removePlaylist = (
-          <div className='rc-modal-item'
-            onClick={this.removeFromPlaylist}>
+          <div
+            className='rc-modal-item'
+            onClick={this.removeFromPlaylist}
+          >
             <p>Remove from Playlist</p>
           </div>
         );
