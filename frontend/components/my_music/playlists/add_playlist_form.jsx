@@ -7,8 +7,8 @@ class AddPlaylistForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: ""
-    }
+      name: '',
+    };
     this._addPlaylist = this._addPlaylist.bind(this);
     this._handleKeyPress = this._handleKeyPress.bind(this);
     this.update = this.update.bind(this);
@@ -23,35 +23,35 @@ class AddPlaylistForm extends React.Component {
 
   _addPlaylist(e) {
     e.preventDefault();
-    let playlist = merge(this.state, { user_id: this.props.userId })
+    const playlist = merge(this.state, { user_id: this.props.userId });
     this.props.addPlaylist(playlist, this.props.currentUser);
-    this.setState({name: ""});
+    this.setState({ name: '' });
     const form = $('.add-playlist-form');
     form.addClass('hidden-form');
   }
 
   update(key) {
     return (e) => {
-      this.setState({ [key]: e.target.value })
-    }
+      this.setState({ [key]: e.target.value });
+    };
   }
 
   render() {
     return (
-      <div id='add-playlist-form'>
-        <form onSubmit={ this._addPlaylist }>
+      <div id="add-playlist-form">
+        <form onSubmit={this._addPlaylist}>
           <div>
-          <input
-            type="text"
-            id="add-playlist-input"
-            placeholder="New Playlist"
-            onChange={this.update('name')}
-            onKeyPress={this._handleKeyPress}
-            value={this.state.name} />
+            <input
+              type="text"
+              id="add-playlist-input"
+              placeholder="New Playlist"
+              onChange={this.update('name')}
+              onKeyPress={this._handleKeyPress}
+              value={this.state.name}
+            />
           </div>
-          <div id='create-playlist-btn-container'>
-            <button
-              id="create-playlist-btn">
+          <div id="create-playlist-btn-container">
+            <button id="create-playlist-btn">
               Create
             </button>
           </div>
@@ -64,14 +64,16 @@ class AddPlaylistForm extends React.Component {
 const mapStateToProps = (state) => {
   const userId = state.session.currentUser.id;
   return {
-    userId: userId,
-    currentUser: state.users[userId]
+    userId,
+    currentUser: state.users[userId],
   };
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addPlaylist: (playlist, currentUser) => { return dispatch(addPlaylist(playlist, currentUser)); }
+    addPlaylist: (playlist, currentUser) => {
+      return dispatch(addPlaylist(playlist, currentUser));
+    },
   };
 };
 

@@ -43,7 +43,6 @@ class SongsIndex extends React.Component {
       clickedSong: ""
     };
     this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.rightClick = this.rightClick.bind(this);
     this.playClickedSong = this.playClickedSong.bind(this);
@@ -57,11 +56,6 @@ class SongsIndex extends React.Component {
 
   openModal() {
     this.setState({modalIsOpen: true});
-  }
-
-  afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    // this.refs.subtitle.style.color = '#f00';
   }
 
   closeModal() {
@@ -112,7 +106,7 @@ class SongsIndex extends React.Component {
 
     let removePlaylist = "";
     const playlistId = this.props.params.playlistId;
-    if (playlistId) {  
+    if (playlistId) {
       const authorId = this.props.playlists[playlistId].author_id;
       if (authorId === this.props.userId) {
         removePlaylist = (
@@ -145,7 +139,7 @@ class SongsIndex extends React.Component {
           <Modal
             className="rc-modal-modal"
             isOpen={this.state.modalIsOpen}
-            onAfterOpen={this.afterOpenModal}
+            onAfterOpen={null}
             onRequestClose={this.closeModal}
             style={this.state.customStyles}
             contentLabel="Right Click Menu"

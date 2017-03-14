@@ -1,11 +1,13 @@
+
+
 import React from 'react';
+import Modal from 'react-modal';
+import { Link, withRouter } from 'react-router';
+import { connect } from 'react-redux';
 import PlaylistEditForm from './playlist_edit_form';
 import SongsIndex from '../songs_index';
 import { fetchPlaylist, deletePlaylist, followPlaylist, unfollowPlaylist, removePlaylist } from '../../../actions/playlist_actions';
-import Modal from 'react-modal';
 import { playSongs } from '../../../actions/play_queue_actions';
-import { Link, withRouter } from 'react-router';
-import { connect } from 'react-redux';
 
 class PlaylistDetailPage extends React.Component {
   constructor() {
@@ -15,32 +17,32 @@ class PlaylistDetailPage extends React.Component {
       fetched: false,
       modalIsOpen: false,
       customStyles: {
-        overlay : {
-          position          : 'fixed',
-          top               : 0,
-          left              : 0,
-          right             : 0,
-          bottom            : 0,
-          backgroundColor   : 'rgba(15,16,16,0.3)'
+        overlay: {
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(15,16,16,0.3)',
         },
-        content : {
-          position                    : 'absolute',
-          top                         : '240px',
-          left                        : '340px',
-          right                       : '10px',
-          bottom                      : '10px',
-          height                      : '128px',
-          border                      : '1px solid #151616',
-          background                  : '#2f2f31',
-          overflowX                   : 'hidden',
-          overflowY                   : 'hidden',
-          WebkitOverflowScrolling     : 'touch',
-          borderRadius                : '3px',
-          outline                     : 'none',
-          padding                     : '0px',
-          width                       : "300px"
-        }
-      }
+        content: {
+          position: 'absolute',
+          top: '240px',
+          left: '340px',
+          right: '10px',
+          bottom: '10px',
+          height: '128px',
+          border: '1px solid #151616',
+          background: '#2f2f31',
+          overflowX: 'hidden',
+          overflowY: 'hidden',
+          WebkitOverflowScrolling: 'touch',
+          borderRadius: '3px',
+          outline: 'none',
+          padding: '0px',
+          width: '300px',
+        },
+      },
     };
 
     this.followPlaylist = this.followPlaylist.bind(this);
@@ -58,27 +60,27 @@ class PlaylistDetailPage extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.playlistId !== "0") {
-      this.props.fetchPlaylist(this.props.playlistId).then( (playlist) => {
+    if (this.props.playlistId !== '0') {
+      this.props.fetchPlaylist(this.props.playlistId).then((playlist) => {
         if (playlist.author_id === this.props.userId) {
-          this.setState({owner: true, fetched: true});
+          this.setState({ owner: true, fetched: true });
         } else {
-          this.setState({fetched: true});
+          this.setState({ fetched: true });
         }
       });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.playlistId !== "0" || nextProps.playlistId !== undefined) {
+    if (nextProps.playlistId !== '0' || nextProps.playlistId !== undefined) {
       if (this.props.playlistId !== nextProps.playlistId) {
-        this.setState({owner: false, fetched: false});
+        this.setState({ owner: false, fetched: false });
 
-        this.props.fetchPlaylist(nextProps.playlistId).then( (playlist) => {
+        this.props.fetchPlaylist(nextProps.playlistId).then((playlist) => {
           if (playlist.author_id === this.props.currentUser.id) {
-            this.setState({owner: true, fetched: true});
+            this.setState({ owner: true, fetched: true });
           } else {
-            this.setState({fetched: true});
+            this.setState({ fetched: true });
           }
         });
       }
@@ -88,7 +90,7 @@ class PlaylistDetailPage extends React.Component {
   deletePlaylist(e) {
     e.preventDefault();
     this.closeModal();
-    this.props.deletePlaylist(this.props.playlistId, currentUser).then(() => {
+    this.props.deletePlaylist(this.props.playlistId, this.props.currentUser).then(() => {
       const playlists = this.props.currentUser.playlists;
       const mostRecentPlaylist = playlists[playlists.length - 1];
       const id = mostRecentPlaylist.id;
@@ -98,19 +100,19 @@ class PlaylistDetailPage extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    let customStyles = this.state.customStyles;
+    const customStyles = this.state.customStyles;
     customStyles.content.left = e.clientX;
     customStyles.content.top = e.clientY;
-    this.setState({customStyles: customStyles});
+    this.setState({ customStyles });
     this.openModal();
   }
 
   openModal() {
-    this.setState({modalIsOpen: true});
+    this.setState({ modalIsOpen: true });
   }
 
   closeModal() {
-    this.setState({modalIsOpen: false});
+    this.setState({ modalIsOpen: false });
   }
 
   playPlaylist(e) {
@@ -121,11 +123,13 @@ class PlaylistDetailPage extends React.Component {
   followPlaylist(e) {
     e.preventDefault();
     this.props.followPlaylist(this.props.playlistId, this.props.currentUser);
-  };
+  }
 
   unfollowPlaylist(e) {
     e.preventDefault();
-    this.props.unfollowPlaylist(this.props.playlistId, this.props.playlist.following, this.props.currentUser).then(() => {
+    this.props.unfollowPlaylist(
+      this.props.playlistId, this.props.playlist.following, this.props.currentUser
+    ).then(() => {
       if (this.props.location.pathname.includes("/my-music")) {
         const playlists = this.props.currentUser.playlists;
         const mostRecentPlaylist = playlists[playlists.length - 1];
@@ -134,25 +138,27 @@ class PlaylistDetailPage extends React.Component {
       } else {
       }
     });
-  };
+  }
 
   render() {
     if (this.state.fetched && this.props.playlist) {
       let canEdit = false;
       let followDeleteButton = (
         <button
-        id="playlist-detail-follow-btn"
-        className='positive-button'
-        onClick={this.followPlaylist}>
-        Follow
+          id="playlist-detail-follow-btn"
+          className="positive-button"
+          onClick={this.followPlaylist}
+        >
+          Follow
         </button>
       );
       if (this.props.playlist.following) {
         followDeleteButton = (
           <button
             id="playlist-detail-follow-btn"
-            className='negative-button'
-            onClick={this.unfollowPlaylist}>
+            className="negative-button"
+            onClick={this.unfollowPlaylist}
+          >
             Unfollow
           </button>
         );
@@ -164,29 +170,39 @@ class PlaylistDetailPage extends React.Component {
           <button
             id="playlist-detail-delete-btn"
             className="negative-button"
-            onClick={this.handleClick}>
+            onClick={this.handleClick}
+          >
             Delete
           </button>
         );
       }
-
       let playlistImage = (
-        <div className='playlist-detail-image'
-          className='playlist-default-image'>
-          <img src={this.props.playlist.images[0]}/>
+        <div
+          className="playlist-detail-image"
+          className="playlist-default-image"
+        >
+          <img src={this.props.playlist.images[0]} alt={this.props.playlist.name} />
         </div>
       );
 
       if (this.props.playlist.images.length > 1) {
         playlistImage = (
-          <div className='playlist-detail-image'>
-            <div className='pl-img-row'>
-              <div className='pl-img-piece'><img src={this.props.playlist.images[0]}/></div>
-              <div className='pl-img-piece'><img src={this.props.playlist.images[1]}/></div>
+          <div className="playlist-detail-image">
+            <div className="pl-img-row">
+              <div className="pl-img-piece">
+                <img src={this.props.playlist.images[0]} alt={this.props.playlist.name} />
+              </div>
+              <div className="pl-img-piece">
+                <img src={this.props.playlist.images[1]} alt={this.props.playlist.name} />
+              </div>
             </div>
-            <div className='pl-img-row'>
-              <div className='pl-img-piece'><img src={this.props.playlist.images[2]}/></div>
-              <div className='pl-img-piece'><img src={this.props.playlist.images[3]}/></div>
+            <div className="pl-img-row">
+              <div className="pl-img-piece">
+                <img src={this.props.playlist.images[2]} alt={this.props.playlist.name} />
+              </div>
+              <div className="pl-img-piece">
+                <img src={this.props.playlist.images[3]} alt={this.props.playlist.name} />
+              </div>
             </div>
           </div>
         );
@@ -194,18 +210,18 @@ class PlaylistDetailPage extends React.Component {
 
 
       return (
-        <div id='playlist-detail-page'>
+        <div id="playlist-detail-page">
 
-          <div id='playlist-detail-header'>
+          <div id="playlist-detail-header">
 
             { playlistImage }
 
-            <div id='playlist-detail-right'>
-              <div id='playlist-detail-text'>
-                <div className='detail-type-header'>
+            <div id="playlist-detail-right">
+              <div id="playlist-detail-text">
+                <div className="detail-type-header">
                   <p>Playlist</p>
                 </div>
-                <div id='playlist-detail-title'>
+                <div id="playlist-detail-title">
                   <PlaylistEditForm
                     key={this.props.playlist.id}
                     playlist={this.props.playlist}
@@ -214,7 +230,7 @@ class PlaylistDetailPage extends React.Component {
                 </div>
               </div>
 
-              <div id='playlist-detail-btm-rt-container'>
+              <div id="playlist-detail-btm-rt-container">
                 <div id="playlist-detail-buttons">
                   <button
                     id="playlist-detail-play-btn"
@@ -236,7 +252,7 @@ class PlaylistDetailPage extends React.Component {
           <div id="playlist-detail-user">
             <p>Created by: &nbsp;
               <Link to={`/explore-playlists/users/${this.props.playlist.author_id}`}>
-                <span className='playlist-user-link'>
+                <span className="playlist-user-link">
                   {this.props.playlist.author}
                 </span>
               </ Link>
@@ -245,8 +261,8 @@ class PlaylistDetailPage extends React.Component {
           </div>
 
           <div
-            id='playlist-songs-index'
-            className='custom-scrollbar'>
+            id="playlist-songs-index"
+            className="custom-scrollbar">
             <SongsIndex songs={this.props.playlist.songs} />
           </div>
 
@@ -259,12 +275,12 @@ class PlaylistDetailPage extends React.Component {
             style={this.state.customStyles}
             contentLabel="Delete Playlist Modal"
           >
-            <div className='delete-modal'>
-              <div className='delete-modal-text'>
+            <div className="delete-modal">
+              <div className="delete-modal-text">
                 <p><span className="detail-type-header">Playlist</span></p>
                 <p>{this.props.playlist.name}</p>
               </div>
-              <div className='delete-modal-buttons'>
+              <div className="delete-modal-buttons">
                 <button
                   className="negative-button"
                   onClick={this.closeModal}>
@@ -283,7 +299,7 @@ class PlaylistDetailPage extends React.Component {
       );
     } else {
       return (
-        <div id='playlist-detail-page'>
+        <div id="playlist-detail-page">
           <p></p>
         </div>
       );

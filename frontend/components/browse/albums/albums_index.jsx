@@ -15,46 +15,46 @@ class AlbumsIndex extends React.Component {
         <Link
           key={album.id}
           to={`/browse/albums/${album.id}`}
-          className="album-index-item">
+          className="album-index-item"
+        >
           <li>
-              <div className='album-index-item-img'>
-                <img src={album.image_url}/>
-              </div>
-              <div className='album-index-item-details'>
-                <p className="album-index-name">{album.title}</p>
-                <p className="album-index-artist">{album.artist}</p>
-                <p className="album-index-songs">{album.num_songs}</p>
-              </div>
+            <div className="album-index-item-img">
+              <img src={album.image_url} alt={album.title} />
+            </div>
+            <div className="album-index-item-details">
+              <p className="album-index-name">{album.title}</p>
+              <p className="album-index-artist">{album.artist}</p>
+              <p className="album-index-songs">{album.num_songs}</p>
+            </div>
           </li>
         </Link>
       );
     });
 
     return (
-      <div id='albums-index'>
-          <div id='browse-albums-header'>
-            <h2>Albums</h2>
-          </div>
-          <div id='albums-index-items-container'>
-            <ul id='albums-index-list'>
-              { albumIndexItems }
-            </ul>
-          </div>
+      <div id="albums-index">
+        <div id="browse-albums-header">
+          <h2>Albums</h2>
+        </div>
+        <div id="albums-index-items-container">
+          <ul id="albums-index-list">
+            { albumIndexItems }
+          </ul>
+        </div>
       </div>
     );
   }
-
-};
+}
 
 const mapStateToProps = (state) => {
   return {
-    albums: albumsArray(state.albums)
+    albums: albumsArray(state.albums),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAlbums: () => { return dispatch(fetchAlbums()); }
+    fetchAlbums: () => { return dispatch(fetchAlbums()); },
   };
 };
 
