@@ -4,26 +4,22 @@ import { withRouter } from 'react-router';
 import { NavLinkTop } from '../navlink';
 
 class MyMusic extends React.Component {
+
   componentWillMount() {
-    const id = this.props.params.playlistId;
-    const currentPath = this.props.router.location.pathname;
-    if (!id && currentPath.includes('playlists')) {
-      this.props.router.push('/my-music/playlists/0');
-    } else {
-      if (!currentPath.includes('songs')) {
-        this.props.router.push(`/my-music/playlists/${id}`);
-      }
-    }
+    this.checkRedirect();
   }
 
-  componentWillReceiveProps() {
-    const id = this.props.params.playlistId;
+  componentWillReceiveProps(nextProps) {
+    const playlistId = nextProps.params.playlistId;
+    this.checkRedirect(playlistId);
+  }
+
+  checkRedirect(playlistId) {
     const currentPath = this.props.router.location.pathname;
-    if (!id && currentPath.includes('playlists')) {
-      this.props.router.push('/my-music/playlists/0');
-    } else {
-      if (id !== this.props.params.playlistId) {
-        this.props.router.push(`/my-music/playlists/${id}`);
+    if (!currentPath.includes('songs')) {
+      const id = this.props.params.playlistId;
+      if (!id) {
+        this.props.router.push('/my-music/playlists/0');
       }
     }
   }
