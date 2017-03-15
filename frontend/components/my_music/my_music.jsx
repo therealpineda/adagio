@@ -9,9 +9,8 @@ class MyMusic extends React.Component {
     this.checkRedirect();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const playlistId = nextProps.params.playlistId;
-    this.checkRedirect(playlistId);
+  componentWillReceiveProps() {
+    this.checkRedirect();
   }
 
   checkRedirect(playlistId) {

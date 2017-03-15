@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import Modal from 'react-modal';
 import { Link, withRouter } from 'react-router';
@@ -75,7 +73,6 @@ class PlaylistDetailPage extends React.Component {
     if (nextProps.playlistId !== '0' || nextProps.playlistId !== undefined) {
       if (this.props.playlistId !== nextProps.playlistId) {
         this.setState({ owner: false, fetched: false });
-
         this.props.fetchPlaylist(nextProps.playlistId).then((playlist) => {
           if (playlist.author_id === this.props.currentUser.id) {
             this.setState({ owner: true, fetched: true });
@@ -231,7 +228,12 @@ class PlaylistDetailPage extends React.Component {
                     id="playlist-detail-play-btn"
                     onClick={this.playPlaylist}
                   >
-                    <i id="playlist-detail-play-btn-icon" className="fa fa-caret-right" aria-hidden="true"></i>
+                    <i
+                      id="playlist-detail-play-btn-icon"
+                      className="fa fa-caret-right"
+                      aria-hidden="true"
+                    >
+                    </i>
                      <p>Play</p>
                   </button>
                   { followDeleteButton }
