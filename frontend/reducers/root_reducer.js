@@ -10,7 +10,7 @@ const RootReducer = combineReducers({
   playlists: PlaylistReducer,
   playQueue: PlayQueueReducer,
   users: UsersReducer,
-  albums: AlbumsReducer
+  albums: AlbumsReducer,
 });
 
 export default RootReducer;

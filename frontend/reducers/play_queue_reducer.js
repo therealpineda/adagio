@@ -1,7 +1,7 @@
-import { RECEIVE_SONGS, RECEIVE_SONG, PLAY_SONGS, PLAY_SONG, NEXT_SONG, REMOVE_SONGS, REMOVE_SONG, SHUFFLE_SONGS, JUMP_QUEUE } from '../actions/play_queue_actions';
 import { merge } from 'lodash';
+import { RECEIVE_SONGS, RECEIVE_SONG, PLAY_SONGS, PLAY_SONG, NEXT_SONG, REMOVE_SONGS, REMOVE_SONG, SHUFFLE_SONGS, JUMP_QUEUE } from '../actions/play_queue_actions';
 
-const defaultState = []
+const defaultState = [];
 
 const PlayQueueReducer = (oldState = defaultState, action) => {
   Object.freeze(oldState);
@@ -21,10 +21,10 @@ const PlayQueueReducer = (oldState = defaultState, action) => {
       return newState;
     case REMOVE_SONG:
       newState = [];
-      oldState.forEach( (song) => {
-        if (song.id != action.song.id) {
+      oldState.forEach((song) => {
+        if (song.id !== action.song.id) {
           newState.push(song);
-        };
+        }
       });
       return newState;
     case NEXT_SONG:

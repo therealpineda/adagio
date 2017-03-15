@@ -251,7 +251,7 @@ class PlaylistDetailPage extends React.Component {
                 </span>
               </ Link>
               &nbsp; &#8226;	{this.props.playlist.songs.length} songs,
-              {this.props.playlist.duration}
+              &nbsp; {this.props.playlist.duration}
             </p>
           </div>
 

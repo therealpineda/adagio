@@ -1,5 +1,5 @@
-import { RECEIVE_ALBUMS, RECEIVE_ALBUM } from '../actions/album_actions';
 import { merge } from 'lodash';
+import { RECEIVE_ALBUMS, RECEIVE_ALBUM } from '../actions/album_actions';
 
 const defaultState = {};
 

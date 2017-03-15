@@ -1,8 +1,8 @@
 import React from 'react';
-import UserIndexItem from './user_index_item';
-import UserDetail from './user_detail';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import UserIndexItem from './user_index_item';
+import UserDetail from './user_detail';
 import { usersArray } from '../../reducers/selectors';
 import { fetchUsers } from '../../actions/users_actions';
 
@@ -17,21 +17,25 @@ class UsersIndex extends React.Component {
       return (
         <UserIndexItem
           key={user.id}
-          user={user}/>
+          user={user}
+        />
       );
     });
 
     return (
-      <div id='users-index'>
+      <div id="users-index">
         <div
-          id='users-index-sidebar'
-          className='custom-scrollbar'>
+          id="users-index-sidebar"
+          className="custom-scrollbar"
+        >
           <ul>
             { userIndexItems }
           </ul>
         </div>
-        <div id='users-index-detail'
-          className='custom-scrollbar'>
+        <div
+          id="users-index-detail"
+          className="custom-scrollbar"
+        >
           <UserDetail user={this.props.selectedUser} />
         </div>
       </div>
@@ -49,14 +53,14 @@ const mapStateToProps = (state, ownProps) => {
   const selectedUser = state.users[userId];
   return {
     users: usersArray(state),
-    userId: userId,
-    selectedUser: selectedUser
+    userId,
+    selectedUser,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUsers: () => { return dispatch(fetchUsers()); }
+    fetchUsers: () => { return dispatch(fetchUsers()); },
   };
 };
 

@@ -1,5 +1,5 @@
 module ApplicationHelper
-  
+
   def full_name(user)
     "#{user.first_name} #{user.last_name}"
   end
@@ -19,7 +19,7 @@ module ApplicationHelper
 
   def calc_playlist_image(songs)
     images = []
-    if songs.length < 3
+    if songs.length < 4
       images =  ["https://s3.amazonaws.com/adagio-prod/images/default/playlist_img.jpg"]
     else
       songs.each do |song|
@@ -29,8 +29,9 @@ module ApplicationHelper
       end
 
       if images.length < 4
-        images.push(images[0])
+        images.push(images[0]) until images.length == 4
       end
+
     end
     images
   end

@@ -1,15 +1,15 @@
 import React from 'react';
-import { login } from '../../actions/session_actions';
 import { connect } from 'react-redux';
-import LogInErrors from './login_errors';
 import { withRouter } from 'react-router';
+import { login } from '../../actions/session_actions';
+import LogInErrors from './login_errors';
 
 class LogIn extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super();
     this.state = {
-      username: "",
-      password: ""
+      username: '',
+      password: '',
     };
     this.update = this.update.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,72 +18,78 @@ class LogIn extends React.Component {
 
   update(key) {
     return (e) => {
-      this.setState({ [key]: e.target.value })
+      this.setState({ [key]: e.target.value });
     };
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.login(this.state).then( () => {
+    this.props.login(this.state).then(() => {
       this.props.router.push('/');
     });
   }
 
   guestLogIn(e) {
     e.preventDefault();
-    this.props.login({username: 'johndoe', password: 'password'}).then( () => {
+    this.props.login({ username: 'johndoe', password: 'password' }).then(() => {
       this.props.router.push('/');
     });
   }
 
   render() {
     return (
-      <div id='login'>
-          <div className='welcome-logo-sm'>
-          <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" />
+      <div id="login">
+        <div className="welcome-logo-sm">
+          <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" alt="Adagio" />
           <h4>Adagio</h4>
-          </div>
+        </div>
         <LogInErrors errors={this.props.errors} />
         <button
           className="green-big-btn"
-          onClick={ this.guestLogIn }>Guest Log In</button>
-        <form onSubmit={ this.handleSubmit }>
-          <div className='inputs-labels'>
-          <label htmlFor="username">
-            Username
-          </label>
-            <br /><input
+          onClick={this.guestLogIn}
+        >Guest Log In</button>
+        <form onSubmit={this.handleSubmit}>
+          <div className="inputs-labels">
+            <label htmlFor="username">
+              Username
+            </label>
+            <br />
+            <input
               className="input-field"
               type="text"
               placeholder="Adagio username"
-              onChange={ this.update('username') }
-              value={this.state.username} />
-          <br /><label htmlFor="password">
-            Password
-          </label>
-            <br /><input
+              onChange={this.update('username')}
+              value={this.state.username}
+            />
+            <br /><label htmlFor="password">
+              Password
+            </label>
+            <br />
+            <input
               type="password"
               placeholder="Password"
-              onChange={ this.update('password') }
-              value={this.state.password} />
+              onChange={this.update('password')}
+              value={this.state.password}
+            />
           </div>
-          <br/><button className="clear-btn big-btn">Log In</button>
+          <br />
+          <button className="clear-btn big-btn">Log In</button>
         </form>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
-    errors: state.session.errors
-  }
+    errors: state.session.errors,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (user) => { return dispatch(login(user)); }
-  }
+    login: (user) => { return dispatch(login(user)); },
+  };
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LogIn));

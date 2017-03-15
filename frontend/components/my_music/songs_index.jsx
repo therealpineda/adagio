@@ -10,37 +10,36 @@ import { removeSongFromPlaylist } from '../../actions/playlist_actions';
 class SongsIndex extends React.Component {
   constructor() {
     super();
-
     this.state = {
       modalIsOpen: false,
       customStyles: {
-        overlay : {
-          position          : 'fixed',
-          top               : 0,
-          left              : 0,
-          right             : 0,
-          bottom            : 0,
-          backgroundColor   : 'transparent'
+        overlay: {
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'transparent',
         },
-        content : {
-          position                    : 'absolute',
-          top                         : '40px',
-          left                        : '40px',
-          right                       : '10px',
-          bottom                      : '10px',
-          height                      : 'auto',
-          border                      : 'none',
-          background                  : '#2f2f31',
-          overflowX                   : 'hidden',
-          overflowY                   : 'auto',
-          WebkitOverflowScrolling     : 'touch',
-          borderRadius                : '0',
-          outline                     : 'none',
-          padding                     : '0',
-          width                       : "200px"
-        }
+        content: {
+          position: 'absolute',
+          top: '40px',
+          left: '40px',
+          right: '10px',
+          bottom: '10px',
+          height: 'auto',
+          border: 'none',
+          background: '#2f2f31',
+          overflowX: 'hidden',
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          borderRadius: '0',
+          outline: 'none',
+          padding: '0',
+          width: '200px',
+        },
       },
-      clickedSong: ""
+      clickedSong: '',
     };
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -85,13 +84,13 @@ class SongsIndex extends React.Component {
 
   removeFromPlaylist() {
     const songId = this.state.clickedSong.playlist_song_id;
-    const playlistId = parseInt(this.props.params.playlistId);
+    const playlistId = parseInt(this.props.params.playlistId, 10);
     this.props.removeSongFromPlaylist(songId, playlistId);
     this.closeModal();
   }
 
   render() {
-    const songIndexItems = this.props.songs.map( (song) => {
+    const songIndexItems = this.props.songs.map((song) => {
       return (
         <SongIndexItem
           key={song.playlist_song_id}
@@ -100,11 +99,10 @@ class SongsIndex extends React.Component {
       );
     });
     let clickedTitle = '';
-    const clickedSong = this.state.clickedSong
+    const clickedSong = this.state.clickedSong;
     if (clickedSong) {
       clickedTitle = clickedSong.title;
     }
-
     let removePlaylist = '';
     const playlistId = this.props.params.playlistId;
     if (playlistId) {
@@ -112,67 +110,72 @@ class SongsIndex extends React.Component {
       if (authorId === this.props.userId) {
         removePlaylist = (
           <div
-            className='rc-modal-item'
+            className="rc-modal-item"
             onClick={this.removeFromPlaylist}
           >
-            <p>Remove from Playlist</p>
+            <p>Remove From Playlist</p>
           </div>
         );
       }
     }
 
     return (
-        <div id='songs-index'>
-          <table cellSpacing="0">
-            <thead className='songs-index-labels'>
-              <tr>
-                <th></th>
-                <th>Song</th>
-                <th>Artist</th>
-                <th>Album</th>
-                <th><i className="fa fa-clock-o" aria-hidden="true"></i>
-                </th>
-              </tr>
-            </thead>
-            <tbody onContextMenu={this.rightClick}>
-              { songIndexItems }
-            </tbody>
-          </table>
+      <div id="songs-index">
+        <table cellSpacing="0">
+          <thead className="songs-index-labels">
+            <tr>
+              <th></th>
+              <th>Song</th>
+              <th>Artist</th>
+              <th>Album</th>
+              <th>
+                <i className="fa fa-clock-o" aria-hidden="true"></i>
+              </th>
+            </tr>
+          </thead>
+          <tbody onContextMenu={this.rightClick}>
+            { songIndexItems }
+          </tbody>
+        </table>
 
-          <Modal
-            className="rc-modal-modal"
-            isOpen={this.state.modalIsOpen}
-            onAfterOpen={null}
-            onRequestClose={this.closeModal}
-            style={this.state.customStyles}
-            contentLabel="Right Click Menu"
-            clickedSong={this.state.clickedSong}
-          >
-            <div className='rc-modal'>
-              <div className="rc-song-descrip rc-modal-item">
-                <p>{clickedTitle}</p>
-              </div>
-              <div
-                className='rc-modal-item'
-                onClick={this.playClickedSong}>
-                <p>Play</p>
-              </div>
-              <div className='rc-modal-item'
-                onClick={this.addClickedSongToQueue}>
-                <p>Add to Play Queue</p>
-              </div>
-              { removePlaylist }
-              <div
-                className='rc-modal-item'
-                onClick={this.closeModal} >
-                <p>Add to Playlist:</p>
-                <RCPlaylistIndex
-                  clickedSong={this.state.clickedSong} />
-              </div>
+        <Modal
+          className="rc-modal-modal"
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={null}
+          onRequestClose={this.closeModal}
+          style={this.state.customStyles}
+          contentLabel="Right Click Menu"
+          clickedSong={this.state.clickedSong}
+        >
+          <div className="rc-modal">
+            <div className="rc-song-descrip rc-modal-item">
+              <p>{clickedTitle}</p>
             </div>
-          </Modal>
-
-        </div>
+            <div
+              className="rc-modal-item"
+              onClick={this.playClickedSong}
+            >
+              <p>Play</p>
+            </div>
+            <div
+              className="rc-modal-item"
+              onClick={this.addClickedSongToQueue}
+            >
+              <p>Add to Play Queue</p>
+            </div>
+            { removePlaylist }
+            <div
+              className="rc-modal-item"
+              onClick={this.closeModal}
+            >
+              <p>Add to Playlist:</p>
+              <RCPlaylistIndex
+                clickedSong={this.state.clickedSong}
+              />
+            </div>
+          </div>
+        </Modal>
+      </div>
     );
   }
 }
@@ -180,15 +183,17 @@ class SongsIndex extends React.Component {
 const mapStateToProps = (state) => {
   return {
     userId: state.session.currentUser.id,
-    playlists: state.playlists
+    playlists: state.playlists,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    playSong: (song) => { return dispatch( playSong(song) ); },
-    addSong: (song) => { return dispatch( addSong(song) ); },
-    removeSongFromPlaylist: (songId, playlistId) => { return dispatch(removeSongFromPlaylist(songId, playlistId)); }
+    playSong: (song) => { return dispatch(playSong(song)); },
+    addSong: (song) => { return dispatch(addSong(song)); },
+    removeSongFromPlaylist: (songId, playlistId) => {
+      return dispatch(removeSongFromPlaylist(songId, playlistId));
+    },
   };
 };
 
