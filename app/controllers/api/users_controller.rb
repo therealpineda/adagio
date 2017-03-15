@@ -11,13 +11,14 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(:followers, :followings, followed_playlists: [:songs, :followers], playlists: [:songs, :followers]).find(params[:id])
+    @user = User.includes(:followers, :followings, :playlist_follows, followed_playlists: [:followers, songs: [:album]], playlists: [:followers, songs: [:album]]).find(params[:id])
     render :show
   end
 
   def index
-    @users = User.includes(:followers, :followings, followed_playlists: [:songs, :followers], playlists: [:songs, :followers]).all
-    render :index, content_type: 'application/json'
+    # @users = User.all
+    @users = User.includes(:followers, :followings, :playlist_follows, followed_playlists: [:followers, songs: [:album]], playlists: [:followers, songs: [:album]]).all
+    render :index
   end
 
   private
