@@ -12,15 +12,15 @@ class App extends React.Component {
     });
   }
 
-  // <div id="search-container">
-  //   <Search />
-  // </div>
   render() {
     return (
       <div id="app" className="custom-scrollbar">
         <div id="sidebar">
           <div id="nav-sidebar">
             <Nav />
+          </div>
+          <div id="search-container" className="hidden">
+            <Search />
           </div>
         </div>
         <div id="main-window">

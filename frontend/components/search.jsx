@@ -1,44 +1,58 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { searchDatabase } from '../actions/search_actions';
 
 class Search extends React.Component {
   constructor() {
     super();
-    // this.state = {
-    //   input: '',
-    // };
     this._searching = this._searching.bind(this);
-    this.preventDefault = this.preventDefault.bind(this);
+    this.preventSubmit = this.preventSubmit.bind(this);
   }
 
   _searching(e) {
-    if (e.target.value.length > 2) {
-      this.props.searchDatabase(e.target.value);
-    }
+    this.props.searchDatabase(e.target.value);
   }
-  // this.setState({ input: e.target.value });
 
-  preventDefault(e) {
+  preventSubmit(e) {
     e.preventDefault();
   }
 
-  // debugger;
   render() {
     const albums = this.props.albums.map((album) => {
       return (
-        <p key={album.searchable_id}>{album.content}</p>
+        <Link
+          key={album.id}
+          to={`/browse/albums/${album.id}`}
+          className="search-item"
+        >
+          <img
+            className="album-search-img"
+            src={album.image_url}
+            alt={album.title}
+          />
+          <p className="search-text">{album.title}</p>
+        </Link>
       );
     });
 
+    let albumHeader = '';
+    if (albums.length > 0) {
+      albumHeader = (<h3 className="detail-type-header">Albums</h3>);
+    }
+
     return (
-      <div id="search" className="comp">
-        <h6>Search</h6>
-        <form onSubmit={this.preventDefault}>
-          <label htmlFor="search">Search: </label>
-          <input type="text" name="search" onChange={this._searching} />
+      <div id="search">
+        <h1 className="search-section-header">Search</h1>
+        <form onSubmit={this.preventSubmit}>
+          <input
+            id="search-input"
+            type="text"
+            name="search"
+            onChange={this._searching}
+          />
         </form>
-        <p>Albums:</p>
+        { albumHeader }
         { albums }
       </div>
     );

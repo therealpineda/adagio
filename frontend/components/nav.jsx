@@ -8,12 +8,22 @@ class Nav extends React.Component {
   constructor() {
     super();
     this._logOut = this._logOut.bind(this);
+    this._toggleSearch = this._toggleSearch.bind(this);
   }
 
   _logOut() {
     this.props.logout().then(() => {
       this.props.router.replace('/welcome');
     });
+  }
+
+  _toggleSearch() {
+    const search = document.getElementById('search-container');
+    if (!search.className) {
+      search.className = 'hidden';
+    } else {
+      search.className = '';
+    }
   }
 
   render() {
@@ -23,6 +33,14 @@ class Nav extends React.Component {
           <div id="nav-logo">
             <img src="https://s3.amazonaws.com/adagio-prod/images/logo.png" alt="Adagio" />
           </div>
+          <NavLink to="" className="nav-link" onClick={this._toggleSearch}>
+            <div className="nav-icon">
+              <i className="fa fa-search" aria-hidden="true"></i>
+            </div>
+            <div className="nav-icon-text">
+              <p>Search</p>
+            </div>
+          </NavLink>
 
           <NavLink to="/browse/albums" className="nav-link">
             <div className="nav-icon">

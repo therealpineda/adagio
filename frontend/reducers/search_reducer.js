@@ -8,7 +8,7 @@ const SearchReducer = (oldState = defaultState, action) => {
   const newState = merge({}, oldState);
   switch (action.type) {
     case RECEIVE_SEARCH_RESULTS:
-      const albums = action.results.albums;
+      const albums = action.results;
       newState.albums = albums;
       return newState;
     default:

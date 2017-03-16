@@ -12,7 +12,6 @@
 
 class Album < ApplicationRecord
   include PgSearch
-  multisearchable against: [:title, :artist_name]
 
   validates :title, :artist_id, presence: true
 
@@ -20,8 +19,10 @@ class Album < ApplicationRecord
 
   has_many :songs
 
-  def artist_name
-    artist.name
-  end
+  pg_search_scope :whose_title_includes,
+    against: :title,
+    :using => {
+      :tsearch => {:prefix => true}
+    }
 
 end

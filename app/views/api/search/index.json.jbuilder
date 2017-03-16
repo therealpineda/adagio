@@ -1,8 +1,3 @@
-albums = []
-@results.each do |result|
-  if result.searchable_type == 'Album'
-    albums.push(result)
-  end
+json.array! @albums do |album|
+  json.extract! album, :id, :title, :image_url
 end
-
-json.albums albums
