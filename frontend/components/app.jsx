@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Nav from './nav';
+import Search from './search';
 import NowPlaying from './now_playing/now_playing';
 import { fetchUser } from '../actions/users_actions';
 
@@ -11,11 +12,16 @@ class App extends React.Component {
     });
   }
 
+  // <div id="search-container">
+  //   <Search />
+  // </div>
   render() {
     return (
       <div id="app" className="custom-scrollbar">
-        <div id="nav-sidebar">
-          <Nav />
+        <div id="sidebar">
+          <div id="nav-sidebar">
+            <Nav />
+          </div>
         </div>
         <div id="main-window">
           {this.props.children}

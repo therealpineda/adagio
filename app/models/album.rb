@@ -11,10 +11,17 @@
 #
 
 class Album < ApplicationRecord
+  include PgSearch
+  multisearchable against: [:title, :artist_name]
+
   validates :title, :artist_id, presence: true
 
   belongs_to :artist
-  
+
   has_many :songs
+
+  def artist_name
+    artist.name
+  end
 
 end

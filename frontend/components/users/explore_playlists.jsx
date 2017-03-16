@@ -1,12 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import UsersIndex from './users_index';
 
 class ExplorePlaylists extends React.Component {
   componentWillMount() {
-    const id = this.props.currentUserId;
-    if (id) {
-      this.props.router.push(`/explore-playlists/users/${id}`);
+    this.checkRedirect();
+  }
+
+  componentWillReceiveProps() {
+    this.checkRedirect();
+  }
+
+  checkRedirect() {
+    const userId = this.props.params.userId;
+    if (!userId) {
+      const currentUserId = this.props.currentUserId;
+      this.props.router.push(`/explore-playlists/users/${currentUserId}`);
     }
   }
 
@@ -30,4 +40,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ExplorePlaylists);
+export default withRouter(connect(mapStateToProps)(ExplorePlaylists));

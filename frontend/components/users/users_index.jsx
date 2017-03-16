@@ -44,12 +44,7 @@ class UsersIndex extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let userId;
-  if (ownProps.params.userId) {
-    userId = ownProps.params.userId;
-  } else {
-    userId = state.session.currentUser.id;
-  }
+  const userId = ownProps.params.userId;
   const selectedUser = state.users[userId];
   return {
     users: usersArray(state),

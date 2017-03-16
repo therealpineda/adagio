@@ -15,5 +15,6 @@ Rails.application.routes.draw do
       resources :playlist_follows, as: "follows", only: [:create, :destroy]
     end
     resources :albums, only: [:index, :show]
+    resources :search, only: [:index]
   end
 end

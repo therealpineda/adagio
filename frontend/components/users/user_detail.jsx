@@ -1,6 +1,6 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import UserPlaylistIndex from './user_playlist_index';
 import UserFollowingIndex from './user_following_index';
 import { followUser, unfollowUser } from '../../actions/users_actions';
@@ -88,8 +88,7 @@ class UserDetail extends React.Component {
           </div>
           <div id="playlist-detail-user">
             <p>
-              {this.props.user.playlists.length} playlists &#8226;
-              &nbsp;{this.props.user.followers_count}
+              {this.props.user.playlists.length} playlists &#8226; {this.props.user.followers_count}
             </p>
           </div>
           <div className="user-detail-sub-header">

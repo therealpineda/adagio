@@ -6,6 +6,10 @@
   overflow-y: auto;
 }
 
+#sidebar {
+  display: flex;
+}
+
 #nav-sidebar {
   width: 90px;
   height: 100%;
