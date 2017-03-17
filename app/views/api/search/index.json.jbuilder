@@ -5,6 +5,13 @@ json.albums do
   end
 end
 
+json.playlists do
+  json.array! @playlists do |playlist|
+    json.extract! playlist, :id, :name
+    json.image_url calc_playlist_image(playlist.songs)
+  end
+end
+
 json.users do
   json.array! @users do |user|
     json.id user.id

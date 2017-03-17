@@ -41,6 +41,28 @@ class Search extends React.Component {
       albumHeader = (<h3 className="detail-type-header search-header">Albums</h3>);
     }
 
+    const playlists = this.props.playlists.map((playlist) => {
+      return (
+        <Link
+          key={playlist.id}
+          to={`/playlists/${playlist.id}`}
+          className="search-item"
+        >
+          <img
+            className="album-search-img"
+            src="https://s3.amazonaws.com/adagio-prod/images/default/playlist_img.jpg"
+            alt={playlist.name}
+          />
+        <p className="search-text">{playlist.name}</p>
+        </Link>
+      );
+    });
+
+    let playlistHeader = '';
+    if (playlists.length > 0) {
+      playlistHeader = (<h3 className="detail-type-header search-header">Playlists</h3>);
+    }
+
     const users = this.props.users.map((user) => {
       return (
         <Link
@@ -76,6 +98,8 @@ class Search extends React.Component {
         </form>
         { albumHeader }
         { albums }
+        { playlistHeader }
+        { playlists }
         { userHeader }
         { users }
       </div>
@@ -85,9 +109,11 @@ class Search extends React.Component {
 
 const mapStateToProps = (state) => {
   const albums = state.search.albums;
+  const playlists = state.search.playlists;
   const users = state.search.users;
   return {
     albums,
+    playlists,
     users,
   };
 };

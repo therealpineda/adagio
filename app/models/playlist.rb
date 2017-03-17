@@ -10,6 +10,8 @@
 #
 
 class Playlist < ApplicationRecord
+  include PgSearch
+
   validates :name, :user_id, presence: true
 
   belongs_to :user
@@ -29,5 +31,10 @@ class Playlist < ApplicationRecord
     through: :playlist_follows,
     source: :follower
 
+  pg_search_scope :whose_name_includes,
+    against: :name,
+    :using => {
+      :tsearch => {:prefix => true}
+  }
 
 end

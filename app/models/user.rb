@@ -59,7 +59,7 @@ class User < ApplicationRecord
     against: [:first_name, :last_name],
     :using => {
       :tsearch => {:prefix => true}
-    }
+  }
 
   attr_reader :password
 

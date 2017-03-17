@@ -122,7 +122,7 @@
 #search {
   // position: absolute;
   // opacity: 0.92;
-  width: 200px;
+  width: 220px;
   height: 100%;
   padding: 8px;
   background-color: #1c1c1f;
@@ -175,7 +175,11 @@
   border-top: 1px solid #0F1010;
   padding: 5px 3px;
   color: #D7D9DF;
-  font-size: 14px;
+  font-size: 13px;
+  letter-spacing: .5px;
+}
+
+.search-item p {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -190,6 +194,8 @@
   width: 30px;
   height: 30px;
   margin-right: 6px;
+  border-radius: 50%;
+  border: 1px solid #222326;
 }
 
 
