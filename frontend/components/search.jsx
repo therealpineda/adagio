@@ -104,6 +104,7 @@ class Search extends React.Component {
               type="text"
               name="search"
               onChange={this._searching}
+              autoComplete="off"
             />
           </form>
         </div>
