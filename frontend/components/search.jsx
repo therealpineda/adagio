@@ -48,7 +48,10 @@ class Search extends React.Component {
             src={song.image}
             alt={song.title}
           />
-        <p className="search-text">{song.title}</p>
+        <div className="search-text">
+          <p>{song.title}</p>
+          <p className="search-text-author">{song.artist}</p>
+        </div>
         </Link>
       );
     });
@@ -71,7 +74,10 @@ class Search extends React.Component {
             src={album.image_url}
             alt={album.title}
           />
-          <p className="search-text">{album.title}</p>
+          <div className="search-text">
+            <p>{album.title}</p>
+            <p className="search-text-author">{album.artist}</p>
+          </div>
         </Link>
       );
     });
@@ -94,7 +100,10 @@ class Search extends React.Component {
             src="https://s3.amazonaws.com/adagio-prod/images/default/playlist_img.jpg"
             alt={playlist.name}
           />
-        <p className="search-text">{playlist.name}</p>
+          <div className="search-text">
+            <p>{playlist.name}</p>
+            <p className="search-text-author">by {playlist.author}</p>
+          </div>
         </Link>
       );
     });

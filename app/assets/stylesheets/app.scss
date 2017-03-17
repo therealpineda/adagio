@@ -186,8 +186,8 @@
 }
 
 .search-mini-play {
-  margin-left: 3px;
-  margin-right: 10px;
+  margin-left: 2px;
+  margin-right: 11px;
   background: url('https://s3.amazonaws.com/adagio-prod/images/play.png') no-repeat;
   height: 22px;
   min-width: 22px;
@@ -215,9 +215,22 @@
   border-color: #E246AB;
 }
 
-.search-item p {
+.search-text {
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-text p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-text-author {
+  color: #88898c;
+  font-size: 11px;
+  letter-spacing: 0.2px;
 }
 
 .album-search-img {
