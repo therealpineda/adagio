@@ -38,7 +38,29 @@ class Search extends React.Component {
 
     let albumHeader = '';
     if (albums.length > 0) {
-      albumHeader = (<h3 className="detail-type-header">Albums</h3>);
+      albumHeader = (<h3 className="detail-type-header search-header">Albums</h3>);
+    }
+
+    const users = this.props.users.map((user) => {
+      return (
+        <Link
+          key={user.id}
+          to={`/explore-playlists/users/${user.id}`}
+          className="search-item"
+        >
+          <img
+            className="album-search-img"
+            src={user.image_url}
+            alt={user.name}
+          />
+        <p className="search-text">{user.name}</p>
+        </Link>
+      );
+    });
+
+    let userHeader = '';
+    if (users.length > 0) {
+      userHeader = (<h3 className="detail-type-header search-header">Users</h3>);
     }
 
     return (
@@ -54,6 +76,8 @@ class Search extends React.Component {
         </form>
         { albumHeader }
         { albums }
+        { userHeader }
+        { users }
       </div>
     );
   }
@@ -61,8 +85,10 @@ class Search extends React.Component {
 
 const mapStateToProps = (state) => {
   const albums = state.search.albums;
+  const users = state.search.users;
   return {
     albums,
+    users,
   };
 };
 

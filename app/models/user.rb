@@ -15,6 +15,8 @@
 #
 
 class User < ApplicationRecord
+  include PgSearch
+
   validates :username, presence: { message: "Username cannot be blank." }, uniqueness: true
   validates :first_name, presence: { message: "First name cannot be blank." }
   validates :last_name, presence: { message: "Last name cannot be blank." }
@@ -52,6 +54,12 @@ class User < ApplicationRecord
   has_many :followed_playlists,
     through: :playlist_follows,
     source: :playlist
+
+  pg_search_scope :whose_name_includes,
+    against: [:first_name, :last_name],
+    :using => {
+      :tsearch => {:prefix => true}
+    }
 
   attr_reader :password
 

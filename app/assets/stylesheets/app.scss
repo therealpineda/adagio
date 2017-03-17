@@ -121,11 +121,11 @@
 
 #search {
   // position: absolute;
+  // opacity: 0.92;
   width: 200px;
   height: 100%;
   padding: 8px;
   background-color: #1c1c1f;
-  // opacity: 0.92;
   border-left: 1px solid #000;
 }
 
@@ -165,6 +165,10 @@
   font-size: 13px;
 }
 
+.search-header {
+  margin-top: 10px;
+}
+
 .search-item {
   display: flex;
   align-items: center;
@@ -172,6 +176,9 @@
   padding: 5px 3px;
   color: #D7D9DF;
   font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .search-item:hover {
@@ -180,11 +187,13 @@
 }
 
 .album-search-img {
-  width: 50px;
-  height: 50px;
-  margin-right: 3px;
+  width: 30px;
+  height: 30px;
+  margin-right: 6px;
 }
 
+
+/* MAIN */
 
 #main-window {
   width: 100%;
@@ -204,10 +213,10 @@
   background-color: #1c1c1f;
 }
 
-.hidden {
-  display: none;
-}
-
 #audio-player-container {
   height: 100%;
+}
+
+.hidden {
+  display: none;
 }

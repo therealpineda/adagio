@@ -19,6 +19,7 @@ class Root extends React.Component {
     this._redirectUnlessLoggedIn = this._redirectUnlessLoggedIn.bind(this);
   }
 
+// higher order component, function that exports a component
   _redirectIfLoggedIn() {
     if (this.props.store.getState().session.currentUser.username) {
       hashHistory.replace('/');
