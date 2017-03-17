@@ -48,6 +48,7 @@ class AddPlaylistForm extends React.Component {
               onChange={this.update('name')}
               onKeyPress={this._handleKeyPress}
               value={this.state.name}
+              autoComplete="off"
             />
           </div>
           <div id="create-playlist-btn-container">
