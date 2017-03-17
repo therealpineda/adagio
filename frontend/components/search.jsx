@@ -8,6 +8,7 @@ class Search extends React.Component {
     super();
     this._searching = this._searching.bind(this);
     this.preventSubmit = this.preventSubmit.bind(this);
+    this._closeSearch = this._closeSearch.bind(this);
   }
 
   _searching(e) {
@@ -18,6 +19,11 @@ class Search extends React.Component {
     e.preventDefault();
   }
 
+  _closeSearch() {
+    const search = document.getElementById('search-container');
+    search.className = 'hidden';
+  }
+
   render() {
     const albums = this.props.albums.map((album) => {
       return (
@@ -25,6 +31,7 @@ class Search extends React.Component {
           key={album.id}
           to={`/browse/albums/${album.id}`}
           className="search-item"
+          onClick={this._closeSearch}
         >
           <img
             className="album-search-img"
@@ -47,6 +54,7 @@ class Search extends React.Component {
           key={playlist.id}
           to={`/playlists/${playlist.id}`}
           className="search-item"
+          onClick={this._closeSearch}
         >
           <img
             className="album-search-img"
@@ -69,6 +77,7 @@ class Search extends React.Component {
           key={user.id}
           to={`/explore-playlists/users/${user.id}`}
           className="search-item"
+          onClick={this._closeSearch}
         >
           <img
             className="album-search-img"
@@ -87,15 +96,17 @@ class Search extends React.Component {
 
     return (
       <div id="search">
-        <h1 className="search-section-header">Search</h1>
-        <form onSubmit={this.preventSubmit}>
-          <input
-            id="search-input"
-            type="text"
-            name="search"
-            onChange={this._searching}
-          />
-        </form>
+        <div id="search-sidebar-header">
+          <h1 className="search-section-header">Search</h1>
+          <form onSubmit={this.preventSubmit}>
+            <input
+              id="search-input"
+              type="text"
+              name="search"
+              onChange={this._searching}
+            />
+          </form>
+        </div>
         { albumHeader }
         { albums }
         { playlistHeader }

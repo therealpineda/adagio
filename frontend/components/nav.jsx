@@ -9,6 +9,7 @@ class Nav extends React.Component {
     super();
     this._logOut = this._logOut.bind(this);
     this._toggleSearch = this._toggleSearch.bind(this);
+    this._closeSearch = this._closeSearch.bind(this);
   }
 
   _logOut() {
@@ -19,10 +20,22 @@ class Nav extends React.Component {
 
   _toggleSearch() {
     const search = document.getElementById('search-container');
-    if (!search.className) {
+    if (search.className === 'custom-scrollbar') {
       search.className = 'hidden';
     } else {
-      search.className = '';
+      search.className = 'custom-scrollbar';
+      document.addEventListener('click', this._closeSearch);
+    }
+  }
+
+  _closeSearch(e) {
+    const search = document.getElementById('search-container');
+    const min = 90;
+    const max = 90 + search.offsetWidth;
+    const click = e.clientX;
+    if (click < min || click > max) {
+      search.className = 'hidden';
+      document.removeEventListener('click', this._closeSearch);
     }
   }
 
