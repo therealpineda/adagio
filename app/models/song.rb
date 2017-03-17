@@ -16,6 +16,8 @@
 #
 
 class Song < ApplicationRecord
+  include PgSearch
+
   validates :title, :duration, :album_id, :album_order, :audio_url, presence: true
 
   belongs_to :album
@@ -30,7 +32,10 @@ class Song < ApplicationRecord
     through: :playlist_songs,
     source: :playlist
 
-
-
+  pg_search_scope :whose_title_includes,
+    against: :title,
+    :using => {
+      :tsearch => {:prefix => true}
+    }
 
 end

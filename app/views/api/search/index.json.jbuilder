@@ -1,4 +1,10 @@
 
+json.songs do
+  json.array! @songs do |song|
+    json.partial! 'api/songs/song', song: song
+  end
+end
+
 json.albums do
   json.array! @albums do |album|
     json.extract! album, :id, :title, :image_url

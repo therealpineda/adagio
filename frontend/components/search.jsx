@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { playSong } from '../actions/play_queue_actions';
 import { searchDatabase } from '../actions/search_actions';
 
 class Search extends React.Component {
@@ -24,7 +25,39 @@ class Search extends React.Component {
     search.className = 'hidden';
   }
 
+  _playSong(song) {
+    this.props.playSong(song);
+    this._closeSearch();
+  }
+
   render() {
+    const songs = this.props.songs.map((song) => {
+      return (
+        <Link
+          key={song.id}
+          className="search-item song-search-item"
+          onClick={this._playSong.bind(this, song)}
+        >
+        <figure
+          className="search-mini-play"
+        >
+          &nbsp;
+        </figure>
+          <img
+            className="album-search-img song-search-img"
+            src={song.image}
+            alt={song.title}
+          />
+        <p className="search-text">{song.title}</p>
+        </Link>
+      );
+    });
+
+    let songHeader = '';
+    if (songs.length > 0) {
+      songHeader = (<h3 className="detail-type-header search-header">Songs</h3>);
+    }
+
     const albums = this.props.albums.map((album) => {
       return (
         <Link
@@ -108,6 +141,8 @@ class Search extends React.Component {
             />
           </form>
         </div>
+        { songHeader }
+        { songs }
         { albumHeader }
         { albums }
         { playlistHeader }
@@ -120,10 +155,12 @@ class Search extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  const songs = state.search.songs;
   const albums = state.search.albums;
   const playlists = state.search.playlists;
   const users = state.search.users;
   return {
+    songs,
     albums,
     playlists,
     users,
@@ -133,6 +170,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     searchDatabase: (query) => { return dispatch(searchDatabase(query)); },
+    playSong: (song) => { return dispatch(playSong(song)); },
   };
 };
 

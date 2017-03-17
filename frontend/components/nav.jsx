@@ -24,7 +24,9 @@ class Nav extends React.Component {
       search.className = 'hidden';
     } else {
       search.className = 'custom-scrollbar';
+      const input = document.getElementById('search-input');
       document.addEventListener('click', this._closeSearch);
+      input.focus();
     }
   }
 

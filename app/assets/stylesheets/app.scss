@@ -70,14 +70,6 @@
   text-align: center;
 }
 
-// #user-box i {
-//   width: 100%;
-//   border-top: 1px solid #222326;
-//   padding: 10px 0 0px 0;
-//   font-size: 36px;
-//   color: #D7D9DF;
-// }
-
 #user-box img {
   height: 60px;
   width: 60px;
@@ -174,16 +166,14 @@
 }
 
 .search-item {
+  height: 38px;
   display: flex;
   align-items: center;
   border-top: 1px solid #0F1010;
-  padding: 5px 3px;
+  padding: 5px 5px 6px 5px;
   color: #D7D9DF;
   font-size: 13px;
   letter-spacing: .5px;
-}
-
-.search-item p {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -191,7 +181,43 @@
 
 .search-item:hover {
   background-color: #222326;
-  color: #FFFFFF;
+  color: #FFF;
+  cursor: pointer;
+}
+
+.search-mini-play {
+  margin-left: 3px;
+  margin-right: 10px;
+  background: url('https://s3.amazonaws.com/adagio-prod/images/play.png') no-repeat;
+  height: 22px;
+  min-width: 22px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background-size: 133% 133%;
+  background-position: center;
+  filter: invert(100%);
+  display: none;
+}
+
+.song-search-img {
+  margin-left: -3px;
+}
+
+.song-search-item:hover img {
+  display: none;
+}
+
+.song-search-item:hover .search-mini-play {
+  display: block;
+}
+
+.search-mini-play:hover {
+  border-color: #E246AB;
+}
+
+.search-item p {
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .album-search-img {
