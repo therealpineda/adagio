@@ -88,3 +88,15 @@ export const usersArray = ({ session, users }) => {
   }
   return array;
 };
+
+export const shuffleArray = (array) => {
+  const shuffled = array.slice();
+  const endIdx = shuffled.length - 1;
+  for (let i = 0; i < shuffled.length; i++) {
+    const randIdx = Math.floor(Math.random() * endIdx);
+    const lastEl = shuffled[endIdx];
+    shuffled[endIdx] = shuffled[randIdx];
+    shuffled[randIdx] = lastEl;
+  }
+  return shuffled;
+};

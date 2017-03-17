@@ -7,6 +7,14 @@
 }
 
 #mini-play-queue-title {
+  padding-right: 10px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  color: #88898c;
+}
+
+#mini-play-queue-title p {
   color: #88898c;
   text-transform: uppercase;
   font-weight: 300;
@@ -14,10 +22,18 @@
   margin-bottom: 11px;
 }
 
+.mpq-shuffle {
+  font-size: 13px;
+}
+
+.mpq-shuffle:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
 .mini-play-queued-song {
   padding: 5px 0 5px 3px;
   border-top: 1px solid #0F1010;
-
 }
 
 .mini-play-queued-song:hover {

@@ -1,5 +1,6 @@
 import { merge } from 'lodash';
 import { RECEIVE_SONGS, RECEIVE_SONG, PLAY_SONGS, PLAY_SONG, NEXT_SONG, REMOVE_SONGS, REMOVE_SONG, SHUFFLE_SONGS, JUMP_QUEUE } from '../actions/play_queue_actions';
+import { shuffleArray } from './selectors';
 
 const defaultState = [];
 
@@ -35,6 +36,8 @@ const PlayQueueReducer = (oldState = defaultState, action) => {
       newState = oldState.slice(action.amount + 1);
       return newState;
     case SHUFFLE_SONGS:
+      newState = merge([], oldState);
+      return shuffleArray(newState);
     default:
       return oldState;
   }

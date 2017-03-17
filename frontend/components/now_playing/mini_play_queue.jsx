@@ -1,11 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { jumpQueue } from '../../actions/play_queue_actions';
+import { jumpQueue, shuffleQueue } from '../../actions/play_queue_actions';
 
 class MiniPlayQueue extends React.Component {
+  constructor() {
+    super();
+    this.shuffleQueue = this.shuffleQueue.bind(this);
+  }
 
   jumpQueue(amount) {
     this.props.jumpQueue(amount);
+  }
+
+  shuffleQueue() {
+    const songs = this.props.queue;
+    this.props.shuffleQueue(songs);
   }
 
   render() {
@@ -26,7 +35,14 @@ class MiniPlayQueue extends React.Component {
           id="mini-play-queue"
           className="custom-scrollbar"
         >
-          <p id="mini-play-queue-title">Play Queue</p>
+          <div id="mini-play-queue-title">
+            <p>Play Queue</p>
+            <i
+              className="fa fa-random mpq-shuffle"
+              aria-hidden="true"
+              onClick={this.shuffleQueue}
+            ></i>
+          </div>
           <ul>
             {queued}
           </ul>
@@ -49,6 +65,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     jumpQueue: (amount) => { return dispatch(jumpQueue(amount)); },
+    shuffleQueue: (songs) => { return dispatch(shuffleQueue(songs)); },
   };
 };
 
