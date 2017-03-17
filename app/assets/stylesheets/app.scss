@@ -138,13 +138,22 @@
   text-align: center;
 }
 
+#input-container {
+  height: 30px;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #000;
+  background-color: #0f1010;
+  color: #88898c;
+}
+
 #search-input {
-  height: 22px;
+  height: 20px;
   width: 100%;
   border: none;
-  border-bottom: 1px solid #222326;
   margin-top: 5px;
-  margin-bottom: 0px;
+  margin-bottom: 3px;
   padding: 5px;
   background-color: #0f1010;
   color: #DFE0E5;

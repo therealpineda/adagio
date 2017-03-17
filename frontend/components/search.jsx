@@ -141,13 +141,16 @@ class Search extends React.Component {
         <div id="search-sidebar-header">
           <h1 className="search-section-header">Search</h1>
           <form onSubmit={this.preventSubmit}>
-            <input
-              id="search-input"
-              type="text"
-              name="search"
-              onChange={this._searching}
-              autoComplete="off"
-            />
+            <div id="input-container">
+              <i className="fa fa-search" aria-hidden="true"></i>
+              <input
+                id="search-input"
+                type="text"
+                name="search"
+                onChange={this._searching}
+                autoComplete="off"
+              />
+            </div>
           </form>
         </div>
         { songHeader }
