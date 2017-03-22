@@ -39,6 +39,7 @@
 
 .song-index-item:hover figure {
   visibility: visible;
+  z-index: 0;
 }
 
 .song-index-item td {
@@ -70,7 +71,6 @@
   border-color: #E246AB;
 }
 
-
 .song-index-item td:last-of-type {
   color: #88898c;
 }
@@ -82,47 +82,63 @@
   text-overflow: ellipsis;
 }
 
-/* RC MODAL */
+/* CONTEXT MENU */
 
-.rc-modal {
-  background-color: #2f2f31;
-  font-size: 13px;
-  color: #88898c;
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 11;
+  background-color: rgba(0,0,0,0.25);
 }
 
-.rc-modal-item {
+.context-menu {
+  position: absolute;
+  z-index: 12;
+  height: auto;
+  width: 190px;
+  overflow-y: scroll;
+  background-color: #2f2f31;
+  font-size: 13px;
+  color: #9d9ea3;
+}
+
+.menu-item {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 5px;
+  padding: 8px;
   border-bottom: 1px solid #0F1010;
 }
 
-.rc-modal-item:first-of-type {
-  font-size: .85em;
-  color: #D7D9DF;
-  border: none;
-}
-
-.rc-modal-item:hover {
+.menu-item:hover {
   cursor: pointer;
   background-color: #222326;
   color: #D7D9DF;
 }
 
-.rc-modal-item:first-of-type:hover {
+.context-menu-song-title {
+  font-size: .85em;
+  color: #D7D9DF;
+  border: none;
+  margin-bottom: -4px;
+}
+
+.context-menu-song-title:first-of-type:hover {
   cursor: default;
   background-color: #2f2f31;
 }
 
-.rc-modal-item:last-of-type:hover {
+.menu-item:last-of-type:hover {
   cursor: default;
   background-color: #2f2f31;
-  color: #88898c;
+  color: #9d9ea3;
 }
 
 .rc-playlist-index-item {
-  padding: 3px;
+  padding: 5px;
 }
 
 .rc-playlist-index-item:first-of-type {

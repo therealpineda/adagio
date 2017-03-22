@@ -113,6 +113,7 @@
 
 #search-container {
   position: absolute;
+  z-index: 10;
   height: 100%;
   left: 90px;
   opacity: 0.99;

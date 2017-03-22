@@ -256,7 +256,6 @@ class PlaylistDetailPage extends React.Component {
               &nbsp; {this.props.playlist.duration}
             </p>
           </div>
-
           <div
             id="playlist-songs-index"
             className="custom-scrollbar"

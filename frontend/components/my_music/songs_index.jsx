@@ -1,92 +1,68 @@
 import React from 'react';
-import Modal from 'react-modal';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import SongIndexItem from './song_index_item';
-import RCPlaylistIndex from './playlists/rc_playlist_index';
-import { playSong, addSong } from '../../actions/play_queue_actions';
-import { removeSongFromPlaylist } from '../../actions/playlist_actions';
+import ContextMenu from '../context_menu';
 
 class SongsIndex extends React.Component {
   constructor() {
     super();
     this.state = {
-      modalIsOpen: false,
-      customStyles: {
-        overlay: {
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'transparent',
-        },
-        content: {
-          position: 'absolute',
-          top: '40px',
-          left: '40px',
-          right: '10px',
-          bottom: '10px',
-          height: 'auto',
-          border: 'none',
-          background: '#2f2f31',
-          overflowX: 'hidden',
-          overflowY: 'auto',
-          WebkitOverflowScrolling: 'touch',
-          borderRadius: '0',
-          outline: 'none',
-          padding: '0',
-          width: '200px',
-        },
-      },
-      clickedSong: '',
+      rcOpen: false,
+      rcPos: [0, 0],
+      rcSong: '',
+      rcAbove: false,
     };
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.rightClick = this.rightClick.bind(this);
-    this.playClickedSong = this.playClickedSong.bind(this);
-    this.addClickedSongToQueue = this.addClickedSongToQueue.bind(this);
-    this.removeFromPlaylist = this.removeFromPlaylist.bind(this);
+    this.openMenu = this.openMenu.bind(this);
+    this.calcSong = this.calcSong.bind(this);
+    this.calcPos = this.calcPos.bind(this);
+    this.toggleOverlay = this.toggleOverlay.bind(this);
+    this.closeMenu = this.closeMenu.bind(this);
   }
 
-  componentWillMount() {
-    Modal.setAppElement('body');
-  }
-
-  openModal() {
-    this.setState({ modalIsOpen: true });
-  }
-
-  closeModal() {
-    this.setState({ modalIsOpen: false });
-  }
-
-  rightClick(e) {
+  openMenu(e) {
     e.preventDefault();
-    const songTitle = e.target.parentElement.parentElement.childNodes[1].firstChild.textContent;
-    const clickedSong = this.props.songs.find(song => song.title === songTitle);
-    const customStyles = this.state.customStyles;
-    customStyles.content.top = e.clientY;
-    customStyles.content.left = e.clientX;
-    this.setState({ clickedSong, customStyles });
-    this.openModal();
+    const clickedSong = this.calcSong(e);
+    const pos = this.calcPos(e);
+    const above = this.calcAbove(e, pos);
+    this.setState({
+      rcOpen: true,
+      rcPos: pos,
+      rcSong: clickedSong,
+      rcAbove: above,
+    });
+    this.toggleOverlay();
+    document.addEventListener('click', this.closeMenu);
   }
 
-  playClickedSong() {
-    this.props.playSong(this.state.clickedSong);
-    this.closeModal();
+  calcSong(e) {
+    let row = e.target.parentElement;
+    if (!e.target.outerHTML.includes('td')) {
+      row = row.parentElement;
+    }
+    const title = row.childNodes[1].firstChild.textContent;
+    return this.props.songs.find(song => song.title === title);
   }
 
-  addClickedSongToQueue() {
-    this.props.addSong(this.state.clickedSong);
-    this.closeModal();
+  calcPos(e) {
+    const x = e.clientX;
+    const y = e.clientY;
+    return [x, y];
   }
 
-  removeFromPlaylist() {
-    const songId = this.state.clickedSong.playlist_song_id;
-    const playlistId = parseInt(this.props.params.playlistId, 10);
-    this.props.removeSongFromPlaylist(songId, playlistId);
-    this.closeModal();
+  calcAbove(e, pos) {
+    const modal = document.querySelector('.context-menu');
+    const windowHeight = window.innerHeight;
+    const above = e.clientY > (windowHeight - modal.offsetHeight);
+  }
+
+  toggleOverlay() {
+    const bg = document.getElementById('bg');
+    bg.classList.toggle('overlay');
+  }
+
+  closeMenu() {
+    this.toggleOverlay();
+    this.setState({ rcOpen: false });
+    document.removeEventListener('click', this.closeMenu);
   }
 
   render() {
@@ -98,30 +74,15 @@ class SongsIndex extends React.Component {
         />
       );
     });
-    let clickedTitle = '';
-    const clickedSong = this.state.clickedSong;
-    if (clickedSong) {
-      clickedTitle = clickedSong.title;
-    }
-    let removePlaylist = '';
-    const playlistId = this.props.params.playlistId;
-    if (playlistId) {
-      const authorId = this.props.playlists[playlistId].author_id;
-      if (authorId === this.props.userId) {
-        removePlaylist = (
-          <div
-            className="rc-modal-item"
-            onClick={this.removeFromPlaylist}
-          >
-            <p>Remove From Playlist</p>
-          </div>
-        );
-      }
-    }
 
     return (
       <div id="songs-index">
-        <table cellSpacing="0">
+        <ContextMenu
+          open={this.state.rcOpen}
+          pos={this.state.rcPos}
+          song={this.state.rcSong}
+        />
+      <table cellSpacing="0">
           <thead className="songs-index-labels">
             <tr>
               <th></th>
@@ -133,68 +94,13 @@ class SongsIndex extends React.Component {
               </th>
             </tr>
           </thead>
-          <tbody onContextMenu={this.rightClick}>
+          <tbody onContextMenu={this.openMenu}>
             { songIndexItems }
           </tbody>
         </table>
-
-        <Modal
-          className="rc-modal-modal"
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={null}
-          onRequestClose={this.closeModal}
-          style={this.state.customStyles}
-          contentLabel="Right Click Menu"
-          clickedSong={this.state.clickedSong}
-        >
-          <div className="rc-modal">
-            <div className="rc-song-descrip rc-modal-item">
-              <p>{clickedTitle}</p>
-            </div>
-            <div
-              className="rc-modal-item"
-              onClick={this.playClickedSong}
-            >
-              <p>Play</p>
-            </div>
-            <div
-              className="rc-modal-item"
-              onClick={this.addClickedSongToQueue}
-            >
-              <p>Add to Play Queue</p>
-            </div>
-            { removePlaylist }
-            <div
-              className="rc-modal-item"
-              onClick={this.closeModal}
-            >
-              <p>Add to Playlist:</p>
-              <RCPlaylistIndex
-                clickedSong={this.state.clickedSong}
-              />
-            </div>
-          </div>
-        </Modal>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    userId: state.session.currentUser.id,
-    playlists: state.playlists,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    playSong: (song) => { return dispatch(playSong(song)); },
-    addSong: (song) => { return dispatch(addSong(song)); },
-    removeSongFromPlaylist: (songId, playlistId) => {
-      return dispatch(removeSongFromPlaylist(songId, playlistId));
-    },
-  };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SongsIndex));
+export default SongsIndex;

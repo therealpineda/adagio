@@ -196,6 +196,7 @@
 
 #playlist-detail-header {
   display: flex;
+  margin-top: 10px;
 }
 
 .playlist-detail-image {
@@ -229,6 +230,7 @@
 #playlist-detail-right {
   width: 100%;
   margin-top: 10px;
+  margin-left: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

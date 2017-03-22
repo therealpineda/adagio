@@ -5,11 +5,11 @@
 
 #browse-albums-header {
   border-bottom: 1px solid #222326;
-  margin-bottom: 5px;
+  margin: 10px 0 5px 0;
 }
 
 #browse-albums-header h2 {
-  margin: 12px 0 9px 0;
+  margin: 12px 0 9px 5px;
   color: #dfe0e6;
   font-size: 48px;
   font-weight: 100;
@@ -90,7 +90,7 @@
 .album-detail-image {
   width: 200px;
   height: 200px;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .album-detail-image img {
