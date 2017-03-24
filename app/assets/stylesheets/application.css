@@ -107,6 +107,16 @@ button:hover {
   border-color: #FFFFFF;
 }
 
+.cancel-button {
+  border: 1px solid #88898c;
+  background-color: transparent;
+  color: #88898c;
+}
+
+.cancel-button:hover {
+  border-color: #B70034;
+}
+
 
 /* HEADERS */
 

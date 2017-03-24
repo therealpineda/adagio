@@ -360,11 +360,19 @@
 }
 
 .delete-modal {
-  height: 100%;
-  padding: 8px 12px;
+  position: absolute;
+  z-index: 13;
+  height: auto;
+}
+
+.delete-modal-inner {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 8px 12px;
+  background-color: #2f2f31;
+  font-size: 13px;
+  color: #DFE0E5;
 }
 
 .delete-modal-text {
@@ -375,6 +383,8 @@
 .delete-modal-buttons {
   display: flex;
   justify-content: flex-end;
+  margin-top: 20px;
+  margin-left: 30px;
 }
 
 .delete-modal-buttons button {

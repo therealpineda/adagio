@@ -1,60 +1,27 @@
 import React from 'react';
-import Modal from 'react-modal';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import PlaylistEditForm from './playlist_edit_form';
+import DeleteMenu from './delete_menu';
 import SongsIndex from '../songs_index';
-import { fetchPlaylist, deletePlaylist, followPlaylist, unfollowPlaylist, removePlaylist } from '../../../actions/playlist_actions';
+import { fetchPlaylist, followPlaylist, unfollowPlaylist } from '../../../actions/playlist_actions';
 import { playSongs } from '../../../actions/play_queue_actions';
 
 class PlaylistDetailPage extends React.Component {
   constructor() {
     super();
     this.state = {
-      owner: false,
-      fetched: false,
-      modalIsOpen: false,
-      customStyles: {
-        overlay: {
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(15,16,16,0.3)',
-        },
-        content: {
-          position: 'absolute',
-          top: '240px',
-          left: '340px',
-          right: '10px',
-          bottom: '10px',
-          height: '128px',
-          border: '1px solid #151616',
-          background: '#2f2f31',
-          overflowX: 'hidden',
-          overflowY: 'hidden',
-          WebkitOverflowScrolling: 'touch',
-          borderRadius: '3px',
-          outline: 'none',
-          padding: '0px',
-          width: '300px',
-        },
-      },
+      deleteOpen: false,
+      deletePos: [0, 0],
     };
 
     this.followPlaylist = this.followPlaylist.bind(this);
     this.unfollowPlaylist = this.unfollowPlaylist.bind(this);
-    this.deletePlaylist = this.deletePlaylist.bind(this);
     this.playPlaylist = this.playPlaylist.bind(this);
 
-    this.handleClick = this.handleClick.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-  }
-
-  componentWillMount() {
-    Modal.setAppElement('body');
+    this.openDeleteMenu = this.openDeleteMenu.bind(this);
+    this.closeDeleteMenu = this.closeDeleteMenu.bind(this);
+    this.toggleOverlay = this.toggleOverlay.bind(this);
   }
 
   componentDidMount() {
@@ -84,32 +51,29 @@ class PlaylistDetailPage extends React.Component {
     }
   }
 
-  deletePlaylist(e) {
+  openDeleteMenu(e) {
     e.preventDefault();
-    this.closeModal();
-    this.props.deletePlaylist(this.props.playlistId, this.props.currentUser).then(() => {
-      const playlists = this.props.currentUser.playlists;
-      const mostRecentPlaylist = playlists[playlists.length - 1];
-      const id = mostRecentPlaylist.id;
-      this.props.router.push(`/my-music/playlists/${id}`);
-    });
+    const pos = this.calcPos(e);
+    this.setState({ deleteOpen: true, deletePos: pos });
+    this.toggleOverlay();
+    document.addEventListener('click', this.closeDeleteMenu);
   }
 
-  handleClick(e) {
-    e.preventDefault();
-    const customStyles = this.state.customStyles;
-    customStyles.content.left = e.clientX;
-    customStyles.content.top = e.clientY;
-    this.setState({ customStyles });
-    this.openModal();
+  calcPos(e) {
+    const x = e.clientX;
+    const y = e.clientY;
+    return [x, y];
   }
 
-  openModal() {
-    this.setState({ modalIsOpen: true });
+  toggleOverlay() {
+    const bg = document.getElementById('bg');
+    bg.classList.toggle('overlay');
   }
 
-  closeModal() {
-    this.setState({ modalIsOpen: false });
+  closeDeleteMenu() {
+    this.toggleOverlay();
+    this.setState({ deleteOpen: false });
+    document.removeEventListener('click', this.closeDeleteMenu);
   }
 
   playPlaylist(e) {
@@ -125,7 +89,9 @@ class PlaylistDetailPage extends React.Component {
   unfollowPlaylist(e) {
     e.preventDefault();
     this.props.unfollowPlaylist(
-      this.props.playlistId, this.props.playlist.following, this.props.currentUser
+      this.props.playlistId,
+      this.props.playlist.following,
+      this.props.currentUser,
     ).then(() => {
       if (this.props.location.pathname.includes('/my-music')) {
         const playlists = this.props.currentUser.playlists;
@@ -166,7 +132,7 @@ class PlaylistDetailPage extends React.Component {
           <button
             id="playlist-detail-delete-btn"
             className="negative-button"
-            onClick={this.handleClick}
+            onClick={this.openDeleteMenu}
           >
             Delete
           </button>
@@ -176,7 +142,10 @@ class PlaylistDetailPage extends React.Component {
         <div
           className="playlist-detail-image playlist-default-image"
         >
-          <img src={this.props.playlist.images[0]} alt={this.props.playlist.name} />
+          <img
+            src={this.props.playlist.images[0]}
+            alt={this.props.playlist.name}
+          />
         </div>
       );
 
@@ -234,15 +203,20 @@ class PlaylistDetailPage extends React.Component {
                       aria-hidden="true"
                     >
                     </i>
-                     <p>Play</p>
+                    <p>Play</p>
                   </button>
                   { followDeleteButton }
+                  <DeleteMenu
+                    open={this.state.deleteOpen}
+                    pos={this.state.deletePos}
+                    playlistName={this.props.playlist.name}
+                    playlistId={this.props.playlist.id}
+                    />
                 </div>
                 <div id="playlist-detail-follower-count">
                   <p>{this.props.playlist.followers_count}</p>
                 </div>
               </div>
-
             </div>
           </div>
           <div id="playlist-detail-user">
@@ -252,8 +226,8 @@ class PlaylistDetailPage extends React.Component {
                   {this.props.playlist.author}
                 </span>
               </ Link>
-              &nbsp; &#8226;	{this.props.playlist.songs.length} songs,
-              &nbsp; {this.props.playlist.duration}
+              &nbsp;&#8226;{this.props.playlist.songs.length} songs,
+              &nbsp;{this.props.playlist.duration}
             </p>
           </div>
           <div
@@ -262,36 +236,6 @@ class PlaylistDetailPage extends React.Component {
           >
             <SongsIndex songs={this.props.playlist.songs} />
           </div>
-
-          <Modal
-            className="delete-playlist-modal"
-            isOpen={this.state.modalIsOpen}
-            onAfterOpen={this.afterOpenModal}
-            onRequestClose={this.closeModal}
-            style={this.state.customStyles}
-            contentLabel="Delete Playlist Modal"
-          >
-            <div className="delete-modal">
-              <div className="delete-modal-text">
-                <p><span className="detail-type-header">Playlist</span></p>
-                <p>{this.props.playlist.name}</p>
-              </div>
-              <div className="delete-modal-buttons">
-                <button
-                  className="negative-button"
-                  onClick={this.closeModal}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="positive-button"
-                  onClick={this.deletePlaylist}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          </Modal>
         </div>
       );
     }
@@ -321,13 +265,15 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchPlaylist: (playlistId) => { return dispatch(fetchPlaylist(playlistId)); },
-    followPlaylist: (playlistId, user) => { return dispatch(followPlaylist(playlistId, user)); },
+    fetchPlaylist: (playlistId) => {
+      return dispatch(fetchPlaylist(playlistId));
+    },
+    followPlaylist: (playlistId, user) => {
+      return dispatch(followPlaylist(playlistId, user));
+    },
     unfollowPlaylist: (playlistId, followId, user) => {
       return dispatch(unfollowPlaylist(playlistId, followId, user));
     },
-    removePlaylist: (playlist) => { return dispatch(removePlaylist(playlist)); },
-    deletePlaylist: (id, user) => { return dispatch(deletePlaylist(id, user)); },
     playSongs: (songs) => { return dispatch(playSongs(songs)); },
   };
 };
