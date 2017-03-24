@@ -51,7 +51,7 @@ class SongsIndex extends React.Component {
   calcAbove(e, pos) {
     const modal = document.querySelector('.context-menu');
     const windowHeight = window.innerHeight;
-    const above = e.clientY > (windowHeight - modal.offsetHeight);
+    return e.clientY > (windowHeight - 230);
   }
 
   toggleOverlay() {
@@ -79,6 +79,7 @@ class SongsIndex extends React.Component {
       <div id="songs-index">
         <ContextMenu
           open={this.state.rcOpen}
+          above={this.state.rcAbove}
           pos={this.state.rcPos}
           song={this.state.rcSong}
         />

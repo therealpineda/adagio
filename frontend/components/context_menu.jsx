@@ -29,12 +29,25 @@ class ContextMenu extends React.Component {
 
   render() {
     let menuContent = '';
+    let topArrow = '';
+    let bottomArrow = '';
     const modal = document.querySelector('.context-menu');
     if (this.props.open) {
       const song = this.props.song
       const pos = this.props.pos;
-      modal.style.top = `${pos[1]}px`;
-      modal.style.left = `${pos[0]}px`;
+      let topPos = pos[1];
+      topArrow = (
+        <div className="arrow"><div className="arrow-up"></div></div>
+      );
+      if (this.props.above) {
+        topPos -= 233;
+        topArrow = '';
+        bottomArrow = (
+          <div className="arrow"><div className="arrow-down"></div></div>
+        );
+      }
+      modal.style.top = `${topPos}px`;
+      modal.style.left = `${pos[0] - 95}px`;
       let removeFromPlaylist = '';
       const playlistId = this.props.params.playlistId;
       if (playlistId) {
@@ -48,7 +61,7 @@ class ContextMenu extends React.Component {
         }
       }
       menuContent = (
-        <ul>
+        <ul className="context-menu-items custom-scrollbar">
           <li className="context-menu-song-title menu-item">
             <p>{song.title}</p>
           </li>
@@ -59,19 +72,19 @@ class ContextMenu extends React.Component {
             <p>Add to Play Queue</p>
           </li>
           { removeFromPlaylist }
-          <li className="menu-item" >
-            <p>Add to Playlist:</p>
-            <RCPlaylistIndex
-              clickedSong={song}
-            />
+          <li className="menu-item">
+            <p>Add to Playlist</p>
+            <RCPlaylistIndex clickedSong={song} />
           </li>
         </ul>
       );
     }
 
     return (
-      <div className="context-menu custom-scrollbar">
+      <div className="context-menu">
+        { topArrow }
         { menuContent }
+        { bottomArrow }
       </div>
     );
   }

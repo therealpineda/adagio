@@ -20,17 +20,20 @@ class AudioPlayer extends React.Component {
     this.mouseUp = this.mouseUp.bind(this);
     this._convertToTime = this._convertToTime.bind(this);
     this.onplayhead = false;
-    this.playPause = this.playPause.bind(this);
+    this.checkSpacebar = this.checkSpacebar.bind(this);
     this.setKeyListener();
   }
 
   setKeyListener() {
-    document.addEventListener('keydown', this.playPause);
+    document.addEventListener('keydown', this.checkSpacebar);
   }
 
-  playPause(e) {
-    e.preventDefault();
-    if (this.props.currentSong && e.keyCode === 32) {
+  checkSpacebar(e) {
+    if (
+      this.props.currentSong
+      && e.keyCode === 32
+      && e.target.tagName !== 'INPUT'
+      && e.target.tagName !== 'TEXTAREA') {
       this.playButton();
     }
   }

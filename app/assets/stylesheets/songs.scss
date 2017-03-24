@@ -15,10 +15,6 @@
   padding-bottom: 8px;
 }
 
-// .songs-index-labels th:first-of-type {
-//   padding-left: 10px;
-// }
-
 .songs-index-labels th:last-of-type {
   text-align: left;
   font-size: 15px;
@@ -97,12 +93,37 @@
 .context-menu {
   position: absolute;
   z-index: 12;
-  height: auto;
   width: 190px;
-  overflow-y: scroll;
-  background-color: #2f2f31;
   font-size: 13px;
   color: #9d9ea3;
+}
+
+.context-menu-items {
+  height: 220px;
+  overflow-y: scroll;
+  background-color: #2f2f31;
+}
+
+.arrow {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-bottom: 8px solid #2f2f31;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 8px solid #2f2f31;
 }
 
 .menu-item {
@@ -111,6 +132,10 @@
   justify-content: center;
   padding: 8px;
   border-bottom: 1px solid #0F1010;
+}
+
+.menu-item:last-of-type {
+  border-bottom: 0;
 }
 
 .menu-item:hover {
