@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { albumsArray } from '../../../reducers/selectors';
 import { fetchAlbums } from '../../../actions/album_actions';
+import Spinner from '../../spinner';
 
 class AlbumsIndex extends React.Component {
   componentWillMount() {
@@ -10,7 +11,9 @@ class AlbumsIndex extends React.Component {
   }
 
   render() {
-    const albumIndexItems = this.props.albums.map((album) => {
+    const albums = this.props.albums
+    if (albums.length === 0) return <Spinner />
+    const albumIndexItems = albums.map((album) => {
       return (
         <Link
           key={album.id}

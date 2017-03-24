@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router';
 import SongsIndex from '../../my_music/songs_index';
 import { fetchAlbum } from '../../../actions/album_actions';
 import { playSongs } from '../../../actions/play_queue_actions';
-import { Link, withRouter } from 'react-router';
-import { connect } from 'react-redux';
+import Spinner from '../../spinner';
 
 class AlbumDetailPage extends React.Component {
   constructor() {
@@ -39,63 +40,58 @@ class AlbumDetailPage extends React.Component {
   }
 
   render() {
-    if (this.state.fetched) {
-      return (
-        <div id="playlist-detail-page">
-
-          <div id="playlist-detail-header">
-            <div className="album-detail-image">
-              <img src={this.props.album.image_url} alt={this.props.album.title} />
-            </div>
-
-            <div id="playlist-detail-right">
-              <div id="playlist-detail-text">
-                <div className="detail-type-header">
-                  <p>Album</p>
-                </div>
-                <div id="album-detail-title">
-                  <p>{this.props.album.title}</p>
-                </div>
-              </div>
-
-              <div id="playlist-detail-btm-rt-container">
-                <div id="playlist-detail-buttons">
-                  <button
-                    id="playlist-detail-play-btn"
-                    onClick={this.playAlbum}
-                  >
-                    <i id="playlist-detail-play-btn-icon" className="fa fa-caret-right" aria-hidden="true"></i>
-                    <p>Play</p>
-                  </button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <div id="playlist-detail-user">
-            <p>By: &nbsp;
-              <Link to="">
-                <span className="playlist-user-link">
-                  {this.props.album.artist}
-                </span>
-              </Link>
-              &nbsp;{this.props.album.num_songs}, {this.props.album.duration}
-            </p>
-          </div>
-
-          <div
-            id="playlist-songs-index"
-            className="custom-scrollbar"
-          >
-            <SongsIndex songs={this.props.album.songs} />
-          </div>
-
-        </div>
-      );
-    }
+    if (!this.state.fetched) return <Spinner />
     return (
-      <div id="album-detail-page">
+      <div id="playlist-detail-page">
+
+        <div id="playlist-detail-header">
+          <div className="album-detail-image">
+            <img src={this.props.album.image_url} alt={this.props.album.title} />
+          </div>
+
+          <div id="playlist-detail-right">
+            <div id="playlist-detail-text">
+              <div className="detail-type-header">
+                <p>Album</p>
+              </div>
+              <div id="album-detail-title">
+                <p>{this.props.album.title}</p>
+              </div>
+            </div>
+
+            <div id="playlist-detail-btm-rt-container">
+              <div id="playlist-detail-buttons">
+                <button
+                  id="playlist-detail-play-btn"
+                  onClick={this.playAlbum}
+                >
+                  <i id="playlist-detail-play-btn-icon" className="fa fa-caret-right" aria-hidden="true"></i>
+                  <p>Play</p>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div id="playlist-detail-user">
+          <p>By: &nbsp;
+            <Link to="">
+              <span className="playlist-user-link">
+                {this.props.album.artist}
+              </span>
+            </Link>
+            &nbsp;{this.props.album.num_songs}, {this.props.album.duration}
+          </p>
+        </div>
+
+        <div
+          id="playlist-songs-index"
+          className="custom-scrollbar"
+        >
+          <SongsIndex songs={this.props.album.songs} />
+        </div>
+
       </div>
     );
   }

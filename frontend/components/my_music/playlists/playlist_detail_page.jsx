@@ -6,6 +6,7 @@ import DeleteMenu from './delete_menu';
 import SongsIndex from '../songs_index';
 import { fetchPlaylist, followPlaylist, unfollowPlaylist } from '../../../actions/playlist_actions';
 import { playSongs } from '../../../actions/play_queue_actions';
+import Spinner from '../../spinner';
 
 class PlaylistDetailPage extends React.Component {
   constructor() {
@@ -103,6 +104,7 @@ class PlaylistDetailPage extends React.Component {
   }
 
   render() {
+    if (!this.state.fetched) return <Spinner />;
     if (this.state.fetched && this.props.playlist) {
       let canEdit = false;
       let followDeleteButton = (
