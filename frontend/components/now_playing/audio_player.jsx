@@ -20,6 +20,19 @@ class AudioPlayer extends React.Component {
     this.mouseUp = this.mouseUp.bind(this);
     this._convertToTime = this._convertToTime.bind(this);
     this.onplayhead = false;
+    this.playPause = this.playPause.bind(this);
+    this.setKeyListener();
+  }
+
+  setKeyListener() {
+    document.addEventListener('keydown', this.playPause);
+  }
+
+  playPause(e) {
+    e.preventDefault();
+    if (this.props.currentSong && e.keyCode === 32) {
+      this.playButton();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -73,11 +86,9 @@ class AudioPlayer extends React.Component {
   playButton() {
     if (this.music.paused) {
       this.music.play();
-      this.pButton.className = '';
       this.pButton.className = 'pause';
     } else {
       this.music.pause();
-      this.pButton.className = '';
       this.pButton.className = 'play';
     }
   }

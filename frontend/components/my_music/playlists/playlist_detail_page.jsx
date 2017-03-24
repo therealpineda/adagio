@@ -226,7 +226,7 @@ class PlaylistDetailPage extends React.Component {
                   {this.props.playlist.author}
                 </span>
               </ Link>
-              &nbsp;&#8226;{this.props.playlist.songs.length} songs,
+              &nbsp;&#8226; {this.props.playlist.songs.length} songs,
               &nbsp;{this.props.playlist.duration}
             </p>
           </div>
