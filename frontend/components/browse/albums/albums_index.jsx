@@ -12,7 +12,7 @@ class AlbumsIndex extends React.Component {
 
   render() {
     const albums = this.props.albums
-    if (albums.length === 0) return <Spinner />
+    if (albums.length === 0) return <Spinner />;
     const albumIndexItems = albums.map((album) => {
       return (
         <Link

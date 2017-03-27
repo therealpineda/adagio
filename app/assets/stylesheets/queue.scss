@@ -1,0 +1,28 @@
+.queue {
+  height: 100%;
+  width: 95%;
+  overflow-y: scroll;
+  margin: 0 auto;
+}
+
+.pq-header {
+  margin: 10px 0 25px -6px;
+}
+
+.pq-header h2 {
+  color: #dfe0e6;
+  font-size: 48px;
+  font-weight: 100;
+}
+
+.pq-subheader {
+  margin: 25px 0 15px 0;
+  border-bottom: 1px solid #222326;
+  padding: 16px 0 8px;
+  color: #88898c;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: left;
+  font-size: 13px;
+  letter-spacing: 1px;
+}

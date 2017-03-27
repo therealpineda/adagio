@@ -8,6 +8,7 @@ import AlbumsIndex from './browse/albums/albums_index';
 import AlbumDetailPage from './browse/albums/album_detail_page';
 import MyMusic from './my_music/my_music';
 import Songs from './my_music/songs/songs';
+import PlayQueue from './play_queue';
 import ExplorePlaylists from './users/explore_playlists';
 import PlaylistDetailPage from './my_music/playlists/playlist_detail_page';
 import PlaylistIndex from './my_music/playlists/playlist_index';
@@ -52,6 +53,7 @@ class Root extends React.Component {
               <Route path="users/:userId" />
             </Route>
             <Route path="/playlists/:playlistId" component={PlaylistDetailPage} />
+            <Route path="queue" component={PlayQueue} />
           </Route>
         </Router>
       </Provider>

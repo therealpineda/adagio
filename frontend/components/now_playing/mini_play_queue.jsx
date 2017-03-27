@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { jumpQueue, shuffleQueue } from '../../actions/play_queue_actions';
 
 class MiniPlayQueue extends React.Component {
@@ -36,7 +37,7 @@ class MiniPlayQueue extends React.Component {
           className="custom-scrollbar"
         >
           <div id="mini-play-queue-title">
-            <p>Play Queue</p>
+            <Link to="queue"><p>Play Queue</p></Link>
             <i
               className="fa fa-random mpq-shuffle"
               aria-hidden="true"
