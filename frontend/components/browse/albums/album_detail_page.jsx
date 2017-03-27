@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router';
 import SongsIndex from '../../my_music/songs_index';
 import { fetchAlbum } from '../../../actions/album_actions';
 import { playSongs } from '../../../actions/play_queue_actions';
-import Spinner from '../../spinner';
+import { Spinner } from '../../spinners';
 
 class AlbumDetailPage extends React.Component {
   constructor() {

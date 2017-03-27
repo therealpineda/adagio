@@ -6,7 +6,7 @@ import DeleteMenu from './delete_menu';
 import SongsIndex from '../songs_index';
 import { fetchPlaylist, followPlaylist, unfollowPlaylist } from '../../../actions/playlist_actions';
 import { playSongs } from '../../../actions/play_queue_actions';
-import Spinner from '../../spinner';
+import { Spinner, SpinnerButton } from '../../spinners';
 
 class PlaylistDetailPage extends React.Component {
   constructor() {
@@ -14,6 +14,7 @@ class PlaylistDetailPage extends React.Component {
     this.state = {
       deleteOpen: false,
       deletePos: [0, 0],
+      buttonDisabled: false,
     };
 
     this.followPlaylist = this.followPlaylist.bind(this);
@@ -84,16 +85,21 @@ class PlaylistDetailPage extends React.Component {
 
   followPlaylist(e) {
     e.preventDefault();
-    this.props.followPlaylist(this.props.playlistId, this.props.currentUser);
+    this.setState({ buttonDisabled: true });
+    this.props.followPlaylist(this.props.playlistId, this.props.currentUser).then(() => {
+      this.setState({ buttonDisabled: false });
+    });
   }
 
   unfollowPlaylist(e) {
     e.preventDefault();
+    this.setState({ buttonDisabled: true });
     this.props.unfollowPlaylist(
       this.props.playlistId,
       this.props.playlist.following,
       this.props.currentUser,
     ).then(() => {
+      this.setState({ buttonDisabled: false });
       if (this.props.location.pathname.includes('/my-music')) {
         const playlists = this.props.currentUser.playlists;
         const mostRecentPlaylist = playlists[playlists.length - 1];
@@ -139,6 +145,10 @@ class PlaylistDetailPage extends React.Component {
             Delete
           </button>
         );
+      }
+
+      if (this.state.buttonDisabled) {
+        followDeleteButton = <SpinnerButton />;
       }
       let playlistImage = (
         <div

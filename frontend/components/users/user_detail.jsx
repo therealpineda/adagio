@@ -4,29 +4,37 @@ import { withRouter } from 'react-router';
 import UserPlaylistIndex from './user_playlist_index';
 import UserFollowingIndex from './user_following_index';
 import { followUser, unfollowUser } from '../../actions/users_actions';
-import Spinner from '../spinner';
+import { Spinner, SpinnerButton } from '../spinners';
 
 class UserDetail extends React.Component {
   constructor() {
     super();
+    this.state = {
+      buttonDisabled: false,
+    };
     this._followUser = this._followUser.bind(this);
     this._unfollowUser = this._unfollowUser.bind(this);
   }
 
   _followUser() {
+    this.setState({ buttonDisabled: true });
     const followerId = this.props.currentUser.id;
     const followingId = parseInt(this.props.params.userId, 10);
-    this.props.followUser(followerId, followingId);
+    this.props.followUser(followerId, followingId).then(() => {
+      this.setState({ buttonDisabled: false });
+    });
   }
 
   _unfollowUser(id) {
+    this.setState({ buttonDisabled: true });
     const followingId = parseInt(this.props.params.userId, 10);
-    this.props.unfollowUser(followingId, id);
+    this.props.unfollowUser(followingId, id).then(() => {
+      this.setState({ buttonDisabled: false });
+    });
   }
 
   render() {
     if (!this.props.user) return <Spinner />;
-
     let followButton = (
       <button
         id="user-detail-follow-btn"
@@ -51,6 +59,9 @@ class UserDetail extends React.Component {
         >
           Unfollow
         </button>);
+    }
+    if (this.state.buttonDisabled) {
+      followButton = <SpinnerButton />;
     }
 
     let userImage = (
@@ -117,8 +128,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    followUser: (followerId, followingId) => { dispatch(followUser(followerId, followingId)); },
-    unfollowUser: (followingId, followId) => { dispatch(unfollowUser(followingId, followId)); },
+    followUser: (followerId, followingId) => { return dispatch(followUser(followerId, followingId)); },
+    unfollowUser: (followingId, followId) => { return dispatch(unfollowUser(followingId, followId)); },
   };
 };
 

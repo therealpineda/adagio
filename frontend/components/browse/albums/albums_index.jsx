@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { albumsArray } from '../../../reducers/selectors';
 import { fetchAlbums } from '../../../actions/album_actions';
-import Spinner from '../../spinner';
+import { Spinner } from '../../spinners';
 
 class AlbumsIndex extends React.Component {
   componentWillMount() {

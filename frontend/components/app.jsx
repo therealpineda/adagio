@@ -8,8 +8,7 @@ import { fetchUser } from '../actions/users_actions';
 class App extends React.Component {
 
   componentDidMount() {
-    this.props.fetchCurrentUser(this.props.currentUserId).then(() => {
-    });
+    this.props.fetchCurrentUser(this.props.currentUserId);
   }
 
   render() {

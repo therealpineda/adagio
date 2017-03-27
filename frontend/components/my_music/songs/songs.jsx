@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import SongsIndex from '../songs_index';
 import { fetchPlaylists } from '../../../actions/playlist_actions';
 import { userSongsArray } from '../../../reducers/selectors';
-import Spinner from '../../spinner.jsx'
+import { Spinner } from '../../spinners.jsx'
 
 class Songs extends React.Component {
   constructor() {
