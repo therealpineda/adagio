@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router';
 import SongsIndex from '../../my_music/songs_index';
 import { fetchAlbum } from '../../../actions/album_actions';
 import { playSongs } from '../../../actions/play_queue_actions';
+import { playTrack } from '../../../actions/current_track_actions';
 import { Spinner } from '../../spinners';
 
 class AlbumDetailPage extends React.Component {
@@ -37,6 +38,7 @@ class AlbumDetailPage extends React.Component {
   playAlbum(e) {
     e.preventDefault();
     this.props.playSongs(this.props.album.songs);
+    this.props.playTrack();
   }
 
   render() {
@@ -81,7 +83,7 @@ class AlbumDetailPage extends React.Component {
                 {this.props.album.artist}
               </span>
             </Link>
-            &nbsp;{this.props.album.num_songs}, {this.props.album.duration}
+            &nbsp; {this.props.album.num_songs}, {this.props.album.duration}
           </p>
         </div>
 
@@ -109,6 +111,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     playSongs: (songs) => { return dispatch(playSongs(songs)); },
+    playTrack: () => { return dispatch(playTrack()); },
     fetchAlbum: (id) => { return dispatch(fetchAlbum(id)); },
   };
 };

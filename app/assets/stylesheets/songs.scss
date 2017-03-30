@@ -67,6 +67,37 @@
   border-color: #E246AB;
 }
 
+
+.mini-pause-playing-btn {
+  background: url('https://s3.amazonaws.com/adagio-prod/images/pause.png') no-repeat;
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background-size: 129% 129%;
+  background-position: center;
+  filter:invert(100%);
+}
+
+.mini-pause-playing-btn:hover {
+  border-color: #E246AB;
+}
+
+.mini-play-playing-btn {
+  background: url('https://s3.amazonaws.com/adagio-prod/images/play.png') no-repeat;
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background-size: 150% 150%;
+  background-position: center;
+  filter:invert(100%);
+}
+
+.mini-play-playing-btn:hover {
+  border-color: #E246AB;
+}
+
 .song-index-item td:last-of-type {
   color: #88898c;
 }

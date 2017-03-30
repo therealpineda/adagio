@@ -6,6 +6,7 @@ import DeleteMenu from './delete_menu';
 import SongsIndex from '../songs_index';
 import { fetchPlaylist, followPlaylist, unfollowPlaylist } from '../../../actions/playlist_actions';
 import { playSongs } from '../../../actions/play_queue_actions';
+import { playTrack } from '../../../actions/current_track_actions';
 import { Spinner, SpinnerButton } from '../../spinners';
 
 class PlaylistDetailPage extends React.Component {
@@ -81,6 +82,7 @@ class PlaylistDetailPage extends React.Component {
   playPlaylist(e) {
     e.preventDefault();
     this.props.playSongs(this.props.playlist.songs);
+    this.props.playTrack();
   }
 
   followPlaylist(e) {
@@ -287,6 +289,7 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(unfollowPlaylist(playlistId, followId, user));
     },
     playSongs: (songs) => { return dispatch(playSongs(songs)); },
+    playTrack: () => { return dispatch(playTrack()); },
   };
 };
 

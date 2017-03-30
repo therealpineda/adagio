@@ -35,10 +35,9 @@ export const playSongs = (songs) => {
   };
 };
 
-export const nextSong = (song) => {
+export const nextSong = () => {
   return {
-    type: NEXT_SONG,
-    song,
+    type: NEXT_SONG
   };
 };
 

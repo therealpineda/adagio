@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { currentSong } from '../../reducers/selectors';
+import { playTrack, pauseTrack } from '../../actions/current_track_actions';
 import { nextSong } from '../../actions/play_queue_actions';
 
 class AudioPlayer extends React.Component {
@@ -10,7 +11,6 @@ class AudioPlayer extends React.Component {
       displayTime: '0:00',
       displayDuration: '0:00',
     };
-    this.playButton = this.playButton.bind(this);
     this.backButton = this.backButton.bind(this);
     this.nextButton = this.nextButton.bind(this);
     this.timeUpdate = this.timeUpdate.bind(this);
@@ -19,6 +19,7 @@ class AudioPlayer extends React.Component {
     this.mouseDown = this.mouseDown.bind(this);
     this.mouseUp = this.mouseUp.bind(this);
     this._convertToTime = this._convertToTime.bind(this);
+    this._togglePause = this._togglePause.bind(this);
     this.onplayhead = false;
     this.checkSpacebar = this.checkSpacebar.bind(this);
     this.setKeyListener();
@@ -34,34 +35,43 @@ class AudioPlayer extends React.Component {
       && e.keyCode === 32
       && e.target.tagName !== 'INPUT'
       && e.target.tagName !== 'TEXTAREA') {
-      this.playButton();
+      this._togglePause();
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.music = document.getElementById('music');
     if (nextProps.currentSong) {
-      this.music.src = nextProps.currentSong.url;
-      this.pButton = document.getElementById('pButton');
-      this.playhead = document.getElementById('playhead');
-      this.timeline = document.getElementById('timeline');
-      this.timelineWidth = this.timeline.offsetWidth;
-      this.music.addEventListener('canplaythrough', () => {
-        this.duration = this.music.duration;
-        this.setState({
-          displayDuration: this._convertToTime(this.duration),
-        });
-        this.timeline.addEventListener('click', (event) => {
-          this.moveplayhead(event);
-          this.music.currentTime = this.duration * this.clickPercent(event);
+      if (nextProps.currentSong !== this.props.currentSong) {
+        this.music.src = nextProps.currentSong.url;
+        this.pButton = document.getElementById('pButton');
+        this.playhead = document.getElementById('playhead');
+        this.timeline = document.getElementById('timeline');
+        this.timelineWidth = this.timeline.offsetWidth;
+        this.music.addEventListener('canplaythrough', () => {
+          this.duration = this.music.duration;
+          this.setState({
+            displayDuration: this._convertToTime(this.duration),
+          });
+          this.timeline.addEventListener('click', (event) => {
+            this.moveplayhead(event);
+            this.music.currentTime = this.duration * this.clickPercent(event);
+          }, false);
+          this.music.addEventListener('timeupdate', this.timeUpdate, false);
+          this.playhead.addEventListener('mousedown', this.mouseDown, false);
+          window.addEventListener('mouseup', this.mouseUp, false);
         }, false);
-        this.music.addEventListener('timeupdate', this.timeUpdate, false);
-        this.playhead.addEventListener('mousedown', this.mouseDown, false);
-        window.addEventListener('mouseup', this.mouseUp, false);
-      }, false);
-      this.pButton.className = '';
-      this.pButton.className = 'pause';
+      }
+    }
+    if (nextProps.playing) {
       this.music.play();
+      this.pButton.className = 'pause';
+    } else {
+      this.music.pause();
+      this.pButton.className = 'play';
+    }
+    if (!nextProps.currentSong) {
+      this.props.pauseTrack();
     }
   }
 
@@ -86,13 +96,11 @@ class AudioPlayer extends React.Component {
     }
   }
 
-  playButton() {
-    if (this.music.paused) {
-      this.music.play();
-      this.pButton.className = 'pause';
+  _togglePause() {
+    if (this.props.playing) {
+      this.props.pauseTrack();
     } else {
-      this.music.pause();
-      this.pButton.className = 'play';
+      this.props.playTrack();
     }
   }
 
@@ -104,7 +112,7 @@ class AudioPlayer extends React.Component {
 
   nextButton() {
     this.music.pause();
-    this.props.nextSong(this.props.currentSong);
+    this.props.nextSong();
   }
 
   clickPercent(event) {
@@ -176,7 +184,7 @@ class AudioPlayer extends React.Component {
           <button
             id="pButton"
             className="play"
-            onClick={this.playButton}
+            onClick={this._togglePause}
           >
           </button>
           <i
@@ -194,12 +202,15 @@ class AudioPlayer extends React.Component {
 const mapStateToProps = (state) => {
   return {
     currentSong: currentSong(state.playQueue),
+    playing: state.currentTrack.playing,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    nextSong: (song) => { return dispatch(nextSong(song)); },
+    nextSong: () => { return dispatch(nextSong()); },
+    playTrack: () => { return dispatch(playTrack()); },
+    pauseTrack: () => { return dispatch(pauseTrack()); },
   };
 };
 

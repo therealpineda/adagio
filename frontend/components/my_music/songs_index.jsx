@@ -66,10 +66,10 @@ class SongsIndex extends React.Component {
   }
 
   render() {
-    const songIndexItems = this.props.songs.map((song) => {
+    const songIndexItems = this.props.songs.map((song, idx) => {
       return (
         <SongIndexItem
-          key={song.playlist_song_id}
+          key={song.playlist_song_id + idx}
           song={song}
         />
       );
@@ -83,7 +83,7 @@ class SongsIndex extends React.Component {
           pos={this.state.rcPos}
           song={this.state.rcSong}
         />
-      <table cellSpacing="0">
+        <table cellSpacing="0">
           <thead className="songs-index-labels">
             <tr>
               <th></th>

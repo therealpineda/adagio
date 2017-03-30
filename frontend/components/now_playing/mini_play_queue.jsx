@@ -37,7 +37,7 @@ class MiniPlayQueue extends React.Component {
           className="custom-scrollbar"
         >
           <div id="mini-play-queue-title">
-            <Link to="queue"><p>Play Queue</p></Link>
+            <p>Play Queue</p>
             <i
               className="fa fa-random mpq-shuffle"
               aria-hidden="true"

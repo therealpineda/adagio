@@ -1,17 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SongsIndex from './my_music/songs_index';
+import { currentSong } from '../reducers/selectors';
 
 const PlayQueue = ({ currentTrack, queued }) =>  {
   let track = 'Go find music!';
-  if (currentTrack[0]) {
+  if (currentTrack) {
     track = (
       <div>
         <div className='pq-subheader'>
           <h3>Current Track</h3>
         </div>
         <div id="playlist-songs-index">
-          <SongsIndex songs={currentTrack} />
+          <SongsIndex songs={[currentTrack]} />
         </div>
       </div>
     );
@@ -44,7 +45,7 @@ const PlayQueue = ({ currentTrack, queued }) =>  {
 
 const mapStateToProps = (state) => {
   const queue = state.playQueue;
-  const currentTrack = queue.length > 0 ? [queue[0]] : [];
+  const currentTrack = currentSong(queue);
   return {
     currentTrack,
     queued: queue.slice(1),
